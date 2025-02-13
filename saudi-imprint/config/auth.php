@@ -37,8 +37,8 @@ return [
 
     'guards' => [
         'web' => [
-            'driver' => 'session',
-            'provider' => 'users',
+            'driver' => 'session', //how authentication is handled (session based)
+            'provider' => 'users', // where user data comes from = user models to fetch user data from users table
         ],
     ],
 
