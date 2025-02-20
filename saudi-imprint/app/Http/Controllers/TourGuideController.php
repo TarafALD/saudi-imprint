@@ -8,7 +8,7 @@ class TourGuideController extends Controller
 {
     //
 
-    function dashboard(){
+    public function dashboard(){
         return view('TourGuide.dashboard');
     }
 }

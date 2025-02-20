@@ -30,9 +30,9 @@ class AuthenticatedSessionController extends Controller
 
         $url="";
         if($request -> user() -> role == 'admin'){
-            $url = route('Admin/dashboard', absolute: false);
+            $url = route('Admin.dashboard', absolute: false);
         }elseif ($request -> user() -> role == 'TG'){
-            $url = route('TourGuide/dashboard', absolute: false);
+            $url = route('TourGuide.dashboard', absolute: false);
         }else{
             $url = route('dashboard', absolute: false);
         }
