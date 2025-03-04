@@ -43,3 +43,39 @@ Route::get('registerTG', [RegisteredTG::class, 'showTGregisterform'])
 Route::post('registerTG', [RegisteredTG::class, 'store']);  
 
 require __DIR__.'/auth.php';
+
+Route::get('/riyadh', function () {
+    return view('destinations.riyadh');
+})->name('riyadh');
+
+Route::get('/aljouf', function () {
+    return view('destinations.aljouf');
+})->name('aljouf');
+
+Route::get('/alula', function () {
+    return view('destinations.alula');
+})->name('alula');
+
+Route::get('/jeddah', function () {
+    return view('destinations.jeddah');
+})->name('jeddah');
+
+Route::get('/welcome', function () {
+    return view('welcome');
+})->name('home');
+//Guided Tours in Riyadh
+Route::get('/Guided Tours/riyadhDesertSafari', function () {
+    return view('Guided Tours.riyadhDesertSafari');
+})->name('Guided Tours.riyadhDesertSafari');
+
+Route::get('/Guided Tours/riyadhCampingAdventure', function () {
+    return view('Guided Tours.riyadhCampingAdventure');
+})->name('Guided Tours.riyadhCampingAdventure');
+
+Route::get('/Guided Tours/riyadhHike', function () {
+    return view('Guided Tours.riyadhHike');
+})->name('Guided Tours.riyadhHike');
+
+Route::get('/Guided Tours/UmAlheshLake', function () {
+    return view('Guided Tours.UmAlheshLake');
+})->name('Guided Tours.UmAlheshLake');
