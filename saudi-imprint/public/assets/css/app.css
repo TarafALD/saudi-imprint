@@ -916,14 +916,14 @@
     height: 0;
     overflow: hidden;
     transition: height 0.5s ease-in-out;
-    display: none; /* يبدأ مخفيًا */
-    max-height: 200px; /* تحديد الحد الأقصى للارتفاع */
-    overflow-y: auto; /* تفعيل التمرير العمودي عند الحاجة */
-    overflow-x: hidden; /* منع التمرير الأفقي */
-    padding-right: 10px; /* ضمان أن النص لا يلتصق بالحافة */
+    display: none;
+    max-height: 200px; 
+    overflow-y: auto; 
+    overflow-x: hidden; 
+    padding-right: 10px; 
   }
   .faq-active .faq-content {
-    display: block; /* يظهر عند التمدد */
+    display: block; 
   }
   
   .faq .content p {

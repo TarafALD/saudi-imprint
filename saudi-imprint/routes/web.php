@@ -79,3 +79,35 @@ Route::get('/Guided Tours/riyadhHike', function () {
 Route::get('/Guided Tours/UmAlheshLake', function () {
     return view('Guided Tours.UmAlheshLake');
 })->name('Guided Tours.UmAlheshLake');
+//Guided Tours in Jeddah
+Route::get('/Guided Tours.jeddahBayada', function () {
+    return view('Guided Tours.jeddahBayada');
+})->name('Guided Tours.jeddahBayada');
+
+Route::get('/Guided Tours.jeddahDivingAdventure', function () {
+    return view('Guided Tours.jeddahDivingAdventure');
+})->name('Guided Tours.jeddahDivingAdventure');
+
+Route::get('/Guided Tours.jeddahHistoricJeddah', function () {
+    return view('Guided Tours.jeddahHistoricJeddah');
+})->name('Guided Tours.jeddahHistoricJeddah');
+
+Route::get('/Guided Tours.jeddahFishing', function () {
+    return view('Guided Tours.jeddahFishing');
+})->name('Guided Tours.jeddahFishing');
+//Guided Tours in Aljouf
+Route::get('/Guided Tours.aljoufRegionalMuseum', function () {
+    return view('Guided Tours.aljoufRegionalMuseum');
+})->name('Guided Tours.aljoufRegionalMuseum');
+
+Route::get('/Guided Tours.aljoufZabalCastle', function () {
+    return view('Guided Tours.aljoufZabalCastle');
+})->name('Guided Tours.aljoufZabalCastle');
+
+Route::get('/Guided Tours.aljoufFahdMuseum', function () {
+    return view('Guided Tours.aljoufFahdMuseum');
+})->name('Guided Tours.aljoufFahdMuseum');
+
+Route::get('/Guided Tours.aljoufLake', function () {
+    return view('Guided Tours.aljoufLake');
+})->name('Guided Tours.aljoufLake');

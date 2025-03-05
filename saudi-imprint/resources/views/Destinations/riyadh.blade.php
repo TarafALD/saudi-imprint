@@ -42,8 +42,6 @@
     <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
 
       <a href="index.html" class="logo d-flex align-items-center">
-        <!-- Uncomment the line below if you also wish to use an image logo -->
-        <!-- <img src="assets/img/logo.png" alt=""> -->
         <h1 class="sitename"><span>S</span>audi Imprint</h1>
       </a>
 
@@ -53,16 +51,7 @@
           <li><a href="#tours">Tours</a></li>
           <li><a href="#imap">Map</a></li>
           <li><a href="#list">Things To Do</a></li>
-          <li><a href="#pricing">Pricing</a></li>
-          <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-            <ul>
-              <li><a href="#">Dropdown 1</a></li>
-              <li><a href="#">Dropdown 2</a></li>
-              <li><a href="#">Dropdown 3</a></li>
-              <li><a href="#">Dropdown 4</a></li>
-            </ul>
-          </li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="#CompleteGuide">Complete Guide</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
@@ -83,7 +72,7 @@
                  Explore the city's rich heritage through souqs, museums, and historical architecture,
                   and experience its modern side with high-rises and a thriving art scene, highlighted by
                    the Riyadh Art initiative that turns the city into an open-air gallery. Don't miss Riyadh Season,
-                    featuring themed zones like Boulevard City and the Riyadh Zoo, open year-round. For dining, try local delicacies at Najd Village restaurant.  </p>
+                    featuring themed zones like Boulevard City and the Riyadh Zoo, open year-round. </p>
             </div>
           </div>
         </div>
@@ -205,7 +194,7 @@
               <img src="assets\img\ThingsToDoRiyadh\اسواق طيبه.jpg" class="card-img-top" alt="Shopping">
               <div class="card-body">
                   <h5 class="card-title">Souq Taibah</h5>
-                  <p class="card-text"> Riyadh | Shopping</p>
+                  <p class="card-text"> Shopping</p>
                   <a href="#" class="btn btn-success">View Details</a>
               </div>
           </div>
@@ -217,7 +206,7 @@
               <img src="assets\img\ThingsToDoRiyadh\طبيعه-روضه التنهات.jpg" class="card-img-top" alt="Nature">
               <div class="card-body">
                   <h5 class="card-title">Rawdat Tinhat</h5>
-                  <p class="card-text">Riyadh | Nature</p>
+                  <p class="card-text">Nature</p>
                   <a href="#" class="btn btn-success">Explore</a>
               </div>
           </div>
@@ -229,7 +218,7 @@
               <img src="assets\img\ThingsToDoRiyadh\قصر السبيعي التاريخي-الرياض.jpg" class="card-img-top" alt="Culture">
               <div class="card-body">
                   <h5 class="card-title">Al-Subaie Palace</h5>
-                  <p class="card-text">Riyadh | Culture & History</p>
+                  <p class="card-text">Culture & History</p>
                   <a href="#" class="btn btn-success">Learn More</a>
               </div>
           </div>
@@ -241,44 +230,20 @@
               <img src="assets\img\ThingsToDoRiyadh\تسوق-فيا رياض.jpg" class="card-img-top" alt="Mall">
               <div class="card-body">
                   <h5 class="card-title">Via Riyadh</h5>
-                  <p class="card-text">Riyadh | Shopping</p>
+                  <p class="card-text">Shopping</p>
                   <a href="#" class="btn btn-success">View Details</a>
               </div>
           </div>
       </div>
-
-      <!-- Nature 2 
-      <div class="col-lg-4 col-md-6 filter-item nature">
-          <div class="card">
-              <img src="assets/img/mountain.jpg" class="card-img-top" alt="Mountain">
-              <div class="card-body">
-                  <h5 class="card-title">Mountain Adventure</h5>
-                  <p class="card-text">Hike through beautiful trails.</p>
-                  <a href="#" class="btn btn-success">Start Adventure</a>
-              </div>
-          </div>
-      </div>-->
-
-      <!-- Culture 2 
-      <div class="col-lg-4 col-md-6 filter-item culture">
-          <div class="card">
-              <img src="assets/img/museum.jpg" class="card-img-top" alt="Museum">
-              <div class="card-body">
-                  <h5 class="card-title">Historical Museums</h5>
-                  <p class="card-text">Discover historical artifacts.</p>
-                  <a href="#" class="btn btn-success">Visit Now</a>
-              </div>
-          </div>
-      </div>-->
   </div>
 </div>
 
 
 
       <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
+      <div id="CompleteGuide" class="container section-title" data-aos="fade-up">
         <h2>Guide</h2>
-        <div><span>Check the</span> <span class="description-title">Complete Guide To Riyadh</span></div>
+        <div><span>Complete Guide</span> <span class="description-title">To Riyadh</span></div>
       </div><!-- End Section Title -->
 
       <section id="faq" class="faq section light-background">
@@ -288,49 +253,49 @@
             <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
               <div class="faq-container">
                 <div class="faq-item faq-active">
-                  <h3><span class="num">1.</span> <span>The Red Sea - Sheybarah</span></h3>
+                  <h3><span class="num">1.</span> <span>Weather</span></h3>
                   <div class="faq-content">
-                    <p>The Red Sea is open for business with its first five resorts, These world-class properties are part of phase one of The Red Sea, a pioneering regenerative tourism destination on the west coast of Saudi Arabia. ​
-                      Phase one includes an international airport and 16 iconic resorts across three islands and two inland sites. Together, they will offer around 3,000 keys and be operated by globally renowned brands. The resorts will open gradually throughout 2024 and 2025.​
-                      On completion in 2030, the destination will include 50 hotels with 8,000 rooms and more than 1,000 residential properties across 22 islands and six inland sites. Development has been limited to accommodate no more than 1 million visitors a year to preserve the ecosystem at The Red Sea. ​.</p>
-                    <img src="assets/img/redsea.jpg" class="img-fluid w-70 h-60" alt="Responsive Image">
+                    <p><ul type="square">
+                      <li>Summer: 25°C - 45°C</li>
+                      <li>Autumn: 18°C - 35°C</li>
+                      <li>Winter: 13°C - 23°C</li>
+                      <li>Spring: 24°C - 38°C</li>
+                    </ul></p>
                   </div>
                   <i class="faq-toggle bi bi-chevron-right"></i>
                 </div><!-- End Faq item-->
   
 
                 <div class="faq-item">
-                  <h3><span class="num">2.</span> <span>AlUla - Winter at Tantora </span></h3>
+                  <h3><span class="num">2.</span> <span>Best Time To Visit </span></h3>
                   <div class="faq-content">
-                    <p>Discover the Beauty of AlUla with Winter at Tantora, where history, culture, art, music, and unique culinary experiences come together in an extraordinary festival.
-                      The festival's name is inspired by the traditional Tantora, an ancient sundial used by the people of AlUla to mark the changing seasons for agriculture. This event takes you on a journey through the region’s rich heritage and traditions.
-                      Over the course of three weeks, enjoy world-class concerts, captivating cultural performances, unique dining experiences, and guided tours that unveil the wonders of AlUla. Make this winter unforgettable and be part of an experience that will stay with you forever.</p>
-                        <img src="assets/img/alulabackgr.jpg" class="img-fluid w-70 h-60" alt="Responsive Image">
+                    <p><dl>
+                      <dt>Winter Season :</dt>
+                      <dd>Novmber to March</dd>
+                      <dt>Camping Season :</dt>
+                      <dd>Novmber to March</dd>
+                    </dl></p>
                   </div>
                   <i class="faq-toggle bi bi-chevron-right"></i>
                 </div><!-- End Faq item-->
   
                 <div class="faq-item">
-                  <h3><span class="num">3.</span> <span>Riyadh - Dunes of Arabia</span></h3>
+                  <h3><span class="num">3.</span> <span>Transportation</span></h3>
                   <div class="faq-content">
-                    <p>Immerse yourself in the magic of the desert and the rich culture of Saudi. From thrilling adventures to cultural experiences,
-                       the Dunes of Arabia offers something unforgettable for everyone.
-                      A Place for All 
-                      Whether you’re seeking adventure, cultural discovery, or peaceful moments with loved ones,
-                       this destination blends tradition and modernity, perfect for families, friends, or solo travelers.</p>
-                       <img src="assets/img/dunes of arabia.jpg" class="img-fluid w-70 h-60" alt="Responsive Image">
+                    <p><ul type="none">
+                      <li>- Private car</li>
+                      <li>- Public Transportation</li>
+                      <li>- Ride hailing</li>
+                    </ul></p>
                   </div>
                   <i class="faq-toggle bi bi-chevron-right"></i>
                 </div><!-- End Faq item-->
   
 
                 <div class="faq-item">
-                  <h3><span class="num">4.</span> <span>Neom - Trojena</span></h3>
+                  <h3><span class="num">4.</span> <span>City Guide</span></h3>
                   <div class="faq-content">
-                    <p>Trojena will be a world-class destination that blends natural and urban landscapes,
-                       offering human-centered experiences for both its residents and visitors alike. 
-                       It will feature six distinct districts where reality merges with engineering innovations and virtual architectural artistry, creating a one-of-a-kind destination.</p>
-                       <img src="assets/img/Trojena.jpg" class="img-fluid w-70 h-60" alt="Responsive Image">
+                    <p>Meet our Tour guides to learn more about what to see and do in Riyadh.<br> Discover the capital’s top sights and explore where to stay, eat and more.</p>
                   </div>
                   <i class="faq-toggle bi bi-chevron-right"></i>
                 </div><!-- End Faq item-->
