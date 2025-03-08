@@ -294,7 +294,7 @@
                 <div class="faq-item">
                   <h3><span class="num">4.</span> <span>City Guide</span></h3>
                   <div class="faq-content">
-                    <p>Meet our Tour guides to learn more about what to see and do in Aljouf.<br> Discover the capital’s top sights and explore where to stay, eat and more.</p>
+                  <p>Meet our tour guides to learn more about what to see and do in Al-Jouf.<br> Discover the region’s top sights and explore where to stay, eat, and more.</p>
                   </div>
                   <i class="faq-toggle bi bi-chevron-right"></i>
                 </div><!-- End Faq item-->

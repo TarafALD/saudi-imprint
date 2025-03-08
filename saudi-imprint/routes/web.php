@@ -63,6 +63,10 @@ Route::get('/jeddah', function () {
 Route::get('/welcome', function () {
     return view('welcome');
 })->name('home');
+
+//Route::get('/register', function () {
+    //return view('auth.register');
+//})->name('register');
 //Guided Tours in Riyadh
 Route::get('/Guided Tours/riyadhDesertSafari', function () {
     return view('Guided Tours.riyadhDesertSafari');
@@ -111,3 +115,19 @@ Route::get('/Guided Tours.aljoufFahdMuseum', function () {
 Route::get('/Guided Tours.aljoufLake', function () {
     return view('Guided Tours.aljoufLake');
 })->name('Guided Tours.aljoufLake');
+//Guided Tours in AlUla
+Route::get('/Guided Tours.alulaGharameelStargazing', function () {
+    return view('Guided Tours.alulaGharameelStargazing');
+})->name('Guided Tours.alulaGharameelStargazing');
+
+Route::get('/Guided Tours.alulaElephantRock', function () {
+    return view('Guided Tours.alulaElephantRock');
+})->name('Guided Tours.alulaElephantRock');
+
+Route::get('/Guided Tours.alulaDadan', function () {
+    return view('Guided Tours.alulaDadan');
+})->name('Guided Tours.alulaDadan');
+
+Route::get('/Guided Tours.alulaOldTown', function () {
+    return view('Guided Tours.alulaOldTown');
+})->name('Guided Tours.alulaOldTown');

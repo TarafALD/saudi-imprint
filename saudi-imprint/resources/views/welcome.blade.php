@@ -54,7 +54,7 @@
             </ul>
           </li>
           <li><a href="#contact">Contact us</a></li>
-          <li><a href="signup.html" target="_blank">Sign Up</a></li>
+          <li><a href="{{ route('register') }}" target="_blank">Sign Up</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
