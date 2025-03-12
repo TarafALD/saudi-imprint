@@ -100,7 +100,7 @@
       <div class="card-body text-center d-flex flex-column">
            <h5 class="card-title">Riyadh</h5>
            <p class="card-text">Desert Safari With Camp Activites In The Riyadh Desert <br><strong>100 SAR</strong></p>
-            <a href="{{ route('Guided Tours.riyadhDesertSafari') }}" class="btn btn-primary mt-auto">View Details</a>
+            <a href="{{ route('riyadhDesertSafari') }}" class="btn btn-primary mt-auto">View Details</a>
                             </div>
                         </div>
                     </div>
@@ -110,7 +110,7 @@
      <div class="card-body text-center d-flex flex-column">
       <h5 class="card-title">Riyadh</h5>
          <p class="card-text">A One-Hour Hike In The Riyadh Desert<br><strong>70 SAR</strong></p>
-         <a href="{{ route('Guided Tours.riyadhHike') }}" class="btn btn-primary mt-auto">View Details</a>
+         <a href="{{ route('riyadhHike') }}" class="btn btn-primary mt-auto">View Details</a>
                             </div>
                         </div>
                     </div>
@@ -120,7 +120,7 @@
   <div class="card-body text-center d-flex flex-column">
    <h5 class="card-title">Riyadh</h5>
      <p class="card-text">Crossing The Empty Quarter - Um Alhesh Lake Trip<br><strong>150 SAR</strong></p>
-      <a href="{{ route('Guided Tours.UmAlheshLake') }}" class="btn btn-primary mt-auto">View Details</a>
+      <a href="{{ route('UmAlheshLake') }}" class="btn btn-primary mt-auto">View Details</a>
                             </div>
                         </div>
                     </div>
@@ -129,8 +129,8 @@
   <img src="assets/img/Guided tours/Set Off On A Camping Adventure In Riyadh.jpg" class="card-img-top fixed-img" alt="Product 4">
   <div class="card-body text-center d-flex flex-column">
      <h5 class="card-title">Riyadh</h5>
-      <p class="card-text">Set Off On A Camping Adventure In Riyadh<br><strong>70 SAR</strong></p>
-      <a href="{{ route('Guided Tours.riyadhCampingAdventure') }}" class="btn btn-primary mt-auto">View Details</a>
+      <p class="card-text">Set Off On A Camping Adventure In Riyadh<br><strong>250 SAR</strong></p>
+      <a href="{{ route('riyadhCampingAdventure') }}" class="btn btn-primary mt-auto">View Details</a>
                             </div>
                         </div>
                     </div>
@@ -170,7 +170,6 @@
   <div><span>List of</span> <span class="description-title">Things To Do</span></div>
 </div>
 <div class="container py-5">
-  <!-- أزرار الفلترة -->
   <div class="filter-buttons">
     <button class="btn btn-success active" data-filter="all">
       <i class="bi bi-grid me-2"></i> All
@@ -186,7 +185,6 @@
   </button>
   </div>
 
-  <!-- الكروت -->
   <div class="row g-4">
       <!-- Shopping -->
       <div class="col-lg-4 col-md-6 filter-item shopping">
@@ -195,7 +193,7 @@
               <div class="card-body">
                   <h5 class="card-title">Souq Taibah</h5>
                   <p class="card-text"> Shopping</p>
-                  <a href="#" class="btn btn-success">View Details</a>
+                  <a href="{{ route('riyadhSouqTaibah') }}" class="btn btn-success">View Details</a>
               </div>
           </div>
       </div>
@@ -207,7 +205,7 @@
               <div class="card-body">
                   <h5 class="card-title">Rawdat Tinhat</h5>
                   <p class="card-text">Nature</p>
-                  <a href="#" class="btn btn-success">Explore</a>
+                  <a href="{{ route('riyadhRawdatTinhat') }}" class="btn btn-success">Explore</a>
               </div>
           </div>
       </div>
@@ -219,7 +217,7 @@
               <div class="card-body">
                   <h5 class="card-title">Al-Subaie Palace</h5>
                   <p class="card-text">Culture & History</p>
-                  <a href="#" class="btn btn-success">Learn More</a>
+                  <a href="{{ route('riyadhAlSubaiePalace') }}" class="btn btn-success">Learn More</a>
               </div>
           </div>
       </div>
@@ -231,7 +229,7 @@
               <div class="card-body">
                   <h5 class="card-title">Via Riyadh</h5>
                   <p class="card-text">Shopping</p>
-                  <a href="#" class="btn btn-success">View Details</a>
+                  <a href="{{ route('riyadhVia') }}" class="btn btn-success">View Details</a>
               </div>
           </div>
       </div>
