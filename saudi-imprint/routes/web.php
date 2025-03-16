@@ -156,6 +156,23 @@ Route::get('/Guided Tours.aljoufLake', function () {
     return view('Guided Tours.aljoufLake');
 })->name('Guided Tours.aljoufLake');
 
+//Things to do in Aljouf
+Route::get('/aljoufCitiesMall', function () {
+    return view('Things To Do.aljoufCitiesMall');
+})->name('aljoufCitiesMall');
+
+Route::get('/aljoufMountainPark', function () {
+    return view('Things To Do.aljoufMountainPark');
+})->name('aljoufMountainPark');
+
+Route::get('/aljoufMosque', function () {
+    return view('Things To Do.aljoufMosque');
+})->name('aljoufMosque');
+
+Route::get('/aljoufMaridCastle', function () {
+    return view('Things To Do.aljoufMaridCastle');
+})->name('aljoufMaridCastle');
+
 //Guided Tours in AlUla
 Route::get('/Guided Tours.alulaGharameelStargazing', function () {
     return view('Guided Tours.alulaGharameelStargazing');
@@ -172,3 +189,16 @@ Route::get('/Guided Tours.alulaDadan', function () {
 Route::get('/Guided Tours.alulaOldTown', function () {
     return view('Guided Tours.alulaOldTown');
 })->name('Guided Tours.alulaOldTown');
+
+//Things to do in AlUla
+Route::get('/alulaAlJadidahArts', function () {
+    return view('Things To Do.alulaAlJadidahArts');
+})->name('alulaAlJadidahArts');
+
+Route::get('/alulaElephantRock', function () {
+    return view('Things To Do.alulaElephantRock');
+})->name('alulaElephantRock');
+
+Route::get('/alulaHegra', function () {
+    return view('Things To Do.alulaHegra');
+})->name('alulaHegra');

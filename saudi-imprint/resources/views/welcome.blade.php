@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -9,8 +8,7 @@
   <meta name="keywords" content="">
 
   <!-- Favicons 
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">-->
+  <link href="assets/img/favicon.png" rel="icon"><link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">-->
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -18,30 +16,23 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
   <!-- Vendor CSS Files-->
-<link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-<link href="{{ asset('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
-<link href="{{ asset('assets/vendor/aos/aos.css') }}" rel="stylesheet">
-<link href="{{ asset('assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
-
+  <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+  <link href="{{ asset('assets/vendor/aos/aos.css') }}" rel="stylesheet">
+  <link href="{{ asset('assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
 
   <!-- Main CSS File -->
   <link rel="stylesheet" href="/assets/css/app.css">
   <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
-
-
 </head>
-
 <body class="index-page">
-
   <header id="header" class="header d-flex align-items-center sticky-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
-
       <a href="welcome.blade.php" class="logo d-flex align-items-center">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <!-- <img src="assets/img/logo.png" alt=""> -->
         <h1 class="sitename"><span>S</span>audi Imprint</h1>
       </a>
-
       <nav id="navmenu" class="navmenu">
         <ul>
           <li><a href="#hero" class="active">Home</a></li>
@@ -63,10 +54,8 @@
   </header>
 
   <main class="main">
-
     <!-- Hero Section -->
     <section id="hero" class="hero section light-background">
-
       <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
         <div class="row gy-5">
           <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
@@ -151,7 +140,6 @@
 
     <!-- Services Section -->
     <section id="destinations" class="destinations section">
-
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
         <h2>Destinations</h2>
@@ -159,9 +147,7 @@
       </div><!-- End Section Title -->
 
       <div class="container">
-
         <div class="row gy-4">
-
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
             <div class="destinations-item  position-relative">
               <div class="icon">
@@ -172,7 +158,7 @@
               </a>
               <p>Explore Riyadh and enjoy its vibrant events and diverse attractions in every visit.</p>
             </div>
-          </div><!-- End Service Item -->
+          </div><!-- End Item -->
 
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
             <div class="destinations-item position-relative">
@@ -184,7 +170,7 @@
               </a>
               <p>Explore the beauty of Jeddah city and enjoy its lively atmosphere, stunning coastline.</p>
             </div>
-          </div><!-- End Service Item -->
+          </div><!-- End Item -->
 
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
             <div class="destinations-item position-relative">
@@ -196,7 +182,7 @@
               </a>
               <p>Experience AlUla and immerse yourself in its breathtaking landscapes,and unique cultural wonders.</p>
             </div>
-          </div><!-- End Service Item -->
+          </div><!-- End Item -->
 
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
             <div class="destinations-item position-relative">
@@ -209,15 +195,14 @@
               <p>Explore the beauty of Aljouf with its rich history,stunning landscapes, and authentic Arabian heritage.</p>
               <a href="{{ route('aljouf') }}" class="stretched-link"></a>
             </div>
-          </div><!-- End service Item -->
+          </div><!-- End Item -->
         </div>
       </div>
 
-    </section><!-- /Services Section -->
+    </section><!-- End Services Section -->
 
     <!-- Features Section -->
     <section id="features" class="features section light-background">
-
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
         <h2>NEW</h2>
@@ -225,7 +210,6 @@
       </div><!-- End Section Title -->
 
       <section id="faq" class="faq section light-background">
-
         <div class="container">
           <div class="row gy-4">
             <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
@@ -239,9 +223,8 @@
                     <img src="assets/img/redsea.jpg" class="img-fluid w-70 h-60" alt="Responsive Image">
                   </div>
                   <i class="faq-toggle bi bi-chevron-right"></i>
-                </div><!-- End Faq item-->
+                </div><!-- End item-->
   
-
                 <div class="faq-item">
                   <h3><span class="num">2.</span> <span>AlUla - Winter at Tantora </span></h3>
                   <div class="faq-content">
@@ -251,7 +234,7 @@
                         <img src="assets/img/alulabackgr.jpg" class="img-fluid w-70 h-60" alt="Responsive Image">
                   </div>
                   <i class="faq-toggle bi bi-chevron-right"></i>
-                </div><!-- End Faq item-->
+                </div><!-- End item-->
   
                 <div class="faq-item">
                   <h3><span class="num">3.</span> <span>Riyadh - Dunes of Arabia</span></h3>
@@ -264,9 +247,8 @@
                        <img src="assets/img/dunes of arabia.jpg" class="img-fluid w-70 h-60" alt="Responsive Image">
                   </div>
                   <i class="faq-toggle bi bi-chevron-right"></i>
-                </div><!-- End Faq item-->
+                </div><!-- End item-->
   
-
                 <div class="faq-item">
                   <h3><span class="num">4.</span> <span>Neom - Trojena</span></h3>
                   <div class="faq-content">
@@ -276,17 +258,15 @@
                        <img src="assets/img/Trojena.jpg" class="img-fluid w-70 h-60" alt="Responsive Image">
                   </div>
                   <i class="faq-toggle bi bi-chevron-right"></i>
-                </div><!-- End Faq item-->
+                </div><!-- End item-->
             </div>
           </div>
         </div>
       </div>
-    </section></section><!-- /Features Section -->
-
+    </section></section><!-- End Features Section -->
 
     <!-- Contact Section -->
     <section id="contact" class="contact section">
-
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
         <h2>Contact</h2>
@@ -294,9 +274,7 @@
       </div><!-- End Section Title -->
 
       <div class="container" data-aos="fade" data-aos-delay="100">
-
         <div class="row gy-4">
-
           <div class="col-lg-4">
             <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="200">
               <i class="bi bi-geo-alt flex-shrink-0"></i>
@@ -321,7 +299,6 @@
                 <p>SaudiImprintTeam@gmail.com</p>
               </div>
             </div><!-- End Info Item -->
-
           </div>
 
           <div class="col-lg-8">
@@ -351,21 +328,15 @@
 
                   <button type="submit">Send Message</button>
                 </div>
-
               </div>
             </form>
           </div><!-- End Contact Form -->
-
         </div>
-
       </div>
-
     </section><!-- /Contact Section -->
-
   </main>
 
   <footer id="footer" class="footer light-background">
-
     <div class="container">
       <div class="copyright text-center ">
         <p>© <span>Copyright</span> <strong class="px-1 sitename">Saudi Imprint</strong> <span>All Rights Reserved</span></p>
@@ -376,9 +347,7 @@
         <a href=""><i class="bi bi-instagram"></i></a>
         <a href=""><i class="bi bi-linkedin"></i></a>
       </div>
-    </div>
-
-  </footer>
+    </div></footer>
 
   <!-- Scroll Top -->
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
@@ -395,8 +364,5 @@
   <!-- Main JS File -->
   <script src="js/app.js"></script>
   <script src="{{ asset('assets/js/app.js') }}"></script>
-
-
 </body>
-
 </html>

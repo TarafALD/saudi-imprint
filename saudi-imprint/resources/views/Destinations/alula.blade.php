@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -19,32 +18,25 @@
 
   <!-- Vendor CSS Files-->
   <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-<link href="{{ asset('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
-<link href="{{ asset('assets/vendor/aos/aos.css') }}" rel="stylesheet">
-<link href="{{ asset('assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+  <link href="{{ asset('assets/vendor/aos/aos.css') }}" rel="stylesheet">
+  <link href="{{ asset('assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
 
   <!-- Main CSS File 
   <link href="assets/css/main.css" rel="stylesheet">-->
   <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
 
-
  <!-- Leaflet CSS -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
  <!-- Leaflet JS -->
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  
-
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
-
 <body class="service-details-page">
-
   <header id="header" class="header d-flex align-items-center sticky-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
-
       <a href="index.html" class="logo d-flex align-items-center">
         <h1 class="sitename"><span>S</span>audi Imprint</h1>
       </a>
-
       <nav id="navmenu" class="navmenu">
         <ul>
         <li><a href="{{ route('home') }}" class="active">Home</a></li>
@@ -55,12 +47,10 @@
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
-
     </div>
   </header>
 
   <main class="main">
-
     <!-- Page Title -->
     <div class="page-title" data-aos="fade">
       <div class="heading">
@@ -186,7 +176,6 @@
   </button>
   </div>
 
-  <!-- الكروت -->
   <div class="row g-4">
       <!-- Shopping -->
       <div class="col-lg-4 col-md-6 filter-item shopping">
@@ -195,7 +184,7 @@
               <div class="card-body">
                   <h5 class="card-title">Al Jadidah Arts District</h5>
                   <p class="card-text"> Shopping</p>
-                  <a href="#" class="btn btn-success">View Details</a>
+                  <a href="{{ route('alulaAlJadidahArts') }}" class="btn btn-success">View Details</a>
               </div>
           </div>
       </div>
@@ -207,7 +196,7 @@
               <div class="card-body">
                   <h5 class="card-title">Elephant Rock</h5>
                   <p class="card-text">Nature</p>
-                  <a href="#" class="btn btn-success">Explore</a>
+                  <a href="{{ route('alulaElephantRock') }}" class="btn btn-success">Explore</a>
               </div>
           </div>
       </div>
@@ -215,19 +204,16 @@
       <!-- Culture -->
       <div class="col-lg-4 col-md-6 filter-item culture">
           <div class="card">
-              <img src="assets\img\ThingsToDoAlula\Hegra.jpg" class="card-img-top" alt="Culture">
+              <img src="assets\img\ThingsToDoAlula\Hegra.jpg" class="card-img-top" alt="Culture" style="height:267px;">
               <div class="card-body">
-                  <h5 class="card-title">Preserved tombs and ancient wonders at Hegra</h5>
+                  <h5 class="card-title">Hegra</h5>
                   <p class="card-text">Culture & History</p>
-                  <a href="#" class="btn btn-success">Learn More</a>
+                  <a href="{{ route('alulaHegra') }}" class="btn btn-success">Learn More</a>
               </div>
           </div>
       </div>
   </div>
 </div>
-
-
-
       <!-- Section Title -->
       <div id="CompleteGuide" class="container section-title" data-aos="fade-up">
         <h2>Guide</h2>
@@ -235,7 +221,6 @@
       </div><!-- End Section Title -->
 
       <section id="faq" class="faq section light-background">
-
         <div class="container">
           <div class="row gy-4">
             <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
@@ -251,9 +236,8 @@
                     </ul></p>
                   </div>
                   <i class="faq-toggle bi bi-chevron-right"></i>
-                </div><!-- End Faq item-->
+                </div><!-- End item-->
   
-
                 <div class="faq-item">
                   <h3><span class="num">2.</span> <span>Best Time To Visit </span></h3>
                   <div class="faq-content">
@@ -263,7 +247,7 @@
                     </dl></p>
                   </div>
                   <i class="faq-toggle bi bi-chevron-right"></i>
-                </div><!-- End Faq item-->
+                </div><!-- End item-->
   
                 <div class="faq-item">
                   <h3><span class="num">3.</span> <span>Transportation</span></h3>
@@ -275,28 +259,23 @@
                     </ul></p>
                   </div>
                   <i class="faq-toggle bi bi-chevron-right"></i>
-                </div><!-- End Faq item-->
+                </div><!-- End item-->
   
-
                 <div class="faq-item">
                   <h3><span class="num">4.</span> <span>City Guide</span></h3>
                   <div class="faq-content">
                   <p>Meet our tour guides to learn more about what to see and do in AlUla.<br> Discover the region’s top sights and explore where to stay, eat, and more.</p>
                   </div>
                   <i class="faq-toggle bi bi-chevron-right"></i>
-                </div><!-- End Faq item-->
+                </div><!-- End item-->
             </div>
           </div>
         </div>
       </div>
     </section>
-
-  
-
   </main>
 
   <footer id="footer" class="footer light-background">
-
     <div class="container">
       <div class="copyright text-center ">
         <p>© <span>Copyright</span> <strong class="px-1 sitename">Saudi Imprint</strong> <span>All Rights Reserved</span></p>
@@ -307,9 +286,7 @@
         <a href=""><i class="bi bi-instagram"></i></a>
         <a href=""><i class="bi bi-linkedin"></i></a>
       </div>
-    </div>
-
-  </footer>
+    </div></footer>
 
   <!-- Scroll Top -->
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
@@ -326,7 +303,5 @@
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
   <script src="{{ asset('assets/js/app.js') }}"></script>
-
 </body>
-
 </html>

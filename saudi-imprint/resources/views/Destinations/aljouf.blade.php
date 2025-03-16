@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -27,24 +26,17 @@
   <link href="assets/css/main.css" rel="stylesheet">-->
   <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
 
-
  <!-- Leaflet CSS -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
  <!-- Leaflet JS -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  
-
 </head>
-
 <body class="service-details-page">
-
   <header id="header" class="header d-flex align-items-center sticky-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
-
       <a href="index.html" class="logo d-flex align-items-center">
         <h1 class="sitename"><span>S</span>audi Imprint</h1>
       </a>
-
       <nav id="navmenu" class="navmenu">
         <ul>
         <li><a href="{{ route('home') }}" class="active">Home</a></li>
@@ -55,7 +47,6 @@
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
-
     </div>
   </header>
 
@@ -185,7 +176,6 @@
   </button>
   </div>
 
-  <!-- الكروت -->
   <div class="row g-4">
       <!-- Shopping -->
       <div class="col-lg-4 col-md-6 filter-item shopping">
@@ -194,7 +184,7 @@
               <div class="card-body">
                   <h5 class="card-title">Cities Mall</h5>
                   <p class="card-text"> Shopping</p>
-                  <a href="#" class="btn btn-success">View Details</a>
+                  <a href="{{ route('aljoufCitiesMall') }}" class="btn btn-success">View Details</a>
               </div>
           </div>
       </div>
@@ -202,11 +192,11 @@
       <!-- Nature -->
       <div class="col-lg-4 col-md-6 filter-item nature">
           <div class="card">
-              <img src="assets\img\ThingsToDoAljouf\alrosan.jpg" class="card-img-top" alt="Nature">
+              <img src="assets\img\ThingsToDoAljouf/جبل القرعا3.jpg" class="card-img-top" alt="Nature" style="height:267px;">
               <div class="card-body">
-                  <h5 class="card-title">Alrosan</h5>
+                  <h5 class="card-title">Al-Qar'a Mountain Park</h5>
                   <p class="card-text">Nature</p>
-                  <a href="#" class="btn btn-success">Explore</a>
+                  <a href="{{ route('aljoufMountainPark') }}" class="btn btn-success">Explore</a>
               </div>
           </div>
       </div>
@@ -218,7 +208,7 @@
               <div class="card-body">
                   <h5 class="card-title">Umar ibn al-Khattab Mosque</h5>
                   <p class="card-text">Culture & History</p>
-                  <a href="#" class="btn btn-success">Learn More</a>
+                  <a href="{{ route('aljoufMosque') }}" class="btn btn-success">Learn More</a>
               </div>
           </div>
       </div>
@@ -226,18 +216,16 @@
       <!-- Shopping 2 -->
       <div class="col-lg-4 col-md-6 filter-item culture">
           <div class="card">
-              <img src="assets\img\ThingsToDoAljouf\قلعه مارد.jpg" class="card-img-top" alt="Mall">
+              <img src="assets\img\ThingsToDoAljouf\قلعه مارد.jpg" class="card-img-top" alt="Mall" style="height: 267px;">
               <div class="card-body">
                   <h5 class="card-title">Marid Castle </h5>
                   <p class="card-text">culture & History</p>
-                  <a href="#" class="btn btn-success">View Details</a>
+                  <a href="{{ route('aljoufMaridCastle') }}" class="btn btn-success">View Details</a>
               </div>
           </div>
       </div>
   </div>
 </div>
-
-
 
       <!-- Section Title -->
       <div id="CompleteGuide" class="container section-title" data-aos="fade-up">
@@ -262,7 +250,7 @@
                     </ul></p>
                   </div>
                   <i class="faq-toggle bi bi-chevron-right"></i>
-                </div><!-- End Faq item-->
+                </div><!-- End item-->
   
 
                 <div class="faq-item">
@@ -276,7 +264,7 @@
                     </dl></p>
                   </div>
                   <i class="faq-toggle bi bi-chevron-right"></i>
-                </div><!-- End Faq item-->
+                </div><!-- End item-->
   
                 <div class="faq-item">
                   <h3><span class="num">3.</span> <span>Transportation</span></h3>
@@ -288,7 +276,7 @@
                     </ul></p>
                   </div>
                   <i class="faq-toggle bi bi-chevron-right"></i>
-                </div><!-- End Faq item-->
+                </div><!-- End item-->
   
 
                 <div class="faq-item">
@@ -303,13 +291,9 @@
         </div>
       </div>
     </section>
-
-  
-
   </main>
 
   <footer id="footer" class="footer light-background">
-
     <div class="container">
       <div class="copyright text-center ">
         <p>© <span>Copyright</span> <strong class="px-1 sitename">Saudi Imprint</strong> <span>All Rights Reserved</span></p>
@@ -320,9 +304,7 @@
         <a href=""><i class="bi bi-instagram"></i></a>
         <a href=""><i class="bi bi-linkedin"></i></a>
       </div>
-    </div>
-
-  </footer>
+    </div></footer>
 
   <!-- Scroll Top -->
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
@@ -339,7 +321,5 @@
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
   <script src="{{ asset('assets/js/app.js') }}"></script>
-
 </body>
-
 </html>
