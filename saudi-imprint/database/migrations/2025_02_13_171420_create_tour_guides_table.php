@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('_tour_guides', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('license_path');
+            $table->string('license_number');
             $table->enum('status', ['pending_verification', 'verified', 'rejected'])
             ->default('pending_verification');
 

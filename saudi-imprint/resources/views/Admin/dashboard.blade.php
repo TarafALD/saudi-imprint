@@ -12,17 +12,14 @@
     <table>
         <tr>
             <th>Name</th>
-            <th>License</th>
+            <th>License number</th>
             <th>Status</th>
             <th>Actions</th>
         </tr>
     @foreach($pendingTGs as $tourGuide)
         <tr>
             <td>{{ $tourGuide->user->name }}</td>
-            <td><a href="{{ Storage::url($tourGuide->license_path) }}" 
-                class="btn">
-                 View License
-             </a></td>
+            <td> {{($tourGuide->license_number) }}" </td>
             <td>{{ $tourGuide->status }}</td>
             <td>
                  <form  action="{{ route('admin.tour-guides.approve', $tourGuide->id) }}" method="POST">
@@ -30,7 +27,7 @@
                     @method('PUT')
                     <button type="submit">Approve</button>
                 </form> </td>
-                <td style="color: red">
+                <td>
                 <form  action="{{ route('admin.tour-guides.reject', $tourGuide->id) }}" method="POST">
                     @csrf
                     @method('PUT')

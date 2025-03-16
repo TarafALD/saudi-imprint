@@ -17,7 +17,7 @@ class RegisteredTG extends Controller
 {
     public function showTGregisterform(): View  
       {
-        return view('auth.registerTG');
+        return view('auth.signupTG');
     }
 
     public function store(Request $request): RedirectResponse
@@ -27,7 +27,7 @@ class RegisteredTG extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'license' => ['required', 'file' , 'mimes:pdf,jpg,png', 'max:2048'],
+            'license_number' => ['required', 'string' , 'max:50'],
         ]);
     
 
@@ -40,12 +40,12 @@ class RegisteredTG extends Controller
 
 
     //يحفظ الرخصةب storage/public/licenses 
-    $licensePath = $request->file('license')->store(path: 'licenses', options: 'public');
+    //$licensePath = $request->file('license')->store(path: 'licenses', options: 'public');
 
     //create a tg record
     TourGuide::create([
         'user_id' => $user->id,
-        'license_path' => $licensePath,
+        'license_number' => $request->license_number,
         'status' => 'pending_verification'
     ]);
 

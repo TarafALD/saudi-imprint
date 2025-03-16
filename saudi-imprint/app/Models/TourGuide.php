@@ -8,10 +8,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class TourGuide extends Model
 {
-    protected $table = '_tour_guides'; 
+    protected $table = '_tour_guides';
     protected $fillable = [
         'user_id',
-        'license_path',
+        'license_number',
         'status',
         'bio',
         'languages',

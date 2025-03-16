@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TourGuideController;
@@ -75,9 +76,12 @@ Route::get('/loginT', function () {
     return view('auth.loginT');
 })->name('loginT');
 
-Route::get('/signupTG', function () {
-    return view('auth.signupTG');
-})->name('signupTG');
+
+Route::get('/signupTG', [RegisteredTG::class, 'showTGregisterform'])->name('signupTG');
+
+ Route::post('/signupTG', [RegisteredTG::class, 'store']);  
+ 
+
 
 Route::get('/loginTG', function () {
     return view('auth.loginTG');

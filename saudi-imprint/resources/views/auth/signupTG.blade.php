@@ -41,34 +41,52 @@
 <div class="container">
     <div class="login-container">
         <h3 class="text-center mb-4">SIGN UP </h3>
-        <form>
+        <form method="POST" action="{{ route('signupTG') }} " enctype="multipart/form-data">
+            @csrf
             <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
+                <label for="name" class="form-label">Username</label>
                 <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-person"></i></span>
-                    <input type="text" class="form-control" id="username" placeholder="Enter your username" required>
+                    <input type="text" class="form-control" name="name" id="name" value="{{ old('name') }}"
+                    placeholder="Enter your username" required>   
                 </div>
+                <x-input-error :messages="$errors->get('name')" class="mt-2" />
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email Address</label>
                 <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-                    <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                    <input type="email" class="form-control" name="email"  id="email" value="{{ old('email') }}"
+                    placeholder="Enter your email" required>
                 </div>
+                <x-input-error :messages="$errors->get('email')" class="mt-2" />
             </div>
 
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
                 <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-lock"></i></span>
-                    <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
+                    <input type="password" class="form-control" name="password"  id="password" placeholder="Enter your password" required>
+           
                 </div>
+                <x-input-error :messages="$errors->get('password')" class="mt-2" />
             </div>
+            
+            <div class="mb-3">
+                <label for="password_confirmation" class="form-label">Confirm Password</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                    <input type="password" class="form-control" name="password_confirmation"  id="password_confirmation" placeholder="Enter your password" required>
+           
+                </div>
+                <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+            </div>
+         
             <div class="mb-3">
                 <label for="license" class="form-label">Tourist Guide License Number</label>
                 <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-card-checklist"></i></span>
-                    <input type="text" class="form-control" id="license" placeholder="Enter your license number" required>
+                    <input type="text" class="form-control" name="license_number" id="license_number" placeholder="Enter your license number" required>
                 </div>
             </div>
             <div class="d-flex justify-content-between align-items-center mb-3">
@@ -77,7 +95,7 @@
                     <label class="form-check-label" for="rememberMe">Remember me</label>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary w-100">Sign up</button>
+            <button type="submit" class="btn btn-primary w-100">  {{ __('Register') }} </button>
 
             <p class="text-center mt-3">Have an account already? <a style="color: #758015; text-decoration: none;" href="{{ route('loginTG') }}">Login</a></p>
         </form>
