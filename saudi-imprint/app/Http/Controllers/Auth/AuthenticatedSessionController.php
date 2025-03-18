@@ -8,6 +8,9 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -16,7 +19,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): View
     {
-        return view('auth.login');
+        return view('auth.loginTG');
     }
 
     /**
@@ -24,20 +27,25 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+
         $request->authenticate();
 
         $request->session()->regenerate();
-
+    
+    //user routes
         $url="";
         if($request -> user() -> role == 'admin'){
             $url = route('Admin.dashboard', absolute: false);
         }elseif ($request -> user() -> role == 'TG'){
             $url = route('TourGuide.dashboard', absolute: false);
-        }else{
-            $url = route('dashboard', absolute: false);
+        }elseif ($request -> user() -> role == 'tourist') {
+            $url = route('home', absolute: false);
         }
         return redirect()->intended($url);
-    }
+    
+
+
+}
 
     /**
      * Destroy an authenticated session.

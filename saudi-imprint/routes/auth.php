@@ -8,9 +8,9 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
-use App\Http\Controllers\Auth\RegisteredTG;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\RegisteredTG;
 
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
@@ -18,15 +18,20 @@ Route::middleware('guest')->group(function () {
 
     Route::post('register', [RegisteredUserController::class, 'store']);
 
-    Route::get('registerTG', [RegisteredTG::class, 'showTGregisterform'])
-        ->name('registerTG');
+ 
+    Route::get('signupTG', [RegisteredTG::class, 'showTGregisterform'])
+        ->name('signupTG');
+        
+    Route::get('signupT', [RegisteredUserController::class, 'create'])->name('signupT');
+
+    Route::post('signupT', [RegisteredUserController::class, 'store']);  
 
     Route::post('registerTG', [RegisteredTG::class, 'store']);    
 
-    Route::get('login', [AuthenticatedSessionController::class, 'create'])
-        ->name('login');
 
-    Route::post('login', [AuthenticatedSessionController::class, 'store']);
+        
+    Route::get('loginTG', [AuthenticatedSessionController::class, 'create'])->name('loginTG');
+    Route::post('loginTG', [AuthenticatedSessionController::class, 'store']);
 
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
         ->name('password.request');

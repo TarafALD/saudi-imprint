@@ -39,28 +39,42 @@
 <div class="container">
     <div class="login-container">
         <h3 class="text-center mb-4">SIGN UP </h3>
-        <form>
+        <form method="POST" action="{{ route('signupT') }} " enctype="multipart/form-data">
+            @csrf
             <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
                 <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-person"></i></span>
-                    <input type="text" class="form-control" id="username" placeholder="Enter your username" required>
+                    <input type="text" class="form-control" name="name" id="name" placeholder="Enter your username"  value="{{ old('name') }}" required>
                 </div>
+                <x-input-error :messages="$errors->get('name')" class=" alert alert-danger mt-2" />
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email Address</label>
                 <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-                    <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Enter your email" required>
                 </div>
+                <x-input-error :messages="$errors->get('email')" class="alert alert-danger mt-2" />
             </div>
 
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
                 <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-lock"></i></span>
-                    <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Enter your password" required>
                 </div>
+                <x-input-error :messages="$errors->get('password')" class="alert alert-danger mt-2" />
+            </div>
+
+            <div class="mb-3">
+                <label for="password_confirmation" class="form-label">Confirm Password</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                    <input type="password" class="form-control" name="password_confirmation"  id="password_confirmation" placeholder="Enter your password" required>
+           
+                </div>
+                <x-input-error :messages="$errors->get('password_confirmation')" class="alert alert-danger mt-2" />
             </div>
 
             <div class="d-flex justify-content-between align-items-center mb-3">
@@ -73,7 +87,7 @@
 
             <button type="submit" class="btn btn-primary w-100">Sign up</button>
 
-            <p class="text-center mt-3">Have an account already? <a style="color: #758015; text-decoration: none;" href="{{ route('loginT') }}">Login</a></p>
+            <p class="text-center mt-3">Have an account already? <a style="color: #758015; text-decoration: none;" href="{{ route('loginTG') }}">Login</a></p>
         </form>
     </div>
 </div>

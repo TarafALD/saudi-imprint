@@ -50,7 +50,7 @@
                     <input type="text" class="form-control" name="name" id="name" value="{{ old('name') }}"
                     placeholder="Enter your username" required>   
                 </div>
-                <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                <x-input-error :messages="$errors->get('name')" class="alert alert-danger mt-2" />
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email Address</label>
@@ -59,7 +59,7 @@
                     <input type="email" class="form-control" name="email"  id="email" value="{{ old('email') }}"
                     placeholder="Enter your email" required>
                 </div>
-                <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                <x-input-error :messages="$errors->get('email')" class="alert alert-danger mt-2" />
             </div>
 
             <div class="mb-3">
@@ -69,7 +69,7 @@
                     <input type="password" class="form-control" name="password"  id="password" placeholder="Enter your password" required>
            
                 </div>
-                <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                <x-input-error :messages="$errors->get('password')" class="alert alert-danger mt-2" />
             </div>
             
             <div class="mb-3">
@@ -79,7 +79,7 @@
                     <input type="password" class="form-control" name="password_confirmation"  id="password_confirmation" placeholder="Enter your password" required>
            
                 </div>
-                <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+                <x-input-error :messages="$errors->get('password_confirmation')" class="alert alert-danger mt-2" />
             </div>
          
             <div class="mb-3">

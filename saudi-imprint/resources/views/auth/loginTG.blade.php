@@ -41,21 +41,28 @@
 <div class="container">
     <div class="login-container">
         <h3 class="text-center mb-4">LOGIN </h3>
-        <form>
+
+        <x-auth-session-status class="mb-4" :status="session('status')" />
+
+        <form method="POST" action="{{ route('loginTG') }}">
+            @csrf
+           
             <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
+                <label for="email" class="form-label">Email</label>
                 <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-person"></i></span>
-                    <input type="text" class="form-control" id="username" placeholder="Enter your username" required>
+                    <input type="text" class="form-control" name="email" id="email" placeholder="Enter your email" required required autofocus autocomplete="username" >
                 </div>
+                <x-input-error :messages="$errors->get('email')" class="alert alert-danger mt-2" />
             </div>
 
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
                 <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-lock"></i></span>
-                    <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Enter your password" required>
                 </div>
+                <x-input-error :messages="$errors->get('password')" class="alert alert-danger mt-2" />
             </div>
                 
             <div class="d-flex justify-content-between align-items-center mb-3">
@@ -66,7 +73,7 @@
             </div>
             <button type="submit" class="btn btn-primary w-100">Login</button>
 
-            <p class="text-center mt-3">Dont have an account? <a style="color: #758015; text-decoration: none;" href="{{ route('signupTG') }}">Sign up</a></p>
+            <p class="text-center mt-3">Dont have an account? <a style="color: #758015; text-decoration: none;" href="{{ route('signupT') }}">Sign up</a></p>
         </form>
     </div>
 </div>

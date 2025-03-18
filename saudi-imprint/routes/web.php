@@ -10,16 +10,19 @@ use App\Http\Controllers\Auth\RegisteredTG;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/login', function () {
-    return view('login');
-})->middleware(['auth', 'verified'])->name('login');
+Route::get('/loginTG', function () {
+    return view('loginTG');
+})->middleware(['auth', 'verified'])->name('loginTG');
 
+// Route::get('/loginTG', function () {
+//     return view('auth.loginTG');
+// })->name('loginTG');
 Route::get('/TourGuide/dashboard', [TourGuideController::class,'dashboard'])->name('TourGuide.dashboard');
 
 
@@ -72,20 +75,17 @@ Route::get('/signupT', function () {
     return view('auth.signupT');
 })->name('signupT');
 
-Route::get('/loginT', function () {
-    return view('auth.loginT');
-})->name('loginT');
-
 
 Route::get('/signupTG', [RegisteredTG::class, 'showTGregisterform'])->name('signupTG');
 
  Route::post('/signupTG', [RegisteredTG::class, 'store']);  
  
+ 
+Route::get('/signupT', [RegisteredUserController::class, 'create'])->name('signupT');
+
+Route::post('/signupT', [RegisteredUserController::class, 'store']);  
 
 
-Route::get('/loginTG', function () {
-    return view('auth.loginTG');
-})->name('loginTG');
 
 //Guided Tours in Riyadh
 Route::get('/riyadhDesertSafari', function () {

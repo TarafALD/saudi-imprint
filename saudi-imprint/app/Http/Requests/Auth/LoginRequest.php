@@ -27,8 +27,8 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'string', 'email'],
-            'password' => ['required', 'string'],
+            'email' => ['required', 'string', 'email:rfc,dns'], //validates againts dns records  (verify that the domain portion of the emailhas valid DNS records associated with it)&RFC standards (correct syntax with @ symbol, valid characters etc)
+            'password' => ['required', 'string' , 'min:8'],
         ];
     }
 

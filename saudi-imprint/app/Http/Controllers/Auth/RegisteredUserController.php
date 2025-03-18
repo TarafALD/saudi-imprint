@@ -19,7 +19,7 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        return view('auth.signupT');
     }
 
     /**
@@ -46,6 +46,6 @@ class RegisteredUserController extends Controller
 
         Auth::logout($user);
 
-        return redirect(route('login', absolute: false));
+        return redirect(route('loginTG', absolute: false));
     }
 }
