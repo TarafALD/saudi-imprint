@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TourGuideController;
+use App\Http\Controllers\TourController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisteredTG;
@@ -48,21 +49,27 @@ Route::post('registerTG', [RegisteredTG::class, 'store']);
 
 require __DIR__.'/auth.php';
 
-Route::get('/riyadh', function () {
-    return view('destinations.riyadh');
-})->name('riyadh');
+// Route::get('/riyadh', function () {
+//     return view('destinations.riyadh');
+// })->name('riyadh');
+Route::get('/riyadh', [TourController::class, 'riyadh'])->name('riyadh');
+Route::get('/aljouf', [TourController::class, 'aljouf'])->name('aljouf');
+Route::get('/alula', [TourController::class, 'alula'])->name(name: 'alula');
+Route::get('/jeddah', [TourController::class, 'jeddah'])->name('jeddah');
 
-Route::get('/aljouf', function () {
-    return view('destinations.aljouf');
-})->name('aljouf');
 
-Route::get('/alula', function () {
-    return view('destinations.alula');
-})->name('alula');
 
-Route::get('/jeddah', function () {
-    return view('destinations.jeddah');
-})->name('jeddah');
+// Route::get('/aljouf', function () {
+//     return view('destinations.aljouf');
+// })->name('aljouf');
+
+// Route::get('/alula', function () {
+//     return view('destinations.alula');
+// })->name('alula');
+
+// Route::get('/jeddah', function () {
+//     return view('destinations.jeddah');
+// })->name('jeddah');
 
 Route::get('/welcome', function () {
     return view('welcome');
@@ -88,6 +95,9 @@ Route::post('/signupT', [RegisteredUserController::class, 'store']);
 
 
 //Guided Tours in Riyadh
+Route::get('/riyadh#tours', [TourController::class, 'index'])->name('tours.index');
+Route::get('/tours/{tour}', [TourController::class, 'show'])->name('tours.show');
+
 Route::get('/riyadhDesertSafari', function () {
     return view('Guided Tours.riyadhDesertSafari');
 })->name('riyadhDesertSafari');
@@ -120,7 +130,6 @@ Route::get('/riyadhAlSubaiePalace', function () {
 Route::get('/riyadhVia', function () {
     return view('Things To Do.riyadhVia');
 })->name('riyadhVia');
-
 
 //Guided Tours in Jeddah
 Route::get('/Guided Tours.jeddahBayada', function () {
