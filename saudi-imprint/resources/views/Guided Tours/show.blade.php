@@ -103,7 +103,9 @@
             </li>
             <li class="list-group-item"><strong>Cancellation Policy:</strong> Free cancellation up to 24 hours before the tour.</li>
           </ul>
-          <a href="#" class="btn btn-primary w-25 mt-3" style="margin-left: 250px;">Book Now</a>
+          {{-- <a href="#" class="btn btn-primary w-25 mt-3" style="margin-left: 250px;">Book Now</a> --}}
+          <a href="{{ route('bookings.create', $tour->id) }}" class="btn btn-primary w-25 mt-3" style="margin-left: 250px;">Book Now</a>
+
         </div>
       </div>
     </div>

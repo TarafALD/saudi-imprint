@@ -8,6 +8,8 @@ use App\Http\Controllers\TourController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisteredTG;
+use App\Http\Controllers\BookingController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -20,7 +22,7 @@ Route::get('/dashboard', function () {
 Route::get('/loginTG', function () {
     return view('loginTG');
 })->middleware(['auth', 'verified'])->name('loginTG');
-
+Route::redirect('/login', '/loginTG')->name('login');
 // Route::get('/loginTG', function () {
 //     return view('auth.loginTG');
 // })->name('loginTG');
@@ -57,7 +59,17 @@ Route::get('/aljouf', [TourController::class, 'aljouf'])->name('aljouf');
 Route::get('/alula', [TourController::class, 'alula'])->name(name: 'alula');
 Route::get('/jeddah', [TourController::class, 'jeddah'])->name('jeddah');
 
-
+Route::middleware(['auth'])->group(function () {
+    //display booking form
+    Route::get('/tours/{tour}/book', [BookingController::class, 'create'])->name('bookings.create');
+    
+    //process bookng form submession
+    Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');
+    //confirmation page
+    Route::get('/bookings/{booking}', [BookingController::class, 'show'])->name('bookings.show');
+    Route::get('/my-bookings', [BookingController::class, 'index'])->name('bookings.index');
+    Route::delete('/bookings/{booking}', [BookingController::class, 'destroy'])->name('bookings.destroy');
+});
 
 // Route::get('/aljouf', function () {
 //     return view('destinations.aljouf');

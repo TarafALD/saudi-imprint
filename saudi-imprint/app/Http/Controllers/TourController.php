@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Tour;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TourController extends Controller
 {
@@ -81,7 +82,17 @@ class TourController extends Controller
         
         return view('Guided Tours.show', compact('tour'));
     }
-    
+    // Check authentication for booking
+    public function book(Tour $tour)
+    {
+        if (!Auth::check()) {
+            // Store the intended URL in the session
+            session(['url.intended' => route('tours.book', $tour)]);
+            return redirect()->route('loginTG')->with('message', 'Please login to book a tour');
+        }
+        
+        return view('bookings.create', compact('tour'));
+    }
 
     /**
      * Show the form for editing the specified resource.
