@@ -4,9 +4,12 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TourGuideController;
+use App\Http\Controllers\TourController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisteredTG;
+use App\Http\Controllers\BookingController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -19,7 +22,7 @@ Route::get('/dashboard', function () {
 Route::get('/loginTG', function () {
     return view('loginTG');
 })->middleware(['auth', 'verified'])->name('loginTG');
-
+Route::redirect('/login', '/loginTG')->name('login');
 // Route::get('/loginTG', function () {
 //     return view('auth.loginTG');
 // })->name('loginTG');
@@ -48,21 +51,37 @@ Route::post('registerTG', [RegisteredTG::class, 'store']);
 
 require __DIR__.'/auth.php';
 
-Route::get('/riyadh', function () {
-    return view('destinations.riyadh');
-})->name('riyadh');
+// Route::get('/riyadh', function () {
+//     return view('destinations.riyadh');
+// })->name('riyadh');
+Route::get('/riyadh', [TourController::class, 'riyadh'])->name('riyadh');
+Route::get('/aljouf', [TourController::class, 'aljouf'])->name('aljouf');
+Route::get('/alula', [TourController::class, 'alula'])->name(name: 'alula');
+Route::get('/jeddah', [TourController::class, 'jeddah'])->name('jeddah');
 
-Route::get('/aljouf', function () {
-    return view('destinations.aljouf');
-})->name('aljouf');
+Route::middleware(['auth'])->group(function () {
+    //display booking form
+    Route::get('/tours/{tour}/book', [BookingController::class, 'create'])->name('bookings.create');
+    
+    //process bookng form submession
+    Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');
+    //confirmation page
+    Route::get('/bookings/{booking}', [BookingController::class, 'show'])->name('bookings.show');
+    Route::get('/my-bookings', [BookingController::class, 'index'])->name('bookings.index');
+    Route::delete('/bookings/{booking}', [BookingController::class, 'destroy'])->name('bookings.destroy');
+});
 
-Route::get('/alula', function () {
-    return view('destinations.alula');
-})->name('alula');
+// Route::get('/aljouf', function () {
+//     return view('destinations.aljouf');
+// })->name('aljouf');
 
-Route::get('/jeddah', function () {
-    return view('destinations.jeddah');
-})->name('jeddah');
+// Route::get('/alula', function () {
+//     return view('destinations.alula');
+// })->name('alula');
+
+// Route::get('/jeddah', function () {
+//     return view('destinations.jeddah');
+// })->name('jeddah');
 
 Route::get('/welcome', function () {
     return view('welcome');
@@ -88,6 +107,9 @@ Route::post('/signupT', [RegisteredUserController::class, 'store']);
 
 
 //Guided Tours in Riyadh
+Route::get('/riyadh#tours', [TourController::class, 'index'])->name('tours.index');
+Route::get('/tours/{tour}', [TourController::class, 'show'])->name('tours.show');
+
 Route::get('/riyadhDesertSafari', function () {
     return view('Guided Tours.riyadhDesertSafari');
 })->name('riyadhDesertSafari');
@@ -120,7 +142,6 @@ Route::get('/riyadhAlSubaiePalace', function () {
 Route::get('/riyadhVia', function () {
     return view('Things To Do.riyadhVia');
 })->name('riyadhVia');
-
 
 //Guided Tours in Jeddah
 Route::get('/Guided Tours.jeddahBayada', function () {
