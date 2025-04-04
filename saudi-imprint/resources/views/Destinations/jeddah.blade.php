@@ -205,7 +205,7 @@
               <div class="card-body">
                   <h5 class="card-title">Al-Arab Mall</h5>
                   <p class="card-text"> Shopping</p>
-                  <a href="#" class="btn btn-success">View Details</a>
+                  <a href="{{ route('jeddahArabMall') }}" class="btn btn-success">View Details</a>
               </div>
           </div>
       </div>
@@ -217,7 +217,7 @@
               <div class="card-body">
                   <h5 class="card-title">Jeddah Seafront</h5>
                   <p class="card-text">Nature</p>
-                  <a href="#" class="btn btn-success">Explore</a>
+                  <a href="{{ route('jeddahSeafront') }}" class="btn btn-success">Explore</a>
               </div>
           </div>
       </div>
@@ -229,7 +229,7 @@
               <div class="card-body">
                   <h5 class="card-title">Historic Jeddah</h5>
                   <p class="card-text">Culture & History</p>
-                  <a href="#" class="btn btn-success">Learn More</a>
+                  <a href="{{ route('jeddahHistoric') }}" class="btn btn-success">Learn More</a>
               </div>
           </div>
       </div>

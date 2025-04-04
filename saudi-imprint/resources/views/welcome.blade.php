@@ -205,8 +205,8 @@
     <section id="features" class="features section light-background">
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
-        <h2>NEW</h2>
-        <div><span>Check the</span> <span class="description-title">Latest in Saudi Arabia</span></div>
+        <h2>Top</h2>
+        <div><span>Saudi Arabia’s</span> <span class="description-title">Top Destinations & Experiences</span></div>
       </div><!-- End Section Title -->
 
       <section id="faq" class="faq section light-background">
@@ -217,48 +217,49 @@
                 <div class="faq-item faq-active">
                   <h3><span class="num">1.</span> <span>The Red Sea - Sheybarah</span></h3>
                   <div class="faq-content">
-                    <p>The Red Sea is open for business with its first five resorts, These world-class properties are part of phase one of The Red Sea, a pioneering regenerative tourism destination on the west coast of Saudi Arabia. ​
-                      Phase one includes an international airport and 16 iconic resorts across three islands and two inland sites. Together, they will offer around 3,000 keys and be operated by globally renowned brands. The resorts will open gradually throughout 2024 and 2025.​
-                      On completion in 2030, the destination will include 50 hotels with 8,000 rooms and more than 1,000 residential properties across 22 islands and six inland sites. Development has been limited to accommodate no more than 1 million visitors a year to preserve the ecosystem at The Red Sea. ​.</p>
+                    <p>Discover the beauty of Shibara, one of the first islands to open to visitors as part of The Red Sea Project. 
+      With its crystal-clear waters, pristine white sands, and vibrant coral reefs,
+      Enjoy luxurious overwater villas, world-class snorkeling and diving, or simply unwind surrounded by the serene nature of the Red Sea. 
+      Whether you're seeking tranquility or adventure, Shibara is a destination that redefines coastal tourism in Saudi Arabia.</p>
                     <img src="assets/img/redsea.jpg" class="img-fluid w-70 h-60" alt="Responsive Image">
                   </div>
                   <i class="faq-toggle bi bi-chevron-right"></i>
                 </div><!-- End item-->
   
                 <div class="faq-item">
-                  <h3><span class="num">2.</span> <span>AlUla - Winter at Tantora </span></h3>
-                  <div class="faq-content">
-                    <p>Discover the Beauty of AlUla with Winter at Tantora, where history, culture, art, music, and unique culinary experiences come together in an extraordinary festival.
-                      The festival's name is inspired by the traditional Tantora, an ancient sundial used by the people of AlUla to mark the changing seasons for agriculture. This event takes you on a journey through the region’s rich heritage and traditions.
-                      Over the course of three weeks, enjoy world-class concerts, captivating cultural performances, unique dining experiences, and guided tours that unveil the wonders of AlUla. Make this winter unforgettable and be part of an experience that will stay with you forever.</p>
-                        <img src="assets/img/alulabackgr.jpg" class="img-fluid w-70 h-60" alt="Responsive Image">
-                  </div>
-                  <i class="faq-toggle bi bi-chevron-right"></i>
-                </div><!-- End item-->
+  <h3><span class="num">2.</span> <span>Rijal Almaa - Asir Region</span></h3>
+  <div class="faq-content">
+    <p>Nestled in the mountains of the Asir region, Rijal Almaa is a historic village known for its stunning stone architecture, vibrant painted walls, and rich cultural heritage. 
+      Once a vital trade hub, the village is now one of Saudi Arabia’s most captivating tourist destinations. 
+      Visitors can explore traditional houses, museums, and charming alleyways that tell stories of the past. 
+      The area also offers breathtaking views, cool weather, and seasonal festivals that highlight the unique traditions of the Asir region.</p>
+    <img src="assets/img/رجال المع.jpg" class="img-fluid w-70 h-60" alt="Rijal Almaa Village">
+  </div>
+  <i class="faq-toggle bi bi-chevron-right"></i>
+</div><!-- End item -->
+  
+<div class="faq-item">
+  <h3><span class="num">3.</span> <span>AlUla - Hot Air Balloon Experience</span></h3>
+  <div class="faq-content">
+    <p>Soar above the breathtaking landscapes of AlUla in a magical hot air balloon ride. 
+      Experience the golden sunrise as it bathes the majestic rock formations, ancient tombs, and lush valleys in warm light.
+      This unforgettable journey offers a peaceful yet thrilling perspective of one of Saudi Arabia’s most stunning heritage sites.
+      Whether you're an adventure seeker or a romantic at heart, this serene flight over history and nature is a must-try experience in AlUla.</p>
+    <img src="assets/img/العلا.jpg" class="img-fluid w-70 h-60" alt="Hot Air Balloon in AlUla">
+  </div>
+  <i class="faq-toggle bi bi-chevron-right"></i>
+</div><!-- End item -->
   
                 <div class="faq-item">
-                  <h3><span class="num">3.</span> <span>Riyadh - Dunes of Arabia</span></h3>
-                  <div class="faq-content">
-                    <p>Immerse yourself in the magic of the desert and the rich culture of Saudi. From thrilling adventures to cultural experiences,
-                       the Dunes of Arabia offers something unforgettable for everyone.
-                      A Place for All 
-                      Whether you’re seeking adventure, cultural discovery, or peaceful moments with loved ones,
-                       this destination blends tradition and modernity, perfect for families, friends, or solo travelers.</p>
-                       <img src="assets/img/dunes of arabia.jpg" class="img-fluid w-70 h-60" alt="Responsive Image">
-                  </div>
-                  <i class="faq-toggle bi bi-chevron-right"></i>
-                </div><!-- End item-->
-  
-                <div class="faq-item">
-                  <h3><span class="num">4.</span> <span>Neom - Trojena</span></h3>
-                  <div class="faq-content">
-                    <p>Trojena will be a world-class destination that blends natural and urban landscapes,
-                       offering human-centered experiences for both its residents and visitors alike. 
-                       It will feature six distinct districts where reality merges with engineering innovations and virtual architectural artistry, creating a one-of-a-kind destination.</p>
-                       <img src="assets/img/Trojena.jpg" class="img-fluid w-70 h-60" alt="Responsive Image">
-                  </div>
-                  <i class="faq-toggle bi bi-chevron-right"></i>
-                </div><!-- End item-->
+          <h3><span class="num">4.</span> <span>Taif - Rose Season</span></h3>
+            <div class="faq-content">
+          <p>Every spring, Taif transforms into a breathtaking landscape of blooming roses. 
+           The Rose Season is a celebration of beauty, fragrance, and culture — featuring rose farms, traditional distilleries, and vibrant festivals
+          , pick their own roses, and experience the enchanting scent that fills the cool mountain air.</p>
+          <img src="assets/img/taif.jpg" class="img-fluid w-70 h-60" alt="Taif Rose Season">
+          </div>
+             <i class="faq-toggle bi bi-chevron-right"></i>
+              </div><!-- End item -->
             </div>
           </div>
         </div>

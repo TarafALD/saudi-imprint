@@ -51,9 +51,10 @@ Route::post('registerTG', [RegisteredTG::class, 'store']);
 
 require __DIR__.'/auth.php';
 
-// Route::get('/riyadh', function () {
-//     return view('destinations.riyadh');
-// })->name('riyadh');
+ /*Route::get('/riyadh', function () {
+     return view('destinations.riyadh');
+ })->name('riyadh');*/
+
 Route::get('/riyadh', [TourController::class, 'riyadh'])->name('riyadh');
 Route::get('/aljouf', [TourController::class, 'aljouf'])->name('aljouf');
 Route::get('/alula', [TourController::class, 'alula'])->name(name: 'alula');
@@ -71,17 +72,17 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/bookings/{booking}', [BookingController::class, 'destroy'])->name('bookings.destroy');
 });
 
-// Route::get('/aljouf', function () {
-//     return view('destinations.aljouf');
-// })->name('aljouf');
+ /*Route::get('/aljouf', function () {
+     return view('destinations.aljouf');
+})->name('aljouf');
 
-// Route::get('/alula', function () {
-//     return view('destinations.alula');
-// })->name('alula');
+ Route::get('/alula', function () {
+     return view('destinations.alula');
+ })->name('alula');
 
-// Route::get('/jeddah', function () {
-//     return view('destinations.jeddah');
-// })->name('jeddah');
+Route::get('/jeddah', function () {
+    return view('destinations.jeddah');
+ })->name('jeddah');*/
 
 Route::get('/welcome', function () {
     return view('welcome');
@@ -160,6 +161,19 @@ Route::get('/Guided Tours.jeddahFishing', function () {
     return view('Guided Tours.jeddahFishing');
 })->name('Guided Tours.jeddahFishing');
 
+//Things to do in Jeddah
+Route::get('/jeddahArabMall', function () {
+    return view('Things To Do.jeddahArabMall');
+})->name('jeddahArabMall');
+
+Route::get('/jeddahSeafront', function () {
+    return view('Things To Do.jeddahSeafront');
+})->name('jeddahSeafront');
+
+Route::get('/jeddahHistoric', function () {
+    return view('Things To Do.jeddahHistoric');
+})->name('jeddahHistoric');
+
 //Guided Tours in Aljouf
 Route::get('/Guided Tours.aljoufRegionalMuseum', function () {
     return view('Guided Tours.aljoufRegionalMuseum');
@@ -223,3 +237,4 @@ Route::get('/alulaElephantRock', function () {
 Route::get('/alulaHegra', function () {
     return view('Things To Do.alulaHegra');
 })->name('alulaHegra');
+

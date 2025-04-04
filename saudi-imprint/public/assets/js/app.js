@@ -190,4 +190,79 @@ Alpine.start();*/
   
   })();
   
-  
+  function addTour() {
+    let name = document.getElementById("tourName").value;
+    let location = document.getElementById("tourLocation").value;
+    let dateTime = document.getElementById("tourDateTime").value;
+    let people = document.getElementById("tourPeople").value;
+    let type = document.getElementById("tourType").value;
+    
+    let features = [];
+    if (document.getElementById("car").checked) features.push("Car");
+    if (document.getElementById("snacks").checked) features.push("Snacks");
+    if (document.getElementById("guide").checked) features.push("Private Guide");
+    if (document.getElementById("tickets").checked) features.push("Entrance Tickets");
+
+    let featureText = features.length > 0 ? features.join(", ") : "None";
+
+    let tableBody = document.getElementById("tourTableBody");
+    let newRow = tableBody.insertRow();
+    
+    newRow.innerHTML = `
+        <td>${name}</td>
+        <td>${location}</td>
+        <td>${dateTime}</td>
+        <td>${people}</td>
+        <td>${type}</td>
+        <td>${featureText}</td>
+        <td class="d-flex gap-2">
+            <button class="btn btn-warning text-white btn-sm" onclick="editTour(this)">Edit</button>
+            <button class="btn btn-danger btn-sm" onclick="deleteTour(this)">Delete</button>
+        </td>
+    `;
+
+    document.getElementById("tourForm").reset();
+}
+
+function editTour(button) {
+    let row = button.closest("tr");
+    let cells = row.getElementsByTagName("td");
+
+    document.getElementById("tourName").value = cells[0].innerText;
+    document.getElementById("tourLocation").value = cells[1].innerText;
+    document.getElementById("tourDateTime").value = cells[2].innerText;
+    document.getElementById("tourPeople").value = cells[3].innerText;
+    document.getElementById("tourType").value = cells[4].innerText;
+
+    let features = cells[5].innerText.split(", ");
+    document.getElementById("car").checked = features.includes("Car");
+    document.getElementById("snacks").checked = features.includes("Snacks");
+    document.getElementById("guide").checked = features.includes("Private Guide");
+    document.getElementById("tickets").checked = features.includes("Entrance Tickets");
+
+    row.remove();
+}
+
+function deleteTour(button) {
+    button.closest("tr").remove();
+}
+document.getElementById("guideImage").addEventListener("change", function(event) {
+  const imagePreview = document.getElementById("imagePreview");
+  const file = event.target.files[0];
+
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      imagePreview.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+});
+
+  function openMessageModal(name) {
+    document.getElementById('recipientName').innerText = `To: ${name}`;
+    var modal = new bootstrap.Modal(document.getElementById('messageModal'));
+    modal.show();
+  }
+
+
