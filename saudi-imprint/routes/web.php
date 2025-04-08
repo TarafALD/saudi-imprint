@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisteredTG;
 use App\Http\Controllers\BookingController;
 
+require __DIR__.'/auth.php';
 
 Route::get('/', function () {
     return view('welcome');
@@ -19,15 +20,22 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/loginTG', function () {
-    return view('loginTG');
-})->middleware(['auth', 'verified'])->name('loginTG');
-Route::redirect('/login', '/loginTG')->name('login');
-// Route::get('/loginTG', function () {
-//     return view('auth.loginTG');
-// })->name('loginTG');
-Route::get('/TourGuide/dashboard', [TourGuideController::class,'dashboard'])->name('TourGuide.dashboard');
 
+Route::get('/loginTG', function () {
+    return view('auth.loginTG');
+})->name('loginTG');
+
+Route::redirect('/login', '/loginTG')->name('login');
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/TourGuide/pending_approval', [TourGuideController::class, 'pendingApproval'])->name('TourGuide.pending_approval');
+    Route::get('/TourGuide/rejected', [TourGuideController::class, 'rejected'])->name('TourGuide.rejected');
+    Route::get('/TourGuide/complete_profile', [TourGuideController::class, 'showCompleteProfileForm'])->name('TourGuide.complete_profile');
+    Route::post('/TourGuide/complete_profile', [TourGuideController::class, 'saveCompleteProfile'])->name('TourGuide.save_profile');
+});
+Route::middleware(['auth', 'profile.completed'])->group(function () {
+    Route::get('/TourGuide/dashboard',[TourGuideController::class,'dashboard'])->name('TourGuide.dashboard');});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -49,7 +57,7 @@ Route::get('registerTG', [RegisteredTG::class, 'showTGregisterform'])
 ->name('registerTG');
 Route::post('registerTG', [RegisteredTG::class, 'store']);  
 
-require __DIR__.'/auth.php';
+
 
  /*Route::get('/riyadh', function () {
      return view('destinations.riyadh');
