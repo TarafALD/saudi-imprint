@@ -36,6 +36,9 @@ Route::middleware(['auth'])->group(function () {
 });
 Route::middleware(['auth', 'profile.completed'])->group(function () {
     Route::get('/TourGuide/dashboard',[TourGuideController::class,'dashboard'])->name('TourGuide.dashboard');});
+    Route::get('/add_tour', function () {return view('TourGuide.add_tour');})->name('add_tour');
+
+    Route::post('/TourGuide/update-profile', [TourGuideController::class, 'updateProfile'])->name('TourGuide.updateProfile');    
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

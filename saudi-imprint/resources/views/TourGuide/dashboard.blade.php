@@ -25,9 +25,21 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-</head>
-<body class="service-details-page">
+  <!-- Add CSS for checkbox columns -->
+  <style>
+    .checkbox-columns {
+      column-count: 2;
+    }
+    
+    /* Make modal larger on bigger screens */
+    @media (min-width: 992px) {
+      .modal-lg {
+        max-width: 800px;
+      }
+    }
+  
+  </style>
+</head><body class="service-details-page">
   <header id="header" class="header d-flex align-items-center sticky-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
       <a href="index.html" class="logo d-flex align-items-center">
@@ -35,8 +47,8 @@
       </a>
       <nav id="navmenu" class="navmenu">
         <ul>
-        <li><a href="{{ route('home') }}" class="active">Home</a></li>
-          <li><a href="#add">Add Tour</a></li>
+          <li><a href="{{ route('home') }}" class="active">Home</a></li>
+          <li><a href="{{ route('add_tour') }}">Add Tours</a></li>
           <li><a href="#edit">Edit Tour</a></li>
           <li><a href="#private">Check Private Tours request</a></li>
           <li><a href="#" data-bs-toggle="modal" data-bs-target="#editProfileModal">Edit Profile</a></li>
@@ -45,143 +57,226 @@
       </nav>
     </div>
   </header>
-  <!-- Edit Profile Modal -->
-<div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <form method="POST" action="..." enctype="multipart/form-data">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="editProfileModalLabel">Edit Your Profile</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+  <!-- Success/Error Messages -->
+  @if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show container mt-4" role="alert">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  @endif
+
+  <!-- Tour Guide Dashboard Content -->
+  <main id="main">
+    <section class="service-details">
+      <div class="container">
+        <div class="section-header">
+          <h2>Tour Guide Dashboard</h2>
+          <p>Welcome, {{ $user->name }}</p>
         </div>
 
-        <div class="modal-body">
-        <div class="mb-3 text-center">
-  <!-- صورة المعاينة الدائرية -->
-  <img id="imagePreview"
-     src="https://static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg" 
-     alt="Profile Picture"
-     class="rounded-circle border border-secondary mb-2"
-     style="width: 120px; height: 120px; object-fit: cover;">
-  <!-- حقل رفع الصورة -->
-  <input class="form-control mt-2" type="file" id="guideImage" accept="image/*" style="max-width: 300px; margin: 0 auto;">
-</div>
-          <div class="mb-3">
-            <label for="guideName" class="form-label">Name</label>
-            <input type="text" class="form-control" id="guideName" placeholder="Enter your name">
+        <div class="row gy-4">
+          <div class="col-lg-4">
+            <div class="card">
+              <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+                <img src="{{ $tourGuide->image_path ?? 'https://static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg' }}" 
+                  alt="Profile Picture" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;">
+                <h2 class="mt-2">{{ $user->name }}</h2>
+                <h3>Tour Guide</h3>
+                <div class="social-links mt-2">
+                  <p class="text-center">{{ $tourGuide?->years_experience ?? 'Experience information not available' }}{{ $tourGuide ? ' years of experience' : '' }}</p>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div class="mb-3">
-            <label for="guideAge" class="form-label">Age</label>
-            <input type="number" class="form-control" id="guideAge" placeholder="Enter your age">
+          <div class="col-lg-8">
+            <div class="card">
+              <div class="card-body pt-3">
+                <h5 class="card-title">Profile Details</h5>
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="row mb-3">
+                      <div class="col-lg-3 col-md-4 fw-bold text-muted">Bio</div>
+                      <div class="col-lg-9 col-md-8">
+                        {{ $tourGuide?->bio ?? 'bio not available' }}{{ $tourGuide ? ' Bio' : '' }}
+                      </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                      <div class="col-lg-3 col-md-4 fw-bold text-muted">Skills</div>
+                      <div class="col-lg-9 col-md-8">
+                        {{ $tourGuide?->skills ?? 'skills information not available' }}{{ $tourGuide ? ' Skills' : '' }}
+                      </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                      <div class="col-lg-3 col-md-4 fw-bold text-muted">Languages</div>
+                      <div class="col-lg-9 col-md-8">{{ $tourGuide?->languages ? implode(', ', json_decode($tourGuide->languages, true)) : 'Languages not available' }}</div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                      <div class="col-lg-3 col-md-4 fw-bold text-muted">Regions</div>
+                      <div class="col-lg-9 col-md-8">{{ $tourGuide?->ROO ? implode(', ', json_decode($tourGuide->ROO, true)) : 'Regions of operation info is not available' }}</div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                      <div class="col-lg-3 col-md-4 fw-bold text-muted">Preferences</div>
+                      <div class="col-lg-9 col-md-8">{{ $tourGuide?->prefrences ? implode(', ', json_decode($tourGuide->prefrences, true)) : 'prefrences not available' }}</div>
+                    </div>
+                    
+                    <div class="text-center mt-4">
+                      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editProfileModal">Edit Profile</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-
-          <div class="mb-3">
-            <label for="guideExperience" class="form-label">Years of Experience</label>
-            <input type="number" class="form-control" id="guideExperience" placeholder="Enter years of experience">
-          </div>
-
-          <div class="mb-3">
-            <label for="guideLanguages" class="form-label">Languages</label>
-            <input type="text" class="form-control" id="guideLanguages" placeholder="e.g. English, Arabic">
-          </div>
-
-          <div class="mb-3">
-          <label for="guideEmail" class="form-label">Contact Method</label>
-          <input type="email" class="form-control" id="guideEmail" placeholder="Enter your email">
-          </div>
-          </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-primary">Save</button>
         </div>
       </div>
-    </form>
-  </div>
-</div>
+    </section>
+    
+  <!-- Edit Profile Modal -->
+  <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <form method="POST" action="{{ route('TourGuide.updateProfile') }}" enctype="multipart/form-data">
+        @csrf
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editProfileModalLabel">Edit Your Profile</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
 
-  
-    <!-- 1 Section -->
-    <section id="hero" class="hero section light-background">
-    <div class="container my-5" id="add">
-        <h2 class="text-center mb-4 fs-1">Add New Tour</h2>
-
-        <div class="card shadow">
-            <div class="card-body">
-                <form id="tourForm">
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <label class="form-label fw-medium">Tour Name</label>
-                            <input type="text" class="form-control" id="tourName" placeholder="Enter tour name" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label fw-medium">Location</label>
-                            <select class="form-control" id="tourLocation" required>
-                                <option value="" disabled selected>Select a location</option>
-                                <option value="Riyadh">Riyadh</option>
-                                <option value="Al-Jouf">Al-Jouf</option>
-                                <option value="AlUla">AlUla</option>
-                                <option value="Jeddah">Jeddah</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-md-4">
-                            <label class="form-label fw-medium">Date & Time</label>
-                            <input type="datetime-local" class="form-control" id="tourDateTime" required>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label fw-medium">Number of People</label>
-                            <input type="number" class="form-control" id="tourPeople" placeholder="Enter number of people" min="1" required>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label fw-medium">Tour Type</label>
-                            <select class="form-control" id="tourType" required>
-                                <option value="" disabled selected>Select tour type</option>
-                                <option value="Adventure">Adventure</option>
-                                <option value="Historical">Historical</option>
-                                <option value="Cultural">Cultural</option>
-                                <option value="Nature">Nature</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <label class="form-label fw-medium">Available Features</label>
-                    <div class="row mb-3">
-                        <div class="col-md-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="Car" id="car">
-                                <label class="form-check-label" for="car">Car</label>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="Snacks" id="snacks">
-                                <label class="form-check-label" for="snacks">Snacks</label>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="Private Guide" id="guide">
-                                <label class="form-check-label" for="guide">Private Guide</label>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="Entrance Tickets" id="tickets">
-                                <label class="form-check-label" for="tickets">Entrance Tickets</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <button type="button" class="btn btn-primary w-100" onclick="addTour()">Add Tour</button>
-                </form>
+          <div class="modal-body">
+            <div class="mb-3 text-center">
+              <!-- Preview image -->
+              <img id="imagePreview"
+                src="{{ $tourGuide->image_path ?? 'https://static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg' }}" 
+                alt="Profile Picture"
+                class="rounded-circle border border-secondary mb-2"
+                style="width: 120px; height: 120px; object-fit: cover;">
+              <!-- Image upload field -->
+              <input class="form-control mt-2" type="file" name="image" id="guideImage" accept="image/*" style="max-width: 300px; margin: 0 auto;">
             </div>
-        </div><br><br><br>
+            
+            <div class="mb-3">
+              <label for="guideName" class="form-label">Name</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                <input type="text" class="form-control" id="guideName" name="name" value="{{ $user->name }}" placeholder="Enter your name">
+              </div>
+            </div>
 
-    <!-- Table to display added tours -->
+            <div class="mb-3">
+              <label for="guideBio" class="form-label">Bio / About Me</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-person-lines-fill"></i></span>
+                <textarea class="form-control" id="guideBio" name="bio" rows="3" placeholder="Tell us about yourself and your background">{{ $tourGuide?->bio ?? '' }}</textarea>
+              </div>
+              <small class="text-muted">Tell us about yourself and your background (max 500 characters)</small>
+            </div>
+
+            <div class="mb-3">
+              <label for="guideSkills" class="form-label">Skills</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-tools"></i></span>
+                <input type="text" class="form-control" id="guideSkills" name="skills" value="{{ $tourGuide?->skills ?? '' }}" placeholder="List your skills, separated by commas">
+              </div>
+              <small class="text-muted">List your skills, separated by commas (e.g., Navigation, First Aid, Photography)</small>
+            </div>
+
+            <div class="mb-3">
+              <label for="guideExperience" class="form-label">Years of Experience</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-calendar-check"></i></span>
+<input type="number" class="form-control" id="guideExperience" name="years_experience" value="{{ $tourGuide?->years_experience ?? '0' }}" min="0" placeholder="Enter years of experience">
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Languages Spoken</label>
+              <div class="p-3 bg-light rounded">
+                <div class="checkbox-columns">
+                  @php
+                    $currentLangs = $tourGuide?->languages ? json_decode($tourGuide->languages, true) : [];
+                  @endphp
+            
+                  @foreach (['Arabic', 'English', 'Spanish', 'French', 'German', 'Italian', 'Chinese', 'Japanese', 'Russian', 'Turkish', 'Urdu', 'Hindi'] as $lang)
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" name="languages[]" value="{{ $lang }}" id="language_{{ strtolower($lang) }}"
+                        {{ in_array($lang, $currentLangs) ? 'checked' : '' }}>
+                      <label class="form-check-label" for="language_{{ strtolower($lang) }}">{{ $lang }}</label>
+                    </div>
+                  @endforeach
+            
+                </div>
+              </div>
+            </div>
+            
+
+            <div class="mb-3">
+              <label class="form-label">Regions of Operation (ROO)</label>
+              <div class="p-3 bg-light rounded">
+                <div class="checkbox-columns">
+                  @php
+                    $currentROO = $tourGuide?->ROO ? json_decode($tourGuide->ROO, true) : [];
+                    $regions = [
+                      'Riyadh', 'Makkah', 'Madinah', 'Eastern Province', 'Asir', 'Tabuk',
+                      'Hail', 'Northern Borders', 'Jazan', 'Najran', 'Al-Baha', 'Al-Jouf', 'Al-Qassim'
+                    ];
+                  @endphp
+            
+                  @foreach ($regions as $region)
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" name="ROO[]" value="{{ $region }}" id="region_{{ Str::slug($region, '_') }}"
+                        {{ in_array($region, $currentROO) ? 'checked' : '' }}>
+                      <label class="form-check-label" for="region_{{ Str::slug($region, '_') }}">{{ $region }}</label>
+                    </div>
+                  @endforeach
+                </div>
+              </div>
+            </div>
+            
+
+            <div class="mb-3">
+              <label class="form-label">Preferences</label>
+              <div class="p-3 bg-light rounded">
+                <div class="checkbox-columns">
+                  @php
+                    $currentPrefs = $tourGuide?->prefrences ? json_decode($tourGuide->prefrences, true) : [];
+                    $preferences = [
+                      'Historical Sites', 'Cultural Experiences', 'Outdoor Adventures', 'Desert Excursions',
+                      'Culinary Tours', 'Shopping Tours', 'Religious Sites', 'Photography Tours',
+                      'Family Friendly', 'Luxury Experiences'
+                    ];
+                  @endphp
+            
+                  @foreach ($preferences as $pref)
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" name="prefrences[]"
+                             value="{{ $pref }}" id="pref_{{ Str::slug($pref, '_') }}"
+                             {{ in_array($pref, $currentPrefs) ? 'checked' : '' }}>
+                      <label class="form-check-label" for="pref_{{ Str::slug($pref, '_') }}">{{ $pref }}</label>
+                    </div>
+                  @endforeach
+                </div>
+              </div>
+            </div>
+            
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+</div><br><br><br>
+
+    <!-- Ttable to display added tours -->
     <h2 class="text-center mb-4 fs-1" id="edit">Added Tours & Edit </h2>
     <div class="table-responsive">
         <table class="table table-bordered table-hover text-center mt-3 shadow-sm rounded">
@@ -203,6 +298,7 @@
     </div>
 </div>
 <br><br><br><br>
+
 <!--Check Private tours requests -->
 <div class="text-center mb-4">
   <h2 id="private" class="fs-1">Private Tours Request</h2>
@@ -247,6 +343,8 @@
     </div>
   </div>
 </div>
+</main>
+
 <!--بيانات تجريبيه غير اساسيه -->
     <script>
   const privateTours = [
@@ -294,11 +392,6 @@
     tableBody.appendChild(row);
   });
 </script>
-</section>
-  <!-- Section for Private Tour Requests -->
- 
-
-
   <footer id="footer" class="footer white-background">
     <div class="container">
       <div class="copyright text-center ">
@@ -318,11 +411,22 @@
   <!-- Preloader -->
   <div id="preloader"></div>
 
+  <!-- JavaScript to preview image before upload -->
+  <script>
+    document.getElementById('guideImage').addEventListener('change', function(e) {
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        document.getElementById('imagePreview').src = event.target.result;
+      }
+      reader.readAsDataURL(e.target.files[0]);
+    });
+  </script>
   <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
   <script src="assets/vendor/aos/aos.js"></script>
   <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+ 
 
   <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -330,5 +434,6 @@
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
   <script src="{{ asset('assets/js/app.js') }}"></script>
+  
 </body>
 </html>
