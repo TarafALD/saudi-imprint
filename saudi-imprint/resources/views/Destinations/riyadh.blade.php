@@ -87,14 +87,10 @@
       @foreach ($tours as $tour)
           <div class="col-md-6 col-lg-3">
               <div class="card custom-card">
-                  <!-- Tour Image -->
-                  <img src="{{ asset('assets/img/Guided tours/' . $tour->image_path) }}" class="card-img-top fixed-img" alt="{{ $tour->name }}">
-                  <div class="card-body text-center d-flex flex-column">
-                      <!-- Tour Name -->
+                <img src="{{ asset('storage/' . $tour->image_path) }}" class="card-img-top fixed-img" alt="{{ $tour->name }}">
+                <div class="card-body text-center d-flex flex-column">
                       <h5 class="card-title">{{ $tour->name }}</h5>
-                      <!-- Tour Description and Price -->
                       <p class="card-text">{{ $tour->description }}<br><strong>{{ $tour->price }} SAR</strong></p>
-                      <!-- View Details Button -->
                       <a href="{{ route('tours.show', $tour->id) }}" class="btn btn-primary mt-auto">View Details</a>
                   </div>
               </div>

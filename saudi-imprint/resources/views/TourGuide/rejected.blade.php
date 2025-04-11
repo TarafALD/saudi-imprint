@@ -10,11 +10,9 @@
                 <div class="card-body">
                     <div class="alert alert-danger">
                         <h4>Your tour guide application was not approved</h4>
-                        <p>Unfortunately, your application has been rejected. This might be due to:</p>
+                        <p>Unfortunately, your application has been rejected. This is due to:</p>
                         <ul>
                             <li>Incomplete or invalid license information</li>
-                            <li>Insufficient qualifications</li>
-                            <li>Other requirements not being met</li>
                         </ul>
                     </div>
                 </div>

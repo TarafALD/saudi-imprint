@@ -25,8 +25,17 @@ class TourGuide extends Model
         return $this->belongsTo(User::class);
     }
 
+    //fetch all tours from the tourguide through user id
     public function tours()
     {
-        return $this->hasMany(Tour::class);
+        return $this->hasMany(Tour::class, 'user_id', 'user_id');
     }
+    protected $casts = [
+        'languages' => 'array',
+        'prefrences'=> 'array',
+        'ROO'=> 'array'
+
+
+    ];
+    
 }
