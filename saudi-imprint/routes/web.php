@@ -34,11 +34,16 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/TourGuide/complete_profile', [TourGuideController::class, 'showCompleteProfileForm'])->name('TourGuide.complete_profile');
     Route::post('/TourGuide/complete_profile', [TourGuideController::class, 'saveCompleteProfile'])->name('TourGuide.save_profile');
 });
-Route::middleware(['auth', 'profile.completed'])->group(function () {
-    Route::get('/TourGuide/dashboard',[TourGuideController::class,'dashboard'])->name('TourGuide.dashboard');});
-    Route::get('/add_tour', function () {return view('TourGuide.add_tour');})->name('add_tour');
 
+
+Route::middleware(['auth', 'profile.completed'])->group(function () {
+    Route::get('/TourGuide/dashboard', [TourGuideController::class, 'dashboard'])->name('TourGuide.dashboard');
+    Route::get('/add_tour', function () { return view('TourGuide.add_tour');})->name('add_tour');});
+    
     Route::post('/TourGuide/update-profile', [TourGuideController::class, 'updateProfile'])->name('TourGuide.updateProfile');    
+
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -66,10 +71,20 @@ Route::post('registerTG', [RegisteredTG::class, 'store']);
      return view('destinations.riyadh');
  })->name('riyadh');*/
 
+//routes for tour
 Route::get('/riyadh', [TourController::class, 'riyadh'])->name('riyadh');
 Route::get('/aljouf', [TourController::class, 'aljouf'])->name('aljouf');
-Route::get('/alula', [TourController::class, 'alula'])->name(name: 'alula');
+Route::get('/alula', [TourController::class, 'alula'])->name( 'alula');
 Route::get('/jeddah', [TourController::class, 'jeddah'])->name('jeddah');
+
+Route::post('/store', [TourController::class, 'store'])->name('tours.store');
+//Route::get('/TourGuide/dashboard{tour}', [TourController::class, 'show'])->name('tours.show');
+
+Route::get('TourGuide/dashboard/{tour}/edit', [TourController::class, 'edit'])->name('tours.edit');
+Route::put('TourGuide/dashboard/{tour}', [TourController::class, 'update'])->name('tours.update');
+Route::delete('TourGuide/dashboard/{tour}', [TourController::class, 'destroy'])->name('tours.destroy');
+
+
 
 Route::middleware(['auth'])->group(function () {
     //display booking form

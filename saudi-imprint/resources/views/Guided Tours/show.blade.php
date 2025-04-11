@@ -81,18 +81,21 @@
       <div class="row align-items-center" data-aos="fade-up">
         <!-- الصورة على اليسار -->
         <div class="col-md-4 text-center">
-          <img src="{{ asset('assets/img/Guided tours/' . $tour->image) }}" alt="{{ $tour->name }}" class="img-fluid rounded shadow-sm" style="max-width: 100%; height: auto;">
+          <img src="{{ asset('storage/' . $tour->image_path) }}" alt="Tour image" class="img-fluid">
         </div>
 
         <!-- التفاصيل على اليمين -->
         <div class="col-md-8">
           <h2>Tour Details : </h2>
-          <a href="#" data-bs-toggle="modal" data-bs-target="#guideModal" style="color: black; text-decoration: none;">By the Tour Guide, <span style="color: forestgreen;">{{ $tour->user->name ?? 'Unknown Guide' }}</span></a>
+          <a href="#" data-bs-toggle="modal" data-bs-target="#guideModal" style="color: black; text-decoration: none;">By the Tour Guide, <span style="color: forestgreen;">{{ $tour->guide->name ?? 'Unknown Guide' }}</span></a>
           <ul class="list-group list-group-flush">
             <li class="list-group-item"><strong>Date:</strong> {{ $tour->date }}</li>
             <li class="list-group-item"><strong>Duration:</strong> {{ $tour->duration }}</li>
             <li class="list-group-item"><strong>Group Size:</strong> {{ $tour->max_participants }}</li>
-            <li class="list-group-item"><strong>Type of Tour:</strong> {{ $tour->type_of_tour }}</li>
+            @php
+                $types = is_array($tour->type_of_tour) ? $tour->type_of_tour : json_decode($tour->type_of_tour, true);
+            @endphp
+            <li class="list-group-item"><strong>Type of Tour:</strong> {{ $types ? implode(', ', $types) : 'Unknown' }} </li>
             <li class="list-group-item"><strong>Price:</strong> {{ $tour->price }} SAR per person</li>
             <li class="list-group-item"><strong>Included:</strong>
               <ul>
@@ -115,15 +118,17 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="guideModalLabel">Tour Guide: {{ $tour->user->name ?? 'Unknown '}}</h5>
+            <h5 class="modal-title" id="guideModalLabel">Tour Guide: {{ $tour->guide->name ?? 'Unknown '}}</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
         
-            <p><strong>Languages Spoken:</strong> {{ $tour->user->languages ?? 'Unknown '  }}</p>
-            <p><strong>Experience:</strong> {{ $tour->user->experience ?? 'Unknown ' }}</p>
-            <p><strong>Specialty:</strong> {{ $tour->user->specialty ?? 'Unknown '}}</p>
-            <p><strong>For any questions or assistance, please email me at:</strong> {{ $tour->user->email ?? 'Unknown ' }}</p>
+            <p><strong>Languages Spoken:</strong> {{ $tour->tourGuide->languages ? implode(', ', $tour->tourGuide->languages) : 'Unknown' }}</p>
+            <p><strong>Years of Experience:</strong> {{ $tour->tourGuide->years_experience ?? 'Unknown ' }}</p>
+            <p><strong>Bio:</strong> {{ $tour->tourGuide->bio ?? 'Unknown '}}</p>
+            <p><strong>Skills:</strong> {{ $tour->tourGuide->skills ?? 'Unknown '}}</p>
+            <p><strong>Languages Spoken:</strong> {{ $tour->tourGuide->languages ? implode(', ', $tour->tourGuide->prefrences) : 'Unknown' }}</p>
+            <p><strong>For any questions or assistance, please email me at:</strong> {{ $tour->guide->email ?? 'Unknown ' }}</p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -140,13 +145,7 @@
       <div class="copyright text-center ">
         <p>© <span>Copyright</span> <strong class="px-1 sitename">Saudi Imprint</strong> <span>All Rights Reserved</span></p>
       </div>
-      <div class="social-links d-flex justify-content-center">
-        <a href=""><i class="bi bi-twitter-x"></i></a>
-        <a href=""><i class="bi bi-facebook"></i></a>
-        <a href=""><i class="bi bi-instagram"></i></a>
-        <a href=""><i class="bi bi-linkedin"></i></a>
-      </div>
-    </div>
+  
 
   </footer>
 

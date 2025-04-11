@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Models\TourGuide;
+use App\Models\Tour;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -67,25 +69,40 @@ public function saveCompleteProfile(Request $request)
     return redirect()->route('TourGuide.dashboard')
         ->with('success', 'Profile information completed successfully!');
 }
-public function dashboard(){
-
+public function dashboard()
+{
+    // Get authenticated user
     $user = Auth::user();
-    $tourGuide = $user->tourGuide;
-
-    if ($tourGuide) {
-        if ($tourGuide->status === 'pending_verification') {
-            return redirect()->route('TourGuide.pending_approval');
-        } elseif ($tourGuide->status === 'rejected') {
-            return redirect()->route('TourGuide.rejected');
-        } elseif ($tourGuide->status === 'verified' && !$tourGuide->profile_info_completed) {
-            return redirect()->route('TourGuide.complete_profile');
-        }
+    
+    if (!$user) {
+        return redirect()->route('login');
     }
+    
+    // Get the tourGuide instance
+    $tourGuide = $user->tourGuide;
+    
+    if (!$tourGuide) {
+        return redirect()->route('become-guide')->with('error', 'You need to register as a tour guide first.');
+    }
+    
+    // Check tour guide status and redirect if necessary
+    if ($tourGuide->status === 'pending_verification') {
+        return redirect()->route('TourGuide.pending_approval');
+    } elseif ($tourGuide->status === 'rejected') {
+        return redirect()->route('TourGuide.rejected');
+    } elseif ($tourGuide->status === 'verified' && !$tourGuide->profile_info_completed) {
+        return redirect()->route('TourGuide.complete_profile');
+    }
+    
+    // Get tours based on the user_id directly (not through tourGuide relation)
+    $tours = Tour::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
+    
+    // Pass all needed variables to the view
     return view('TourGuide.dashboard', [
         'user' => $user,
-        'tourGuide' => $tourGuide
+        'tourGuide' => $tourGuide,
+        'tours' => $tours
     ]);
-    
 }
 public function updateProfile(Request $request) {
     $user = Auth::user();

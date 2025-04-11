@@ -50,7 +50,7 @@
           <li><a href="{{ route('home') }}" class="active">Home</a></li>
           <li><a href="{{ route('add_tour') }}">Add Tours</a></li>
           <li><a href="#edit">Edit Tour</a></li>
-          <li><a href="#private">Check Private Tours request</a></li>
+          <!-- <li><a href="#private">Check Private Tours request</a></li> -->
           <li><a href="#" data-bs-toggle="modal" data-bs-target="#editProfileModal">Edit Profile</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
@@ -89,53 +89,58 @@
               </div>
             </div>
           </div>
-
           <div class="col-lg-8">
             <div class="card">
               <div class="card-body pt-3">
                 <h5 class="card-title">Profile Details</h5>
                 <div class="row">
                   <div class="col-lg-12">
+                    
                     <div class="row mb-3">
                       <div class="col-lg-3 col-md-4 fw-bold text-muted">Bio</div>
                       <div class="col-lg-9 col-md-8">
-                        {{ $tourGuide?->bio ?? 'bio not available' }}{{ $tourGuide ? ' Bio' : '' }}
+                        {{ $tourGuide?->bio ?? 'Bio not available' }}
                       </div>
                     </div>
                     
                     <div class="row mb-3">
                       <div class="col-lg-3 col-md-4 fw-bold text-muted">Skills</div>
                       <div class="col-lg-9 col-md-8">
-                        {{ $tourGuide?->skills ?? 'skills information not available' }}{{ $tourGuide ? ' Skills' : '' }}
+                        {{ $tourGuide?->skills ?? 'Skills information not available' }}
                       </div>
                     </div>
                     
                     <div class="row mb-3">
                       <div class="col-lg-3 col-md-4 fw-bold text-muted">Languages</div>
-                      <div class="col-lg-9 col-md-8">{{ $tourGuide?->languages ? implode(', ', json_decode($tourGuide->languages, true)) : 'Languages not available' }}</div>
+                      <div class="col-lg-9 col-md-8">
+                        {{ $tourGuide?->languages ? implode(', ', $tourGuide->languages) : 'Languages not available' }}
+                      </div>
                     </div>
                     
                     <div class="row mb-3">
                       <div class="col-lg-3 col-md-4 fw-bold text-muted">Regions</div>
-                      <div class="col-lg-9 col-md-8">{{ $tourGuide?->ROO ? implode(', ', json_decode($tourGuide->ROO, true)) : 'Regions of operation info is not available' }}</div>
+                      <div class="col-lg-9 col-md-8">
+                        {{ $tourGuide?->ROO ? implode(', ', $tourGuide->ROO) : 'Regions of operation info is not available' }}
+                      </div>
                     </div>
                     
                     <div class="row mb-3">
                       <div class="col-lg-3 col-md-4 fw-bold text-muted">Preferences</div>
-                      <div class="col-lg-9 col-md-8">{{ $tourGuide?->prefrences ? implode(', ', json_decode($tourGuide->prefrences, true)) : 'prefrences not available' }}</div>
+                      <div class="col-lg-9 col-md-8">
+                        {{ $tourGuide?->prefrences ? implode(', ', $tourGuide->prefrences) : 'Preferences not available' }}
+                      </div>
                     </div>
                     
                     <div class="text-center mt-4">
                       <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editProfileModal">Edit Profile</button>
                     </div>
+                    
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
+          
     
   <!-- Edit Profile Modal -->
   <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
@@ -183,7 +188,7 @@
                 <span class="input-group-text"><i class="bi bi-tools"></i></span>
                 <input type="text" class="form-control" id="guideSkills" name="skills" value="{{ $tourGuide?->skills ?? '' }}" placeholder="List your skills, separated by commas">
               </div>
-              <small class="text-muted">List your skills, separated by commas (e.g., Navigation, First Aid, Photography)</small>
+              <small class="text-muted">List your skills, separated by commas (e.g., Sign Language, First Aid, Photography)</small>
             </div>
 
             <div class="mb-3">
@@ -195,24 +200,32 @@
             </div>
 
             <div class="mb-3">
-              <label class="form-label">Languages Spoken</label>
-              <div class="p-3 bg-light rounded">
+              <label class="form-label" for="languages-group">Languages Spoken</label>
+              <div id="languages-group" class="p-3 bg-light rounded">
                 <div class="checkbox-columns">
                   @php
-                    $currentLangs = $tourGuide?->languages ? json_decode($tourGuide->languages, true) : [];
-                  @endphp
+                  // Check if languages is already an array, otherwise decode it
+                  $currentLangs = old('languages', is_array($tourGuide?->languages) ? $tourGuide->languages : (json_decode($tourGuide->languages, true) ?: []));
+                @endphp
+                
             
                   @foreach (['Arabic', 'English', 'Spanish', 'French', 'German', 'Italian', 'Chinese', 'Japanese', 'Russian', 'Turkish', 'Urdu', 'Hindi'] as $lang)
                     <div class="form-check">
-                      <input class="form-check-input" type="checkbox" name="languages[]" value="{{ $lang }}" id="language_{{ strtolower($lang) }}"
-                        {{ in_array($lang, $currentLangs) ? 'checked' : '' }}>
+                      <input 
+                        class="form-check-input" 
+                        type="checkbox" 
+                        name="languages[]" 
+                        value="{{ $lang }}" 
+                        id="language_{{ strtolower($lang) }}"
+                        {{ in_array($lang, $currentLangs) ? 'checked' : '' }}
+                      >
                       <label class="form-check-label" for="language_{{ strtolower($lang) }}">{{ $lang }}</label>
                     </div>
                   @endforeach
-            
                 </div>
               </div>
             </div>
+            
             
 
             <div class="mb-3">
@@ -220,7 +233,8 @@
               <div class="p-3 bg-light rounded">
                 <div class="checkbox-columns">
                   @php
-                    $currentROO = $tourGuide?->ROO ? json_decode($tourGuide->ROO, true) : [];
+                    $currentROO = is_array($tourGuide?->ROO) ? $tourGuide->ROO : (json_decode($tourGuide->ROO, true) ?: []);
+                    
                     $regions = [
                       'Riyadh', 'Makkah', 'Madinah', 'Eastern Province', 'Asir', 'Tabuk',
                       'Hail', 'Northern Borders', 'Jazan', 'Najran', 'Al-Baha', 'Al-Jouf', 'Al-Qassim'
@@ -238,13 +252,13 @@
               </div>
             </div>
             
-
             <div class="mb-3">
               <label class="form-label">Preferences</label>
               <div class="p-3 bg-light rounded">
                 <div class="checkbox-columns">
                   @php
-                    $currentPrefs = $tourGuide?->prefrences ? json_decode($tourGuide->prefrences, true) : [];
+                    $currentPrefs = is_array($tourGuide?->prefrences) ? $tourGuide->prefrences : (json_decode($tourGuide->prefrences, true) ?: []);
+                    
                     $preferences = [
                       'Historical Sites', 'Cultural Experiences', 'Outdoor Adventures', 'Desert Excursions',
                       'Culinary Tours', 'Shopping Tours', 'Religious Sites', 'Photography Tours',
@@ -264,7 +278,6 @@
               </div>
             </div>
             
-
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
             <button type="submit" class="btn btn-primary">Save</button>
@@ -276,30 +289,164 @@
 </section>
 </div><br><br><br>
 
-    <!-- Ttable to display added tours -->
-    <h2 class="text-center mb-4 fs-1" id="edit">Added Tours & Edit </h2>
-    <div class="table-responsive">
-        <table class="table table-bordered table-hover text-center mt-3 shadow-sm rounded">
-            <thead class="table-dark">
-                <tr>
-                    <th>Tour Name</th>
-                    <th>Location</th>
-                    <th>Date & Time</th>
-                    <th>Number of People</th>
-                    <th>Type</th>
-                    <th>Features</th>
-                    <th>Edit | Delete</th>
-                </tr>
-            </thead>
-            <tbody id="tourTableBody">
-                <!-- Dynamic rows will be added here -->
-            </tbody>
-        </table>
-    </div>
+<!-- Ttable to display added tours -->
+<div class="text-center mb-4">
+  <h2 class="fs-1">Added Tours</h2>
+</div>
+<div class="d-flex justify-content-center">
+  <div class="table-responsive rounded p-3" style="width: 90%; max-width: 1100px;">
+    <table class="table table-bordered table-hover text-center mb-0">
+      <thead class="table-dark">
+          <tr>
+              <th>Tour Name</th>
+              <th>Location</th>
+              <th>Date & Time</th>
+              <th>Max Participants</th>
+              <th>Tour Type</th>
+              <th>Description</th>
+              <th>Price (SAR)</th>
+              <th>Duration</th>
+              <th>Included</th>
+              <th>Actions</th>
+          </tr>
+      </thead>
+      <tbody id="tourTableBody">
+          @forelse($tours as $tour)
+              <tr>
+                  <td>{{ $tour->name }}</td>
+                  <td>{{ $tour->location }}</td>
+                  <td>{{ \Carbon\Carbon::parse($tour->date)->format('M d, Y - h:i A') }}</td>
+                  <td>{{ $tour->max_participants }}</td>
+                  <td>
+                    @php
+                        $types = is_string($tour->type_of_tour)
+                            ? json_decode($tour->type_of_tour, true)
+                            : $tour->type_of_tour;
+                
+                        $typesList = is_array($types) ? implode(', ', $types) : 'N/A';
+                    @endphp
+                    {{ $typesList }}
+                </td>
+                  <td>{{ Str::limit($tour->description ?? 'No description available', 50) }}</td>
+                  <td>{{ number_format($tour->price, 2) }}</td>
+                  <td>{{ $tour->duration ?? 'N/A' }}</td>
+                  <td>{{ $tour->included ?? 'N/A' }}</td>
+                  <td>
+                      <div class="d-flex justify-content-center gap-2">
+                          <a href="{{ route('tours.edit', $tour->id) }}" class="btn btn-sm btn-primary d-flex align-items-center gap-1">
+                              <i class="bi bi-pencil"></i> Edit
+                          </a>
+                          <form action="{{ route('tours.destroy', $tour->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this tour?')">
+                              @csrf
+                              @method('DELETE')
+                              <button type="submit" class="btn btn-sm btn-danger d-flex align-items-center gap-1">
+                                  <i class="bi bi-trash"></i> Delete
+                              </button>
+                          </form>
+                      </div>
+                  </td>
+              </tr>
+          @empty
+              <tr>
+                  <td colspan="10" class="text-center">No tours added yet</td>
+              </tr>
+          @endforelse
+      </tbody>
+  </table>  
+  </div>
 </div>
 <br><br><br><br>
 
-<!--Check Private tours requests -->
+<!-- edit form-->
+@if(request()->routeIs('tours.edit') && isset($editingTour))
+<div class="d-flex justify-content-center mt-4">
+  <div class="p-4 rounded shadow bg-light" style="width: 90%; max-width: 1100px;">
+    <h3 class="mb-4 text-center">Edit Tour</h3>
+    <form action="{{ route('tours.update', $editingTour->id) }}" method="POST" enctype="multipart/form-data">
+      @csrf
+      @method('PUT')
+
+      <div class="mb-3">
+        <label for="name" class="form-label">Tour Name</label>
+        <input type="text" class="form-control" name="name" value="{{ $editingTour->name }}" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="location" class="form-label">Location</label>
+        <input type="text" class="form-control" name="location" value="{{ $editingTour->location }}" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="Date" class="form-label">Date & Time</label>
+        <input type="datetime-local" class="form-control" name="Date" value="{{ \Carbon\Carbon::parse($editingTour->date)->format('Y-m-d\TH:i') }}" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="max_participants" class="form-label">Max Participants</label>
+        <input type="number" class="form-control" name="max_participants" value="{{ $editingTour->max_participants }}" required>
+      </div>
+
+      <div class="mb-3">
+          <label for="tour_image" class="form-label">Tour Image</label>
+          <div class="mb-2">
+              @if($editingTour->image_path)
+                  <div class="mb-2">
+                      <strong>Current Image:</strong>
+                      <img src="{{ asset('storage/' . $editingTour->image_path) }}" alt="Tour image" class="img-thumbnail" style="max-height: 150px;">
+                  </div>
+              @else
+                  <div class="alert alert-info">No image currently set for this tour.</div>
+              @endif
+          </div>
+          <input type="file" class="form-control" id="tour_image" name="tour_image" accept="image/*">
+          <small class="form-text text-muted">Upload a new image only if you want to replace the current one (JPG, PNG, GIF formats, max 2MB).</small>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Tour Type</label><br>
+        @php
+            $availableTypes = ['Historical', 'Adventure', 'Cultural', 'Nature'];
+            $selectedTypes = is_array($editingTour->type_of_tour) ? $editingTour->type_of_tour : json_decode($editingTour->type_of_tour, true);
+        @endphp
+        @foreach($availableTypes as $type)
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" name="type_of_tour[]" value="{{ $type }}" 
+              {{ in_array($type, $selectedTypes ?? []) ? 'checked' : '' }}>
+              <label class="form-check-label">{{ $type }}</label>
+            </div>
+        @endforeach
+      </div>
+
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea class="form-control" name="description" rows="3">{{ $editingTour->description }}</textarea>
+      </div>
+
+      <div class="mb-3">
+        <label for="price" class="form-label">Price (SAR)</label>
+        <input type="number" class="form-control" name="price" value="{{ $editingTour->price }}" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="duration" class="form-label">Duration (Hours)</label>
+        <input type="number" class="form-control" name="duration" value="{{ $editingTour->duration }}" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="included" class="form-label">Included</label>
+        <input type="text" class="form-control" name="included" value="{{ $editingTour->included }}" required>
+      </div>
+      <div class="d-flex justify-content-end gap-3 mt-3">
+        <a href="{{ route('TourGuide.dashboard') }}" class="btn btn-outline-secondary">Cancel Edit</a>
+        <button type="submit" class="btn btn-success">Update Tour</button>
+      </div>    
+    </form>
+  </div>
+</div>
+@endif
+
+
+{{-- <!--Check Private tours requests -->
 <div class="text-center mb-4">
   <h2 id="private" class="fs-1">Private Tours Request</h2>
 </div>
@@ -391,36 +538,19 @@
     `;
     tableBody.appendChild(row);
   });
-</script>
+</script> --}}
   <footer id="footer" class="footer white-background">
     <div class="container">
       <div class="copyright text-center ">
         <p>© <span>Copyright</span> <strong class="px-1 sitename">Saudi Imprint</strong> <span>All Rights Reserved</span></p>
       </div>
-      <div class="social-links d-flex justify-content-center">
-        <a href=""><i class="bi bi-twitter-x"></i></a>
-        <a href=""><i class="bi bi-facebook"></i></a>
-        <a href=""><i class="bi bi-instagram"></i></a>
-        <a href=""><i class="bi bi-linkedin"></i></a>
-      </div>
-    </div></footer>
+     </footer>
 
   <!-- Scroll Top -->
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Preloader -->
   <div id="preloader"></div>
-
-  <!-- JavaScript to preview image before upload -->
-  <script>
-    document.getElementById('guideImage').addEventListener('change', function(e) {
-      const reader = new FileReader();
-      reader.onload = function(event) {
-        document.getElementById('imagePreview').src = event.target.result;
-      }
-      reader.readAsDataURL(e.target.files[0]);
-    });
-  </script>
   <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>

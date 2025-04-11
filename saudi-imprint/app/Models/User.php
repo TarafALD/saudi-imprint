@@ -45,6 +45,7 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    
 
     // //a user can have one tour guide record 
         public function tourGuide(){
@@ -55,8 +56,15 @@ class User extends Authenticatable
         return $this->hasMany(Booking::class);
     }
 
-    public function tours()
+    public function bookedTours()
     {
         return $this->belongsToMany(Tour::class, 'bookings');
+        
+    }
+
+    //tour guide gives all tours created by this user
+    public function tours()
+    {
+        return $this->hasMany(Tour::class, 'user_id');
     }
 }
