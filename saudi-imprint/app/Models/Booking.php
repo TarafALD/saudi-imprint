@@ -16,4 +16,8 @@ class Booking extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    protected $casts = [
+        'type_of_tour' => 'array',
+    ];
 }

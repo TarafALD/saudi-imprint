@@ -89,7 +89,15 @@
           <h2>Tour Details : </h2>
           <a href="#" data-bs-toggle="modal" data-bs-target="#guideModal" style="color: black; text-decoration: none;">By the Tour Guide, <span style="color: forestgreen;">{{ $tour->guide->name ?? 'Unknown Guide' }}</span></a>
           <ul class="list-group list-group-flush">
-            <li class="list-group-item"><strong>Date:</strong> {{ $tour->date }}</li>
+            <li class="list-group-item">
+              <strong>Available Dates:</strong>
+              {{ \Carbon\Carbon::parse($tour->start_date)->format('F j, Y') }} –
+              {{ \Carbon\Carbon::parse($tour->end_date)->format('F j, Y') }}
+            </li>
+            <li class="list-group-item">
+              <strong>Start Time:</strong>
+              {{ \Carbon\Carbon::parse($tour->start_time)->format('g:i A') }}
+            </li>            
             <li class="list-group-item"><strong>Duration:</strong> {{ $tour->duration }}</li>
             <li class="list-group-item"><strong>Group Size:</strong> {{ $tour->max_participants }}</li>
             @php

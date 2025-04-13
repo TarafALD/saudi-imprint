@@ -96,6 +96,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/bookings/{booking}', [BookingController::class, 'show'])->name('bookings.show');
     Route::get('/my-bookings', [BookingController::class, 'index'])->name('bookings.index');
     Route::delete('/bookings/{booking}', [BookingController::class, 'destroy'])->name('bookings.destroy');
+
+    Route::get('/bookings/{booking}/payment', [BookingController::class, 'payment'])->name('bookings.payment');
+    Route::post('/bookings/{booking}/process-payment', [BookingController::class, 'processPayment'])->name('bookings.processPayment');
+    Route::get('/bookings/{booking}/process-payment', [BookingController::class, 'processPayment'])->name('bookings.processPayment');
+
+
 });
 
  /*Route::get('/aljouf', function () {
