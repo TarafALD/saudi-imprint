@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ed39ee0d72bde20f5c0998fef1f33db4",
+    "content-hash": "0145ba9affeae7038ad926fb2ccecc54",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -688,16 +688,16 @@
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "7.9.2",
+            "version": "7.9.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "d281ed313b989f213357e3be1a179f02196ac99b"
+                "reference": "7b2f29fe81dc4da0ca0ea7d42107a0845946ea77"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/d281ed313b989f213357e3be1a179f02196ac99b",
-                "reference": "d281ed313b989f213357e3be1a179f02196ac99b",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/7b2f29fe81dc4da0ca0ea7d42107a0845946ea77",
+                "reference": "7b2f29fe81dc4da0ca0ea7d42107a0845946ea77",
                 "shasum": ""
             },
             "require": {
@@ -794,7 +794,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/guzzle/issues",
-                "source": "https://github.com/guzzle/guzzle/tree/7.9.2"
+                "source": "https://github.com/guzzle/guzzle/tree/7.9.3"
             },
             "funding": [
                 {
@@ -810,7 +810,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-07-24T11:22:20+00:00"
+            "time": "2025-03-27T13:37:11+00:00"
         },
         {
             "name": "guzzlehttp/promises",
@@ -2210,6 +2210,94 @@
                 }
             ],
             "time": "2024-12-05T17:15:07+00:00"
+        },
+        {
+            "name": "moyasar/moyasar",
+            "version": "v1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/moyasar/moyasar-php.git",
+                "reference": "0a0f1cf71fff9b0fa161aea3404959a5f01d42ff"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/moyasar/moyasar-php/zipball/0a0f1cf71fff9b0fa161aea3404959a5f01d42ff",
+                "reference": "0a0f1cf71fff9b0fa161aea3404959a5f01d42ff",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "guzzlehttp/guzzle": "^6.3|^7.0",
+                "guzzlehttp/psr7": "^2.1.1",
+                "php": "^7.2|^8.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.2.4",
+                "phpunit/phpunit": "^8.5.19|^9.5.8"
+            },
+            "suggest": {
+                "laravel/framework": "Allows Moyasar payment services to be auto injected into current app container"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "Invoice": "Moyasar\\Facades\\Invoice",
+                        "Payment": "Moyasar\\Facades\\Payment"
+                    },
+                    "providers": [
+                        "Moyasar\\Providers\\LaravelServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Moyasar\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ali Alhoshaiyan",
+                    "email": "alialhoshaiyan@gmail.com"
+                },
+                {
+                    "name": "Sohib H Algotimel",
+                    "email": "s@sgh.sa",
+                    "homepage": "https://sgh.sa"
+                },
+                {
+                    "name": "Moyasar Development Team",
+                    "email": "developers@moyasar.com",
+                    "homepage": "https://moyasar.com/"
+                }
+            ],
+            "description": "PHP/Laravel wrapper library for Moyasar payment services",
+            "keywords": [
+                "Moyasar",
+                "apple",
+                "capture",
+                "card",
+                "credit",
+                "invoice",
+                "laravel",
+                "mada",
+                "master",
+                "pay",
+                "payment",
+                "refund",
+                "sadad",
+                "visa",
+                "void"
+            ],
+            "support": {
+                "issues": "https://github.com/moyasar/moyasar-php/issues",
+                "source": "https://github.com/moyasar/moyasar-php/tree/v1.1.1"
+            },
+            "time": "2022-03-30T09:01:26+00:00"
         },
         {
             "name": "nesbot/carbon",

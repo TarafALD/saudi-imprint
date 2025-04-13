@@ -68,7 +68,9 @@ class TourController extends Controller
             'type_of_tour' => 'required|array|min:1',
             'type_of_tour.*' => 'string',
             'included' => 'required|string|max:255',
-            'Date' => 'required|date',
+            'start_date' => 'required|date|after_or_equal:today',
+            'end_date' => 'required|date|after_or_equal:start_date',
+            'start_time' => 'required|date_format:H:i',
             'description' => 'required|string',
             'price' => 'required|numeric|min:0',
             'duration' => 'required|integer|min:1',
@@ -86,7 +88,9 @@ class TourController extends Controller
         $tour->max_participants = $validatedData['max_participants'];
         $tour->type_of_tour = json_encode($validatedData['type_of_tour']);
         $tour->included = $validatedData['included'];
-        $tour->date = $validatedData['Date'];
+        $tour->start_date =$validatedData['start_date'];
+        $tour->end_date =$validatedData['end_date'];
+        $tour->start_time=$validatedData['start_time'];
         $tour->description = $validatedData['description'];
         $tour->price = $validatedData['price'];
         $tour->duration = $validatedData['duration'];
@@ -164,7 +168,9 @@ class TourController extends Controller
         'type_of_tour' => 'required|array|min:1',
         'type_of_tour.*' => 'string',
         'included' => 'required|string|max:255',
-        'Date' => 'required|date',
+        'start_date' => 'required|date|after_or_equal:today',
+        'end_date' => 'required|date|after_or_equal:start_date',
+        'start_time' => 'required|date_format:H:i',
         'description' => 'required|string',
         'price' => 'required|numeric|min:0',
         'duration' => 'required|integer|min:1',
@@ -173,7 +179,9 @@ class TourController extends Controller
 
         $tour->name = $validatedData['name'];
         $tour->location = $validatedData['location'];
-        $tour->date = $validatedData['Date'];
+        $tour->start_date =$validatedData['start_date'];
+        $tour->end_date =$validatedData['end_date'];
+        $tour->start_time=$validatedData['start_time'];
         $tour->max_participants = $validatedData['max_participants'];
         $tour->type_of_tour = json_encode($validatedData['type_of_tour']);
         $tour->description = $validatedData['description'];
