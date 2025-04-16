@@ -96,7 +96,7 @@
         @endif
         
         <div class="d-grid gap-2 mt-3">
-            <a href="{{route('home')}}" class="btn btn-outline-secondary">Back to home</a>
+            <a href="{{route('home')}}" class="btn btn-outline-secondary">Back to Home</a>
         </div>
     </div>
 </div>

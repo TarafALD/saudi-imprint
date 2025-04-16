@@ -73,7 +73,7 @@
               <li><a href="{{ url('/Admin/dashboard') }}">Admin Dashboard</a></li>
             @elseif(Auth::user()->role == 'TG')
               <li><a href="{{ url('/TourGuide/dashboard') }}">Tour Guide Dashboard</a></li>
-            @else
+            @else                  
               <!-- regular tourist user -->
               <li><a href="{{ url('/dashboard') }}">My Dashboard</a></li>
             @endif
@@ -88,7 +88,7 @@
             <li><a href="{{ route('loginTG') }}">Log In</a></li>
             <li><a href="{{ route('register') }}">Sign Up</a></li>
           @endauth
-    
+                                                                   
 
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>

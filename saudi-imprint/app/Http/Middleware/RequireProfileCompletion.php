@@ -7,8 +7,10 @@ use Illuminate\Support\Facades\Auth;
 
 class RequireProfileCompletion
 {
+    
     public function handle(Request $request, Closure $next)
     {
+        
 
           // Skip this middleware for the login, register and status pages
             if ($request->routeIs('loginTG') || $request->routeIs('register') || $request->routeIs('registerTG') || 

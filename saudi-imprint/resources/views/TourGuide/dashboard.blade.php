@@ -113,21 +113,21 @@
                     <div class="row mb-3">
                       <div class="col-lg-3 col-md-4 fw-bold text-muted">Languages</div>
                       <div class="col-lg-9 col-md-8">
-                        {{ $tourGuide?->languages ? implode(', ', $tourGuide->languages) : 'Languages not available' }}
+                        {{ is_array($tourGuide->languages) ? implode(', ', $tourGuide->languages) : 'Languages not available' }}
                       </div>
                     </div>
                     
                     <div class="row mb-3">
                       <div class="col-lg-3 col-md-4 fw-bold text-muted">Regions</div>
                       <div class="col-lg-9 col-md-8">
-                        {{ $tourGuide?->ROO ? implode(', ', $tourGuide->ROO) : 'Regions of operation info is not available' }}
+                        {{ is_array($tourGuide?->ROO) ? implode(', ', $tourGuide->ROO) : 'Regions of operation info is not available' }}
                       </div>
                     </div>
                     
                     <div class="row mb-3">
                       <div class="col-lg-3 col-md-4 fw-bold text-muted">Preferences</div>
                       <div class="col-lg-9 col-md-8">
-                        {{ $tourGuide?->prefrences ? implode(', ', $tourGuide->prefrences) : 'Preferences not available' }}
+                        {{ is_array($tourGuide?->prefrences) ? implode(', ', $tourGuide->prefrences) : 'Preferences not available' }}
                       </div>
                     </div>
                     

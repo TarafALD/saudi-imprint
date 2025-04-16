@@ -21,10 +21,7 @@ Route::middleware('guest')->group(function () {
  
     Route::get('signupTG', [RegisteredTG::class, 'showTGregisterform'])
         ->name('signupTG');
-        
-    Route::get('signupT', [RegisteredUserController::class, 'create'])->name('signupT');
-
-    Route::post('signupT', [RegisteredUserController::class, 'store']);  
+          
 
     Route::post('registerTG', [RegisteredTG::class, 'store']);    
 
