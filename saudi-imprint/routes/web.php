@@ -270,3 +270,6 @@ Route::get('/alulaHegra', function () {
     return view('Things To Do.alulaHegra');
 })->name('alulaHegra');
 
+Route::get('/review', function () {
+    return view('review');
+});
