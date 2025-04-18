@@ -78,7 +78,6 @@ public function dashboard()
         return redirect()->route('login');
     }
     
-    // Get the tourGuide instance
     $tourGuide = $user->tourGuide;
     
     if (!$tourGuide) {

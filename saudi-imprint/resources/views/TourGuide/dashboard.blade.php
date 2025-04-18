@@ -376,11 +376,29 @@
         <input type="text" class="form-control" name="location" value="{{ $editingTour->location }}" required>
       </div>
 
-      <div class="mb-3">
+      {{-- <div class="mb-3">
         <label for="Date" class="form-label">Date & Time</label>
         <input type="datetime-local" class="form-control" name="Date" value="{{ \Carbon\Carbon::parse($editingTour->date)->format('Y-m-d\TH:i') }}" required>
+      </div> --}}
+      <div class="mb-3">
+        <label class="form-label fw-medium">Available Date Range</label>
+        <div class="row">
+          <div class="col-md-6">
+            <label class="form-label small">Start Date</label>
+            <input type="date" class="form-control" name="start_date" value="{{ old('start_date', \Carbon\Carbon::parse($editingTour->start_date)->format('Y-m-d')) }}" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label small">End Date</label>
+            <input type="date" class="form-control" name="end_date" value="{{ old('end_date', \Carbon\Carbon::parse($editingTour->end_date)->format('Y-m-d')) }}" required>
+          </div>
+        </div>
       </div>
-
+      
+      <div class="mb-3">
+        <label class="form-label fw-medium">Start Time</label>
+        <input type="time" class="form-control" name="start_time" value="{{ old('start_time', \Carbon\Carbon::parse($editingTour->start_time)->format('H:i')) }}" required>
+      </div>
+      
       <div class="mb-3">
         <label for="max_participants" class="form-label">Max Participants</label>
         <input type="number" class="form-control" name="max_participants" value="{{ $editingTour->max_participants }}" required>
@@ -445,100 +463,6 @@
 </div>
 @endif
 
-
-{{-- <!--Check Private tours requests -->
-<div class="text-center mb-4">
-  <h2 id="private" class="fs-1">Private Tours Request</h2>
-</div>
-
-<!-- تغليف الجدول لتحجيمه وتنسيقه -->
-<div class="d-flex justify-content-center">
-  <div class="table-responsive rounded p-3" style="width: 90%; max-width: 1100px;">
-    <table class="table table-bordered table-hover text-center mb-0">
-      <thead class="table-dark">
-        <tr>
-          <th>Requester Name</th>
-          <th>Tour Location</th>
-          <th>Requested Date</th>
-          <th>Number of People</th>
-          <th>Payment Method</th>
-          <th>Communicate</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody id="privateTourTableBody">
-        <!-- Private tour requests will be added dynamically -->
-      </tbody>
-    </table>
-  </div>
-</div>
-<br><br><br><br><br><br>
-    <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="messageModalLabel">Send Message</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p id="recipientName" class="fw-bold"></p>
-        <textarea class="form-control" placeholder="Write your message..." rows="4"></textarea>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Send</button>
-      </div>
-    </div>
-  </div>
-</div>
-</main>
-
-<!--بيانات تجريبيه غير اساسيه -->
-    <script>
-  const privateTours = [
-    {
-      requester: "Sara Ali",
-      location: "Riyadh",
-      date: "2025-04-10",
-      people: 4,
-      payment: "Credit Card"
-    },
-    {
-      requester: "Ahmed Alzahrani",
-      location: "Jeddah",
-      date: "2025-05-15",
-      people: 2,
-      payment: "Apple Pay"
-    },
-    {
-      requester: "Lama Mohammed",
-      location: "AlUla",
-      date: "2025-04-25",
-      people: 6,
-      payment: "Cash"
-    }
-  ];
-
-  const tableBody = document.getElementById("privateTourTableBody");
-
-  privateTours.forEach(tour => {
-    const row = document.createElement("tr");
-    row.innerHTML = `
-      <td>${tour.requester}</td>
-      <td>${tour.location}</td>
-      <td>${tour.date}</td>
-      <td>${tour.people}</td>
-      <td>${tour.payment}</td>
-      <td>
-      <button class="btn btn-sm btn-primary" onclick="openMessageModal('${tour.requester}')">Message</button>
-    </td>
-      <td class="d-flex gap-2">
-        <button class="btn btn-sm btn-success">Accept</button>
-        <button class="btn btn-sm btn-danger">Reject</button>
-      </td>
-    `;
-    tableBody.appendChild(row);
-  });
-</script> --}}
   <footer id="footer" class="footer white-background">
     <div class="container">
       <div class="copyright text-center ">

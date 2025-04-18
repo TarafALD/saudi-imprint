@@ -108,7 +108,7 @@
 
                         <div class="mb-3">
                             <label class="form-label fw-medium">What's Included</label>
-                            <input type="text" class="form-control @error('included') is-invalid @enderror" id="included" name="included" value="{{ old('included') }}" placeholder="E.g. Transportation, Meals, Guide" required>
+                            <input type="text" class="form-control @error('included') is-invalid @enderror" id="included" name="included" value="{{ old('included') }}" placeholder="E.g. Transportation, Meals ..etc" required>
                             @error('included')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
