@@ -29,19 +29,20 @@ class AuthenticatedSessionController extends Controller
     {
 
         $request->authenticate();
-
+        //regenerate the session to protect against session fixation attacks
         $request->session()->regenerate();
     
     //user routes
-        $url="";
-        if($request -> user() -> role == 'admin'){
-            $url = route('Admin.dashboard', absolute: false);
-        }elseif ($request -> user() -> role == 'TG'){
-            $url = route('TourGuide.dashboard', absolute: false);
-        }elseif ($request -> user() -> role == 'tourist') {
-            $url = route('home', absolute: false);
-        }
-        return redirect()->intended($url);
+        // $url="";
+        // if($request -> user() -> role == 'admin'){
+        //     $url = route('Admin.dashboard', absolute: false);
+        // }elseif ($request -> user() -> role == 'TG'){
+        //     $url = route('TourGuide.dashboard', absolute: false);
+        // }elseif ($request -> user() -> role == 'tourist') {
+        //     $url = route('home', absolute: false);
+        // }
+        // return redirect()->intended($url);
+        return redirect()->route('otp.send');
     
 
 

@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('tours', function (Blueprint $table) {
-            $table->string('location')->nullable();
-            $table->string('included')->nullable();
-            $table->dateTime('date')->nullable();
+            $table->string('location');
+            $table->string('included');
+            $table->dateTime('date');
             $table->foreignId('user_id')->constrained(); //constrained forces referential integriy
 
         });

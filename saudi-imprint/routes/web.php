@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisteredTG;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\TwoFactorController;
 
 require __DIR__.'/auth.php';
 
@@ -16,10 +17,14 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/logtest', function () {
+    \Log::info('Log is working!');
+    return 'Check your log file';
+});
 
 Route::get('/loginTG', function () {
     return view('auth.loginTG');
@@ -27,6 +32,11 @@ Route::get('/loginTG', function () {
 
 Route::redirect('/login', '/loginTG')->name('login');
 
+
+Route::get('/otp/send', [App\Http\Controllers\TwoFactorController::class, 'sendOTP'])->name('otp.send');
+Route::get('/otp/resend', [App\Http\Controllers\TwoFactorController::class, 'sendOTP'])->name('otp.resend');
+Route::get('/otp/verify', [App\Http\Controllers\TwoFactorController::class, 'showVerifyForm'])->name('otp.verify');
+Route::post('/otp/verify', [App\Http\Controllers\TwoFactorController::class, 'verifyOTP'])->name('otp.verify.post');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/TourGuide/pending_approval', [TourGuideController::class, 'pendingApproval'])->name('TourGuide.pending_approval');
