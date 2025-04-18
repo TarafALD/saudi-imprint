@@ -95,6 +95,7 @@ class TourController extends Controller
         $tour->price = $validatedData['price'];
         $tour->duration = $validatedData['duration'];
         $tour->user_id = $validatedData['user_id'];
+        $tour->active = true;
 
         $validatedData['active'] = true;
         // Add the user_id (tour guide)

@@ -98,7 +98,7 @@
       @endforeach
   </div>
 </div>
-{{-- 
+ {{-- - 
        <!--Guided Tours section-->
      <div id="tours" class="container py-5" data-aos="fade-up" data-aos-delay="100">
       <div class="container section-title" data-aos="fade-up">

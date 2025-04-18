@@ -291,7 +291,7 @@
 
 <!-- Ttable to display added tours -->
 <div class="text-center mb-4">
-  <h2 class="fs-1">Added Tours</h2>
+  <h2 class="fs-1" id="edit">Added Tours</h2>
 </div>
 <div class="d-flex justify-content-center">
   <div class="table-responsive rounded p-3" style="width: 90%; max-width: 1100px;">
