@@ -17,14 +17,11 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/logtest', function () {
-    \Log::info('Log is working!');
-    return 'Check your log file';
-});
+
 
 Route::get('/loginTG', function () {
     return view('auth.loginTG');
@@ -38,16 +35,18 @@ Route::get('/otp/resend', [App\Http\Controllers\TwoFactorController::class, 'sen
 Route::get('/otp/verify', [App\Http\Controllers\TwoFactorController::class, 'showVerifyForm'])->name('otp.verify');
 Route::post('/otp/verify', [App\Http\Controllers\TwoFactorController::class, 'verifyOTP'])->name('otp.verify.post');
 
-Route::middleware(['auth'])->group(function () {
+// Route::middleware(['auth'])->group(function () {
     Route::get('/TourGuide/pending_approval', [TourGuideController::class, 'pendingApproval'])->name('TourGuide.pending_approval');
     Route::get('/TourGuide/rejected', [TourGuideController::class, 'rejected'])->name('TourGuide.rejected');
     Route::get('/TourGuide/complete_profile', [TourGuideController::class, 'showCompleteProfileForm'])->name('TourGuide.complete_profile');
     Route::post('/TourGuide/complete_profile', [TourGuideController::class, 'saveCompleteProfile'])->name('TourGuide.save_profile');
-});
+
 
 
 Route::middleware(['auth', 'profile.completed'])->group(function () {
     Route::get('/TourGuide/dashboard', [TourGuideController::class, 'dashboard'])->name('TourGuide.dashboard');
+
+
     Route::get('/add_tour', function () { return view('TourGuide.add_tour');})->name('add_tour');});
     
     Route::post('/TourGuide/update-profile', [TourGuideController::class, 'updateProfile'])->name('TourGuide.updateProfile');    

@@ -23,9 +23,6 @@ class TwoFactorController extends Controller
         $user->otp_expires_at = now()->addMinutes(5);
         $user->save();
 
-        \Log::info('Attempting to send OTP to ' . $user->email);
-        Mail::to($user->email)->send(new SendOTP($user, $otp));
-        \Log::info('OTP email sent to ' . $user->email);
 
         
         //send OTP to user's email

@@ -131,11 +131,11 @@
           </div>
           <div class="modal-body">
         
-            <p><strong>Languages Spoken:</strong> {{ $tour->tourGuide->languages ? implode(', ', $tour->tourGuide->languages) : 'Unknown' }}</p>
+            {{ is_array($tour->tourGuide->languages) ? implode(', ', $tour->tourGuide->languages) : $tour->tourGuide->languages ?? 'Unknown' }}
             <p><strong>Years of Experience:</strong> {{ $tour->tourGuide->years_experience ?? 'Unknown ' }}</p>
             <p><strong>Bio:</strong> {{ $tour->tourGuide->bio ?? 'Unknown '}}</p>
             <p><strong>Skills:</strong> {{ $tour->tourGuide->skills ?? 'Unknown '}}</p>
-            <p><strong>Languages Spoken:</strong> {{ $tour->tourGuide->languages ? implode(', ', $tour->tourGuide->prefrences) : 'Unknown' }}</p>
+            {{ is_array($tour->tourGuide->languages) ? implode(', ', $tour->tourGuide->languages) : $tour->tourGuide->languages ?? 'Unknown' }}
             <p><strong>For any questions or assistance, please email me at:</strong> {{ $tour->guide->email ?? 'Unknown ' }}</p>
           </div>
           <div class="modal-footer">
