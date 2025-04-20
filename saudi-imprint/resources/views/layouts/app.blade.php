@@ -8,17 +8,21 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
+         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
         
         <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/adminlte.min.css') }}">
 
         <!-- Scripts -->
+        
+            <link rel="stylesheet" href="{{ asset('assets/css/dashboard.css') }}">
+       
+        
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            @include('layouts.navigation')
+            {{-- @include('layouts.navigation') --}}
 
             <!-- Page Heading -->
             @isset($header)
@@ -33,8 +37,9 @@
             <main>
                 {{-- {{ $slot }} --}}
 
-                @yield('content')
+                 @yield('content')
             </main>
         </div>
     </body>
-</html>
+</html> 
+

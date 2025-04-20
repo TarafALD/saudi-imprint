@@ -19,8 +19,16 @@ class BookingController extends Controller
      */
     public function index()
     {
-        //my-bookings
+        $user = Auth::user();
+        $bookings = Booking::where('user_id', $user->id)->get();
+        
+        // Counting active and past bookings (you can adjust this query as per your requirements)
+        $activeBookingsCount = $bookings->where('payment_status', 'pending')->count();
+        $pastBookingsCount = $bookings->where('payment_status', 'paid')->count();
+        
+        return view('dashboard', compact('bookings', 'activeBookingsCount', 'pastBookingsCount'));
     }
+
 
     /**
      * Show the form for creating a new resource.
