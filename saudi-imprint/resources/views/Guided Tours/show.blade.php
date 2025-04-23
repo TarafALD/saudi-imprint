@@ -130,17 +130,82 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-        
-            {{ is_array($tour->tourGuide->languages) ? implode(', ', $tour->tourGuide->languages) : $tour->tourGuide->languages ?? 'Unknown' }}
+            {{-- 
+            Check if the languages value is a JSON string (not yet cast to array).
+            If so, decode it into a PHP array using json_decode().
+            If it's already an array, use it as-is.
+            Then, if it's an array, display the values as a comma-separated string.
+            Otherwise, show 'Unknown'
+            --}}
+            @php
+            $langs = is_string($tour->tourGuide->languages) ? json_decode($tour->tourGuide->languages, true) : $tour->tourGuide->languages;
+            @endphp
+           <p><strong>Languages: </strong>{{ is_array($langs) ? implode(', ', $langs) : 'Unknown' }}</p>
+
             <p><strong>Years of Experience:</strong> {{ $tour->tourGuide->years_experience ?? 'Unknown ' }}</p>
             <p><strong>Bio:</strong> {{ $tour->tourGuide->bio ?? 'Unknown '}}</p>
             <p><strong>Skills:</strong> {{ $tour->tourGuide->skills ?? 'Unknown '}}</p>
-            {{ is_array($tour->tourGuide->languages) ? implode(', ', $tour->tourGuide->languages) : $tour->tourGuide->languages ?? 'Unknown' }}
             <p><strong>For any questions or assistance, please email me at:</strong> {{ $tour->guide->email ?? 'Unknown ' }}</p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           </div>
+        </div>
+      </div>
+    </div>
+    <div class="container my-5" data-aos="fade-up">
+      <div class="row">
+        <div class="col-md-12">
+          <h2 class="mb-4">Tour Reviews</h2>
+          
+          <div class="d-flex align-items-center mb-4">
+            <h4 class="me-3 mb-0">Average Rating:</h4>
+            <div class="ratings">
+              @if(isset($averageRating) && $averageRating > 0)
+                @for($i = 1; $i <= 5; $i++)
+                  @if($i <= round($averageRating))
+                    <i class="bi bi-star-fill text-warning"></i>
+                  @else
+                    <i class="bi bi-star text-warning"></i>
+                  @endif
+                @endfor
+                <span class="ms-2">({{ number_format($averageRating, 1) }})</span>
+              @else
+                <span>No ratings yet</span>
+              @endif
+            </div>
+          </div>
+          
+          @if(isset($reviews) && $reviews->count() > 0)
+            <div class="reviews-container">
+              @foreach($reviews as $review)
+                <div class="review-card mb-4 p-4 border rounded">
+                  <div class="d-flex justify-content-between mb-2">
+                    <div>
+                      <h5 class="mb-0">{{ $review->user->name }}</h5>
+                      <small class="text-muted">{{ $review->created_at->format('M d, Y') }}</small>
+                    </div>
+                    <div class="ratings">
+                      @for($i = 1; $i <= 5; $i++)
+                        @if($i <= $review->rating)
+                          <i class="bi bi-star-fill text-warning"></i>
+                        @else
+                          <i class="bi bi-star text-warning"></i>
+                        @endif
+                      @endfor
+                    </div>
+                  </div>
+                  @if($review->comment)
+                    <p class="mb-0">{{ $review->comment }}</p>
+                  @endif
+                </div>
+              @endforeach
+            </div>
+          @else
+            <div class="alert alert-info">
+              No reviews yet for this tour!
+            </div>
+          @endif
         </div>
       </div>
     </div>

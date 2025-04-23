@@ -31,6 +31,11 @@ class Tour extends Model
     protected $casts = [
         'type_of_tour' => 'array',
     ];
-
     
+
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
 }

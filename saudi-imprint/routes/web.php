@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisteredTG;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\TwoFactorController;
 
 require __DIR__.'/auth.php';
@@ -119,8 +120,13 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/bookings/{booking}/process-payment', [BookingController::class, 'processPayment'])->name('bookings.processPayment');
     Route::get('/bookings/{booking}/process-payment', [BookingController::class, 'processPayment'])->name('bookings.processPayment');
 
-
+ 
 });
+
+   // Review routes
+   Route::get('/tours/{tour}/review', [ReviewController::class, 'create'])->name('reviews.create');
+   Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+
 
  /*Route::get('/aljouf', function () {
      return view('destinations.aljouf');

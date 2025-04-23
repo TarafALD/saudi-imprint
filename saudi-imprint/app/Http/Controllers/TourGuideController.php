@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use App\Models\TourGuide;
 use App\Models\Tour;
+use App\Models\Review;
+
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -75,16 +77,16 @@ public function dashboard()
     $user = Auth::user();
     
     if (!$user) {
-        return redirect()->route('login');
+        return redirect()->route('loginTG');
     }
     
     $tourGuide = $user->tourGuide;
     
     if (!$tourGuide) {
-        return redirect()->route('become-guide')->with('error', 'You need to register as a tour guide first.');
+        return redirect()->route('signupTG')->with('error', 'You need to register as a tour guide first.');
     }
     
-    // Check tour guide status and redirect if necessary
+    //check tour guide status and redirect if necessary
     if ($tourGuide->status === 'pending_verification') {
         return redirect()->route('TourGuide.pending_approval');
     } elseif ($tourGuide->status === 'rejected') {
@@ -93,16 +95,29 @@ public function dashboard()
         return redirect()->route('TourGuide.complete_profile');
     }
     
-    // Get tours based on the user_id directly (not through tourGuide relation)
+    //get tours based on the user_id directly (not through tourGuide relation)
     $tours = Tour::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
+    
+    //get all reviews for this tour guide
+    $reviews = Review::where('tour_guide_id', $tourGuide->id)
+                    ->with('user', 'tour')
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+    
+    //calculate average rating
+    $averageRating = $reviews->avg('rating');
     
     // Pass all needed variables to the view
     return view('TourGuide.dashboard', [
         'user' => $user,
         'tourGuide' => $tourGuide,
-        'tours' => $tours
+        'tours' => $tours,
+        'reviews' => $reviews,
+        'averageRating' => $averageRating
     ]);
 }
+
+
 public function updateProfile(Request $request) {
     $user = Auth::user();
     $tourGuide = $user->tourGuide;
@@ -145,7 +160,7 @@ public function updateProfile(Request $request) {
     $tourGuide->prefrences = json_encode($validated['prefrences']);
     $tourGuide->save();
     
-    // dd($tourGuide->fresh());
+    
 
     return redirect()->route('TourGuide.dashboard')
         ->with('success', 'Profile updated successfully!');

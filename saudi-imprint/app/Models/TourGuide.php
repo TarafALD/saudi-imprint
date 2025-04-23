@@ -30,12 +30,15 @@ class TourGuide extends Model
     {
         return $this->hasMany(Tour::class, 'user_id', 'user_id');
     }
+   
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
     protected $casts = [
         'languages' => 'array',
         'prefrences'=> 'array',
         'ROO'=> 'array'
-
-
     ];
-    
 }

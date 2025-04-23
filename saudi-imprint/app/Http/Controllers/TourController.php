@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 use App\Models\Tour;
+use App\Models\Booking;
+use App\Models\User;
+
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
@@ -51,6 +55,7 @@ class TourController extends Controller
     {
         //  $tour = Tour::create($validatedData);
         //return redirect()->route('Guided Tours.show', $tour)
+
 
     }
 
@@ -120,7 +125,12 @@ class TourController extends Controller
     {
         // $tours=Tour::where('active', true)->where('id', '!=', $tour->id)->get();
         // return view('tours.show', compact('tour'));
-        return view('Guided Tours.show', compact('tour'));
+
+        //get reviews for this tour
+        $reviews = $tour->reviews()->with('user')->latest()->get();
+        $averageRating = $tour->reviews()->avg('rating');
+
+        return view('Guided Tours.show', compact('tour', 'reviews', 'averageRating'));
     }
     // Check authentication for booking
     public function book(Tour $tour)
@@ -143,9 +153,9 @@ class TourController extends Controller
             return redirect()->route('TourGuide.dashboard')->with('error', 'You are not authorized to edit this tour.');
         }
         
-        // Only decode if it's a JSON string
+        //decode type of tou if it's a JSON string
         if (is_string($tour->type_of_tour)) {
-            $tour->type_of_tour = json_decode($tour->type_of_tour);
+            $tour->type_of_tour = json_decode($tour->type_of_tour, true);
         }
 
         $user = Auth::user();
@@ -162,6 +172,10 @@ class TourController extends Controller
      */
     public function update(Request $request, Tour $tour)
 {
+    \Log::info('Tour update attempt', [
+        'tour_id' => $tour->id,
+        'request_data' => $request->all()
+    ]);
     $validatedData = $request->validate([
         'name' => 'required|string|max:255',
         'location' => 'required|string|max:255',
@@ -169,7 +183,7 @@ class TourController extends Controller
         'type_of_tour' => 'required|array|min:1',
         'type_of_tour.*' => 'string',
         'included' => 'required|string|max:255',
-        'start_date' => 'required|date|after_or_equal:today',
+        'start_date' => 'required|date',
         'end_date' => 'required|date|after_or_equal:start_date',
         'start_time' => 'required|date_format:H:i',
         'description' => 'required|string',
@@ -189,6 +203,8 @@ class TourController extends Controller
         $tour->price = $validatedData['price'];
         $tour->duration = $validatedData['duration'];
         $tour->included = $validatedData['included'];
+
+
 
         
         if ($request->hasFile('tour_image')) {
@@ -225,4 +241,27 @@ class TourController extends Controller
         
         return redirect()->route('TourGuide.dashboard')->with('success', 'Tour deleted successfully!');
 }
+
+    // Logic to mark tour as completed
+    public function completeTour($tourId)
+    {
+        $userId = Auth::id();
+    
+        //find the booking and mark it as completed if it's paid and the date has passed
+        $booking = Booking::where('user_id', Auth::id())
+        ->where('tour_id', $tourId)
+        ->where('payment_status', 'paid')
+        ->whereDate('booking_date', '<=', now())
+        ->first();
+
+       
+    
+        $booking->status = 'completed';
+        $booking->save();
+    
+        // Redirect to leave a review
+        return redirect()->route('reviews.create', ['tour' => $tourId])
+            ->with('success', 'Tour marked as completed. Please leave a review.');
+    }
+    
 }

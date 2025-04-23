@@ -102,34 +102,58 @@
                         {{ $tourGuide?->bio ?? 'Bio not available' }}
                       </div>
                     </div>
-                    
+                   
+
                     <div class="row mb-3">
                       <div class="col-lg-3 col-md-4 fw-bold text-muted">Skills</div>
                       <div class="col-lg-9 col-md-8">
                         {{ $tourGuide?->skills ?? 'Skills information not available' }}
                       </div>
                     </div>
-                    
-                    <div class="row mb-3">
-                      <div class="col-lg-3 col-md-4 fw-bold text-muted">Languages</div>
-                      <div class="col-lg-9 col-md-8">
-                        {{ is_array($tourGuide->languages) ? implode(', ', $tourGuide->languages) : 'Languages not available' }}
-                      </div>
-                    </div>
-                    
-                    <div class="row mb-3">
-                      <div class="col-lg-3 col-md-4 fw-bold text-muted">Regions</div>
-                      <div class="col-lg-9 col-md-8">
-                        {{ is_array($tourGuide?->ROO) ? implode(', ', $tourGuide->ROO) : 'Regions of operation info is not available' }}
-                      </div>
-                    </div>
-                    
-                    <div class="row mb-3">
-                      <div class="col-lg-3 col-md-4 fw-bold text-muted">Preferences</div>
-                      <div class="col-lg-9 col-md-8">
-                        {{ is_array($tourGuide?->prefrences) ? implode(', ', $tourGuide->prefrences) : 'Preferences not available' }}
-                      </div>
-                    </div>
+
+                    {{-- Each field may be stored as a JSON string or an array in the database.
+                    decode the data if it's stored as a string and handle any missing or empty values 
+                    by displaying a fallback message --}}
+
+                    @php
+                    $languages = is_string($tourGuide->languages) ? json_decode($tourGuide->languages, true) : $tourGuide->languages;
+                    $regions = is_string($tourGuide->ROO) ? json_decode($tourGuide->ROO, true) : $tourGuide->ROO;
+                    $preferences = is_string($tourGuide->prefrences) ? json_decode($tourGuide->prefrences, true) : $tourGuide->prefrences;
+                    @endphp
+                
+                <div class="row mb-3">
+                  <div class="col-lg-3 col-md-4 fw-bold text-muted">Languages</div>
+                  <div class="col-lg-9 col-md-8">
+                    @if(!empty($languages))
+                      {{ is_array($languages) ? implode(', ', $languages) : $languages }}
+                    @else
+                      Languages not available
+                    @endif
+                  </div>
+                </div>
+                
+                <div class="row mb-3">
+                  <div class="col-lg-3 col-md-4 fw-bold text-muted">Regions</div>
+                  <div class="col-lg-9 col-md-8">
+                    @if(!empty($regions))
+                      {{ is_array($regions) ? implode(', ', $regions) : $regions }}
+                    @else
+                      Regions of operation info is not available
+                    @endif
+                  </div>
+                </div>
+                
+                <div class="row mb-3">
+                  <div class="col-lg-3 col-md-4 fw-bold text-muted">Preferences</div>
+                  <div class="col-lg-9 col-md-8">
+                    @if(!empty($preferences))
+                      {{ is_array($preferences) ? implode(', ', $preferences) : $preferences }}
+                    @else
+                      Preferences not available
+                    @endif
+                  </div>
+                </div>
+                
                     
                     <div class="text-center mt-4">
                       <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editProfileModal">Edit Profile</button>
@@ -357,6 +381,62 @@
 </div>
 <br><br><br><br>
 
+<!-- Reviews Section -->
+@if(isset($averageRating) && isset($reviews))
+<div class="card mt-4">
+  <div class="card-header">
+      <h5>Your Reviews</h5>
+      <div class="d-flex align-items-center">
+          <strong>Average Rating: </strong>
+          <div class="ms-2">
+              @if($averageRating)
+                  @for($i = 1; $i <= 5; $i++)
+                      @if($i <= round($averageRating))
+                          <i class="bi bi-star-fill text-warning"></i>
+                      @else
+                          <i class="bi bi-star text-warning"></i>
+                      @endif
+                  @endfor
+                  <span class="ms-2">({{ number_format($averageRating, 1) }})</span>
+              @else
+                  <span class="text-muted">No ratings yet</span>
+              @endif
+          </div>
+      </div>
+  </div>
+  <div class="card-body">
+      @if($reviews->count() > 0)
+          @foreach($reviews as $review)
+              <div class="border-bottom mb-3 pb-3">
+                  <div class="d-flex justify-content-between">
+                      <div>
+                          <strong>{{ $review->user->name }}</strong> 
+                          <small class="text-muted">{{ $review->created_at->format('M d, Y') }}</small>
+                      </div>
+                      <div>
+                          @for($i = 1; $i <= 5; $i++)
+                              @if($i <= $review->rating)
+                                  <i class="bi bi-star-fill text-warning"></i>
+                              @else
+                                  <i class="bi bi-star text-warning"></i>
+                              @endif
+                          @endfor
+                      </div>
+                  </div>
+                  <div class="mt-2">
+                      <small class="text-muted">Tour: {{ $review->tour->name }}</small>
+                  </div>
+                  @if($review->comment)
+                      <p class="mt-2 mb-0">{{ $review->comment }}</p>
+                  @endif
+              </div>
+          @endforeach
+      @else
+          <p class="text-muted">No reviews yet.</p>
+      @endif
+  </div>
+</div>
+@endif
 <!-- edit form-->
 @if(request()->routeIs('tours.edit') && isset($editingTour))
 <div class="d-flex justify-content-center mt-4">
@@ -365,6 +445,7 @@
     <form action="{{ route('tours.update', $editingTour->id) }}" method="POST" enctype="multipart/form-data">
       @csrf
       @method('PUT')
+ 
 
       <div class="mb-3">
         <label for="name" class="form-label">Tour Name</label>
@@ -376,10 +457,7 @@
         <input type="text" class="form-control" name="location" value="{{ $editingTour->location }}" required>
       </div>
 
-      {{-- <div class="mb-3">
-        <label for="Date" class="form-label">Date & Time</label>
-        <input type="datetime-local" class="form-control" name="Date" value="{{ \Carbon\Carbon::parse($editingTour->date)->format('Y-m-d\TH:i') }}" required>
-      </div> --}}
+     
       <div class="mb-3">
         <label class="form-label fw-medium">Available Date Range</label>
         <div class="row">

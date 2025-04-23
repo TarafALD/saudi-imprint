@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Http;
 use Moyasar\Moyasar;
 use Moyasar\Providers\PaymentService;
 use GuzzleHttp\Client;
+use Carbon\Carbon;
 
 class BookingController extends Controller
 {
@@ -22,9 +23,9 @@ class BookingController extends Controller
         $user = Auth::user();
         $bookings = Booking::where('user_id', $user->id)->get();
         
-        // Counting active and past bookings (you can adjust this query as per your requirements)
-        $activeBookingsCount = $bookings->where('payment_status', 'pending')->count();
-        $pastBookingsCount = $bookings->where('payment_status', 'paid')->count();
+        // Counting active and past bookings
+        $activeBookingsCount = $bookings->where('payment_status', 'paid')->count();
+        $pastBookingsCount = $bookings->where('status', 'completed')->count();
         
         return view('dashboard', compact('bookings', 'activeBookingsCount', 'pastBookingsCount'));
     }
@@ -42,7 +43,9 @@ class BookingController extends Controller
             session(['url.intended' => route('tours.book', $tour)]);
             return redirect()->route('loginTG')->with('message', 'Please login to book a tour');
         }
-        
+
+        // $availableTours = Tour::where('active', true)->get();
+
         return view('bookings.create', compact('tour'));
     }
 
@@ -55,28 +58,76 @@ class BookingController extends Controller
     {
         $validated = $request->validate([
             'tour_id' => 'required|exists:tours,id',
-            'booking_date' => 'required|date|after:today',
+            'booking_date' => 'required|date',
             'number_of_people' => 'required|integer|min:1',
         ]);
 
+        $tour = Tour::findOrFail($request->tour_id); 
 
-        $tour = Tour::findOrFail($request->tour_id);
-        $totalPrice = $tour->price_per_person * $request->number_of_people;
+
+        // $tour = Tour::where('id', $request->tour_id)
+        // ->where('active', true);          // don’t allow bookings on inactive tours
+        // // ->firstOrFail();                 // 404 if not found or inactive
+
+    
+        $bookingDate = $request->booking_date;
+        $bookingDateTime = Carbon::parse($bookingDate . ' ' . $tour->start_time);
+        $currentDateTime = Carbon::now();
+
+
+  
+        // Check if booking time has already passed
+        if ($currentDateTime->gt($bookingDateTime)) {
+            return back()
+                ->withInput()
+                ->withErrors(['booking_date' => 'Booking cannot be made after the tour has started.']);
+        }
         
-        $booking = new Booking(); 
-
-        $booking->tour_id = $request->tour_id; //assigning the tour id from the request input to the booking
+        // Check if the tour is already full for this date
+        $existingBookingsCount = Booking::where('tour_id', $tour->id)
+            ->where('booking_date', $bookingDate)
+            ->sum('number_of_people');
+            
+        $remainingSpots = $tour->max_participants - $existingBookingsCount;
+        
+        if ($remainingSpots < $request->number_of_people  ) {
+            return back()
+                ->withInput()
+                ->withErrors(['number_of_people' => "There's {$remainingSpots} spots remaining for this date."]);
+        }
+        
+         $totalPrice = $tour->price_per_person * $request->number_of_people;
+        
+        $booking = new Booking();
+        $booking->tour_id = $request->tour_id;
         $booking->user_id = Auth::id();
-        $booking->booking_date = $request->booking_date;
+        $booking->booking_date = $bookingDate;
         $booking->number_of_people = $request->number_of_people;
         $booking->total_price = $request->total_price;
         $booking->payment_status = 'pending';
-
         $booking->save();
+
+        // // Update the tour's active status after booking
+        // $this->updateTourStatus($tour);
         
-       // Redirect to payment page
-       return redirect()->route('bookings.show', $booking);
+        // Redirect to payment page
+        return redirect()->route('bookings.show', $booking);
     }
+
+    // Updates the tour's "active" status based on the total number of booked seats, deactivating the tour if it's fully booked
+        protected function updateTourStatus(Tour $tour)
+    {
+        //seats left across the entire date range
+        $remaining = Booking::where('tour_id', $tour->id)
+                    ->selectRaw('SUM(number_of_people) as booked')
+                    ->value('booked');
+
+        //if fully booked deactivate otherwise make sure it’s active
+        $tour->active = $remaining < $tour->max_participants;
+        $tour->save();
+    }
+
+
 
 
 

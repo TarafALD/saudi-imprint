@@ -60,9 +60,9 @@
           <li class="dropdown"><a href="#"><span>Destinations</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
             <li><a href="{{ route('riyadh') }}">Riyadh</a></li>
-    <li><a href="{{ route('aljouf') }}">AlJouf</a></li>
-    <li><a href="{{ route('alula') }}">AlUla</a></li>
-    <li><a href="{{ route('jeddah') }}">Jeddah</a></li>
+            <li><a href="{{ route('aljouf') }}">AlJouf</a></li>
+            <li><a href="{{ route('alula') }}">AlUla</a></li>
+            <li><a href="{{ route('jeddah') }}">Jeddah</a></li>
             </ul>
           </li>
           <li><a href="#contact">Contact us</a></li>

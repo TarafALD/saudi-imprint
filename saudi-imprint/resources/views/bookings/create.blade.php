@@ -134,7 +134,7 @@
             
             <div class="availability-info">
                 <p class="mb-2"><i class="bi bi-calendar-event me-2"></i><strong>Available from:</strong> {{ date('F j, Y', strtotime($tour->start_date)) }} to {{ date('F j, Y', strtotime($tour->end_date)) }}</p>
-                <p class="mb-0"><i class="bi bi-alarm me-2"></i><strong>Tour starts at:</strong> {{ date('g:i A', strtotime($tour->start_time)) }} daily</p>
+                <p class="mb-0"><i class="bi bi-alarm me-2"></i><strong>Tour starts at:</strong> {{ date('g:i A', strtotime($tour->start_time)) }} </p>
             </div>
             
             <div class="d-flex justify-content-between align-items-center">
@@ -152,14 +152,15 @@
                     <label for="booking_date" class="form-label">Select Date</label>
                     <div class="input-group">
                         <span class="input-group-text"><i class="bi bi-calendar"></i></span>
-                        <input type="date" id="booking_date" name="booking_date" class="form-control" required 
-                               min="{{ $tour->start_date }}" 
+                        <input type="date" id="booking_date" name="booking_date" class="form-control" required
+                               min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" 
                                max="{{ $tour->end_date }}"
                                value="{{ old('booking_date', date('Y-m-d', strtotime($tour->start_date))) }}">
                     </div>
                     <div class="text-danger">{{ $errors->first('booking_date') }}</div>
                     <small class="text-muted">Please select a date within the available range</small>
                 </div>
+                
                 <div class="col-md-6">
                     <label for="number_of_people" class="form-label">Number of People</label>
                     <div class="input-group">
@@ -211,22 +212,27 @@
         const displaySelectedDate = document.getElementById('display_selected_date');
         const totalPriceInput = document.getElementById('total_price_input');
         
+
+        // Calculate and update total price
+        function updateTotalPrice() {
+        let people = parseInt(numberOfPeopleInput.value) || 0;
+        
+        // Validate against maximum participants
+        if (people > maxParticipants) {
+            people = maxParticipants;
+            numberOfPeopleInput.value = maxParticipants;
+        }
+        
+        const totalPrice = pricePerPerson * people;
+        totalPriceDisplay.textContent = totalPrice + ' SAR';
+        totalPriceInput.value = totalPrice;
+        }
+
+        // Initialize the total price when page loads
+        updateTotalPrice();
+
         // Update total price when number of people changes
-        numberOfPeopleInput.addEventListener('input', function() {
-            let people = parseInt(this.value) || 0;
-            
-            // Validate against maximum participants
-            if (people > maxParticipants) {
-                people = maxParticipants;
-                this.value = maxParticipants;
-            }
-
-            const totalPrice = pricePerPerson * people;
-            
-       
-            totalPriceDisplay.textContent = totalPrice + ' SAR';
-            totalPriceInput.value = totalPrice;
-
+        numberOfPeopleInput.addEventListener('input', updateTotalPrice);
 
         });
         
@@ -235,7 +241,7 @@
             const selectedDate = new Date(this.value);
             const options = { year: 'numeric', month: 'long', day: 'numeric' };
             displaySelectedDate.textContent = selectedDate.toLocaleDateString('en-US', options);
-        });
+    
     });
 </script>
 

@@ -116,11 +116,5 @@
     </section>
   </div>
 
-  <script>
-    // Go back function for the back arrow
-    function goBack() {
-      window.history.back();
-    }
-  </script>
 </body>
 </html>
