@@ -50,7 +50,7 @@
           <li><a href="{{ route('home') }}" class="active">Home</a></li>
           <li><a href="{{ route('add_tour') }}">Add Tours</a></li>
           <li><a href="#edit">Edit Tour</a></li>
-          <!-- <li><a href="#private">Check Private Tours request</a></li> -->
+          <li><a href="{{ route('messages.index') }}">Messages <span id="unreadBadge" class="badge bg-danger" style="display: none;"></span></a></li>
           <li><a href="#" data-bs-toggle="modal" data-bs-target="#editProfileModal">Edit Profile</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
@@ -566,6 +566,28 @@
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
   <script src="{{ asset('assets/js/app.js') }}"></script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Check for unread messages every 30 seconds
+        checkUnreadMessages();
+        setInterval(checkUnreadMessages, 30000);
+        
+        function checkUnreadMessages() {
+            fetch('{{ route("messages.unread-count") }}')
+                .then(response => response.json())
+                .then(data => {
+                    const badge = document.getElementById('unreadBadge');
+                    if (data.unread_count > 0) {
+                        badge.innerText = data.unread_count;
+                        badge.style.display = 'inline';
+                    } else {
+                        badge.style.display = 'none';
+                    }
+                });
+        }
+    });
+    </script>
   
 </body>
 </html>

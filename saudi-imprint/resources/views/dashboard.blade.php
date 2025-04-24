@@ -38,7 +38,7 @@
       </div>
       <div class="header-decoration"></div>
     </header>
-
+    
     <!-- Dashboard Cards -->
     <div class="dashboard-grid">
       <div class="card">
@@ -63,6 +63,20 @@
         <div class="card-description">Tours you've enjoyed with us</div>
       </div>
     </div>
+    
+      <!-- Messages Card -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Messages</div>
+          <div class="card-icon">
+            <i class="fas fa-envelope"></i>
+          </div>
+        </div>
+        <div class="card-description">Check your conversations</div>
+        <a href="{{ route('messages.index') }}" class="card-link">Go to Messages</a>
+      </div>
+
+    </div>
 
     <!-- Bookings Table -->
     <section class="bookings-section">
@@ -84,22 +98,33 @@
               <th>Guests</th>
               <th>Price</th>
               <th>Status</th>
+              
             </tr>
           </thead>
           <tbody>
             @foreach($bookings as $booking)
             <tr>
               <td>{{ $booking->tour->name }}</td>
-              <td>{{ \Carbon\Carbon::parse($booking->booking_date)->format('d M, Y') }}
-            </td>
+              <td>{{ \Carbon\Carbon::parse($booking->booking_date)->format('d M, Y') }}</td>
               <td>{{ $booking->number_of_people }}</td>
               <td>SAR {{ $booking->total_price }}</td>
               <td>
                 <span class="status {{ $booking->payment_status }}">{{ ucfirst($booking->payment_status) }}</span>
+          
+                @if($booking->status !== 'completed' && $booking->status !== 'cancelled')
+                  <form action="{{ route('bookings.cancel', $booking) }}" method="POST" style="display:inline;">
+                    @csrf
+                    <button type="submit" class="btn btn-sm btn-danger" style="border: none; box-shadow: none;" onclick="return confirm('Are you sure you want to cancel this booking?');">
+                      Cancel
+                    </button>
+                  </form>
+                @else
+                  <span class="badge bg-secondary">{{ ucfirst($booking->status) }}</span>
+                @endif
               </td>
             </tr>
             @endforeach
-          </tbody>
+          </tbody>          
         </table>
       </div>
       @else

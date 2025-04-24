@@ -217,6 +217,25 @@ class BookingController extends Controller
         
         return view('bookings.show', compact('booking'));
     }
+
+    public function cancel(Booking $booking)
+    {
+        if ($booking->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        // Allow cancel only if the booking is not completed or already canceled
+        if ($booking->status === 'completed' || $booking->status === 'cancelled') {
+            return back()->with('error', 'This booking cannot be canceled.');
+        }
+
+        $booking->status = 'cancelled';
+        $booking->payment_status = 'paid';  
+        $booking->save();
+
+        return redirect()->route('bookings.index')->with('success', 'Booking has been canceled.');
+}
+
     
     /**
      * Show the form for editing the specified resource.

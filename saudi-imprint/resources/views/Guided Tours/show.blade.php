@@ -116,43 +116,53 @@
           </ul>
           {{-- <a href="#" class="btn btn-primary w-25 mt-3" style="margin-left: 250px;">Book Now</a> --}}
           <a href="{{ route('bookings.create', $tour->id) }}" class="btn btn-primary w-25 mt-3" style="margin-left: 250px;">Book Now</a>
+          @auth
+          <a href="{{ route('messages.start-conversation', $tour->id) }}" class="btn btn-primary w-25 mt-3">Message Guide</a>
+          @else
+            <a href="{{ route('loginTG') }}" class="btn btn-primary">Login to Message Guide</a>
+          @endauth
 
         </div>
       </div>
     </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="guideModal" tabindex="-1" aria-labelledby="guideModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="guideModalLabel">Tour Guide: {{ $tour->guide->name ?? 'Unknown '}}</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            {{-- 
-            Check if the languages value is a JSON string (not yet cast to array).
-            If so, decode it into a PHP array using json_decode().
-            If it's already an array, use it as-is.
-            Then, if it's an array, display the values as a comma-separated string.
-            Otherwise, show 'Unknown'
-            --}}
-            @php
-            $langs = is_string($tour->tourGuide->languages) ? json_decode($tour->tourGuide->languages, true) : $tour->tourGuide->languages;
-            @endphp
-           <p><strong>Languages: </strong>{{ is_array($langs) ? implode(', ', $langs) : 'Unknown' }}</p>
-
-            <p><strong>Years of Experience:</strong> {{ $tour->tourGuide->years_experience ?? 'Unknown ' }}</p>
-            <p><strong>Bio:</strong> {{ $tour->tourGuide->bio ?? 'Unknown '}}</p>
-            <p><strong>Skills:</strong> {{ $tour->tourGuide->skills ?? 'Unknown '}}</p>
-            <p><strong>For any questions or assistance, please email me at:</strong> {{ $tour->guide->email ?? 'Unknown ' }}</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          </div>
-        </div>
+{{-- Tour guide Modal --}}
+<div class="modal fade" id="guideModal" tabindex="-1" aria-labelledby="guideModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="guideModalLabel">Tour Guide: {{ $tour->guide->name ?? 'Unknown '}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        {{-- 
+        Check if the languages value is a JSON string (not yet cast to array).
+        If so, decode it into a PHP array using json_decode().
+        If it's already an array, use it as-is.
+        Then, if it's an array, display the values as a comma-separated string.
+        Otherwise, show 'Unknown'
+        --}}
+        @php
+        $langs = is_string($tour->tourGuide->languages) ? json_decode($tour->tourGuide->languages, true) : $tour->tourGuide->languages;
+        @endphp
+        
+        <p><strong>Languages: </strong>{{ is_array($langs) ? implode(', ', $langs) : 'Unknown' }}</p>
+        <p><strong>Years of Experience:</strong> {{ $tour->tourGuide->years_experience ?? 'Unknown ' }}</p>
+        <p><strong>Bio:</strong> {{ $tour->tourGuide->bio ?? 'Unknown '}}</p>
+        <p><strong>Skills:</strong> {{ $tour->tourGuide->skills ?? 'Unknown '}}</p>
+        <p><strong>For any questions or assistance, please email me at:</strong> {{ $tour->guide->email ?? 'Unknown ' }}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        @auth
+          <a href="{{ route('messages.start-conversation', $tour->id) }}" class="btn btn-primary">Message Guide</a>
+        @else
+          <a href="{{ route('loginTG') }}" class="btn btn-primary">Login to Message Guide</a>
+        @endauth
       </div>
     </div>
+  </div>
+</div>
     <div class="container my-5" data-aos="fade-up">
       <div class="row">
         <div class="col-md-12">
