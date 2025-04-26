@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 use App\Models\Tour;
 use App\Models\Booking;
+use App\Models\Landmark;
 use App\Models\User;
+use App\Models\Review;
+
 
 
 use Illuminate\Http\Request;
@@ -13,40 +16,39 @@ use Illuminate\Support\Facades\Auth;
 
 class TourController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-
-    public function index()
-    {
-        // needed for a standalone tour page
-        //   $tours = Tour::where('active', true)->get();
-        //   return view('Guided Tours.index', compact('tours'));
-    }
+ 
     public function riyadh()
     {
         $tours = Tour::where('active', true)->where('location', 'Riyadh')->get();
-        
-        return view('destinations.riyadh', compact('tours'));
+        $landmarks = Landmark::where('Location', 'Riyadh')->get(); 
+    
+        return view('destinations.riyadh', compact('tours', 'landmarks'));
     }
+    
     public function aljouf()
     {
         $tours = Tour::where('active', true)->where('location', 'Aljouf')->get();
-        
-        return view('destinations.aljouf', compact('tours'));
+        $landmarks = Landmark::where('Location', 'Aljouf')->get();
+    
+        return view('destinations.aljouf', compact('tours', 'landmarks'));
     }
+    
     public function jeddah()
     {
         $tours = Tour::where('active', true)->where('location', 'Jeddah')->get();
-        
-        return view('destinations.jeddah', compact('tours'));
+        $landmarks = Landmark::where('Location', 'Jeddah')->get();
+    
+        return view('destinations.jeddah', compact('tours', 'landmarks'));
     }
-     public function alula()
+    
+    public function alula()
     {
         $tours = Tour::where('active', true)->where('location', 'Alula')->get();
-        
-        return view('destinations.alula', compact('tours'));
+        $landmarks = Landmark::where('Location', 'Alula')->get();
+    
+        return view('destinations.alula', compact('tours', 'landmarks'));
     }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -102,7 +104,8 @@ class TourController extends Controller
         $tour->user_id = $validatedData['user_id'];
         $tour->active = true;
 
-        $validatedData['active'] = true;
+        // $validatedData['active'] = true;
+        
         // Add the user_id (tour guide)
         $validatedData['user_id'] = Auth::id();
 

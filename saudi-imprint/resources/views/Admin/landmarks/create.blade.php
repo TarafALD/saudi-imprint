@@ -16,18 +16,25 @@
         </div>
 
         <div class="mb-3">
-            <label>Image Path:</label>
-            <input type="text" name="Image" class="form-control" required>
+            <label class="form-label fw-medium">Site's Image</label>
+            <input type="file" class="form-control" id="Image" name="Image" accept="image/*" required>
+            <small class="form-text text-muted">Upload an image for site  (JPG, PNG, GIF formats, max 2MB).</small>
         </div>
 
         <div class="mb-3">
             <label>Opening Hours:</label>
-            <input type="time" name="Opening_Hours" class="form-control" required>
+            <input type="time" name="Opening_Hours" class="form-control">
         </div>
 
         <div class="mb-3">
-            <label>Location:</label>
-            <input type="text" name="Location" class="form-control" required>
+            <label class="form-label fw-medium">Location</label>
+            <select class="form-control" id="Location" name="Location" required>
+                <option value="" disabled selected>Select a location</option>
+                <option value="Riyadh" {{ old('Location') == 'Riyadh' ? 'selected' : '' }}>Riyadh</option>
+                <option value="Aljouf" {{ old('Location') == 'Aljouf' ? 'selected' : '' }}>Al-Jouf</option>
+                <option value="Alula" {{ old('Location') == 'Alula' ? 'selected' : '' }}>AlUla</option>
+                <option value="Jeddah" {{ old('Location') == 'Jeddah' ? 'selected' : '' }}>Jeddah</option>
+            </select>
         </div>
 
         <div class="mb-3">

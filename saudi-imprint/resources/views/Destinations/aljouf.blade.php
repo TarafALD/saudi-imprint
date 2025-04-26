@@ -245,6 +245,25 @@
               </div>
           </div>
       </div>
+      {{-- dynamic sites display --}}
+      <div class="row g-4 mt-4">
+        @foreach ($landmarks as $landmark)
+            <div class="col-md-6 col-lg-3">
+                <div class="card">
+                    <img src="{{ asset('storage/' . $landmark->Image) }}" class="card-img-top fixed-img" alt="{{ $landmark->Name }}">
+                    <div class="card-body text-center d-flex flex-column">
+                        <h5 class="card-title">{{ $landmark->Name }}</h5>
+                        <p class="card-text">{{ $landmark->Description }}</p>
+                        
+                        @if (!empty($landmark->Opening_Hours))
+                            <p class="card-text"><strong>Opening Hours:</strong> {{ $landmark->Opening_Hours }}</p>
+                        @endif
+    
+                        {{-- view details btn here--}} 
+                    </div>
+                </div>
+            </div>
+        @endforeach
   </div>
 </div>
 

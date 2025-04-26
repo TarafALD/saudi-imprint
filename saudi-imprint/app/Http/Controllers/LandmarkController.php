@@ -24,19 +24,26 @@ class LandmarkController extends Controller
     {
         $request->validate([
             'Name' => 'required|max:255',
-            'Image' => 'required|max:255',
+            'Image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'Location' => 'required|max:255',
             'Description' => 'required|max:255',
         ]);
 
-        Landmark::create([
-            'Name' => $request->Name,
-            'Image' => $request->Image,
-            'Opening_Hours' => $request->Opening_Hours,
-            'Location' => $request->Location,
-            'Description' => $request->Description,
-            'Admin_id' => Auth::id(), 
-        ]);
+        $landmark = new Landmark();
+        $landmark->Name = $request->Name;
+        $landmark->Location = $request->Location;
+        $landmark->Description = $request->Description;
+        $landmark->Opening_Hours = $request->Opening_Hours;
+        $landmark->Admin_id = Auth::id();
+    
+        
+        if ($request->hasFile('Image')) {
+            $path = $request->file('Image')->store('sites_images', 'public'); 
+            $landmark->Image = $path; // Save the path into the database
+        }
+    
+        $landmark->save();
+
 
         return redirect()->route('Admin.dashboard')->with('success', 'Landmark created successfully.');
     }
