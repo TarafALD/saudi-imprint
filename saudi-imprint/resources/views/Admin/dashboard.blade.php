@@ -95,6 +95,45 @@
                 @endforeach
             </tbody>
         </table>
+        <hr><br>
+        <h2>Landmarks</h2><br>
+        <div class="mb-3">
+            <a href="{{ route('landmarks.create') }}" class="btn btn-primary">
+                Add New Landmark
+            </a>
+        </div>        
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Name</th>
+                        <th>Location</th>
+                        <th>Description</th>
+                        <th>Opening Hours</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($landmarks as $landmark)
+                        <tr>
+                            <td>{{ $landmark->Name }}</td>
+                            <td>{{ $landmark->Location }}</td>
+                            <td>{{ $landmark->Description }}</td>
+                            <td>{{ $landmark->Opening_Hours }}</td>
+                            <td>
+                                <a href="{{ route('landmarks.edit', $landmark->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                                <form action="{{ route('landmarks.destroy', $landmark->id) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+
     </div>    
 @stop
 

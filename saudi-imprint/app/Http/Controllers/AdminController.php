@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\TourGuide;
+use App\Models\Landmark;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Notifications\LicenseApproved;
@@ -15,8 +16,10 @@ class AdminController extends Controller
     function dashboard(){
         $pendingTGs = TourGuide::where('status', 'pending_verification') 
         ->with('user')->latest()->get();
+
+        $landmarks = Landmark::all();
         
-        return view('Admin.dashboard', compact('pendingTGs')); //compact() is a php function that creates an array from variables and their values
+        return view('Admin.dashboard', compact('pendingTGs', 'landmarks')); //compact() is a php function that creates an array from variables and their values
     }
 
     public function approveTG(TourGuide $tourGuide): RedirectResponse
