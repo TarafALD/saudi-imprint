@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\TourGuide;
 use App\Models\Tour;
+use App\Models\Booking;
 use App\Models\Review;
 
 
@@ -97,7 +98,12 @@ public function dashboard()
     
     //get tours based on the user_id directly (not through tourGuide relation)
     $tours = Tour::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
-    
+
+    // get bookings for this tour guide's tours
+    $bookings = Booking::whereHas('tour', function ($query) use ($user) {
+        $query->where('user_id', $user->id);
+    })->with('tour', 'user')->orderBy('created_at', 'desc')->get();
+
     //get all reviews for this tour guide
     $reviews = Review::where('tour_guide_id', $tourGuide->id)
                     ->with('user', 'tour')
@@ -113,7 +119,8 @@ public function dashboard()
         'tourGuide' => $tourGuide,
         'tours' => $tours,
         'reviews' => $reviews,
-        'averageRating' => $averageRating
+        'averageRating' => $averageRating,
+        'bookings' => $bookings,
     ]);
 }
 

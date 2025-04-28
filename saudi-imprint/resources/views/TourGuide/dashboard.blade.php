@@ -219,7 +219,7 @@
               <label for="guideExperience" class="form-label">Years of Experience</label>
               <div class="input-group">
                 <span class="input-group-text"><i class="bi bi-calendar-check"></i></span>
-<input type="number" class="form-control" id="guideExperience" name="years_experience" value="{{ $tourGuide?->years_experience ?? '0' }}" min="0" placeholder="Enter years of experience">
+                <input type="number" class="form-control" id="guideExperience" name="years_experience" value="{{ $tourGuide?->years_experience ?? '0' }}" min="0" placeholder="Enter years of experience">
               </div>
             </div>
 
@@ -249,9 +249,6 @@
                 </div>
               </div>
             </div>
-            
-            
-
             <div class="mb-3">
               <label class="form-label">Regions of Operation (ROO)</label>
               <div class="p-3 bg-light rounded">
@@ -275,7 +272,6 @@
                 </div>
               </div>
             </div>
-            
             <div class="mb-3">
               <label class="form-label">Preferences</label>
               <div class="p-3 bg-light rounded">
@@ -300,8 +296,7 @@
                   @endforeach
                 </div>
               </div>
-            </div>
-            
+            </div>  
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
             <button type="submit" class="btn btn-primary">Save</button>
@@ -379,6 +374,46 @@
   </table>  
   </div>
 </div>
+<br><br><br><br>
+<!-- Booked tours and tourists -->
+@if($bookings->isNotEmpty())
+<div id="booked-tours-table-container" style="margin-top: 40px;">
+  <h2 class="mb-4">Booked Tours and Tourists</h2>
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered">
+      <thead class="table-light">
+        <tr>
+          <th>Tour Name</th>
+          <th>Tourist Name</th>
+          <th>Message</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach($bookings as $booking)
+        <tr>
+          <td>{{ $booking->tour->name }}</td>
+          <td>{{ $booking->user->name }}</td>
+          <td>
+            <a href="{{ route('messages.show', $booking->user->id) }}" class="btn btn-sm btn-primary">
+              Message Tourist
+            </a>
+          </td>
+        </tr>
+        @endforeach
+      </tbody>          
+    </table>
+  </div>
+</div>
+@else
+<!-- Empty state if no bookings -->
+<div id="empty-booked-tours" class="empty-state">
+  <i class="fas fa-calendar-xmark"></i>
+  <h3 class="empty-state-message">No booked tours yet</h3>
+  <p class="empty-state-description">
+    You don't have any tourists booked for your tours yet.
+  </p>
+</div>
+@endif
 <br><br><br><br>
 
 <!-- Reviews Section -->
