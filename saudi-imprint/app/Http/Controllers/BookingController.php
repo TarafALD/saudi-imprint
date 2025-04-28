@@ -96,7 +96,7 @@ class BookingController extends Controller
                 ->withErrors(['number_of_people' => "There's {$remainingSpots} spots remaining for this date."]);
         }
         
-         $totalPrice = $tour->price_per_person * $request->number_of_people;
+        //  $totalPrice = $tour->price_per_person * $request->number_of_people;
         
         $booking = new Booking();
         $booking->tour_id = $request->tour_id;

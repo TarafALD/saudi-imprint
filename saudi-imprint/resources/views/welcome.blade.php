@@ -231,11 +231,11 @@
               <div class="icon">
                 <i class="bi bi-geo-alt"></i>
               </div>
-              {{-- <a href="{{ route('aljouf') }}" class="stretched-link"> --}}
+              <a href="{{ route('aljouf') }}" class="stretched-link">
                 <h3>AlJouf</h3>
               </a>
               <p>Explore the beauty of Aljouf with its rich history,stunning landscapes, and authentic Arabian heritage.</p>
-              <a href="{{ route('aljouf') }}" class="stretched-link"></a>
+              <a href="service-details.html" class="stretched-link"></a>
             </div>
           </div><!-- End service Item -->
         </div>

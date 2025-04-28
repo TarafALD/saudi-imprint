@@ -44,7 +44,6 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        Auth::logout($user);
 
         return redirect(route('loginTG', absolute: false));
     }

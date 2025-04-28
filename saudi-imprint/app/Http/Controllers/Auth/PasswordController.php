@@ -22,8 +22,10 @@ class PasswordController extends Controller
     
             // Check if the current password is correct
             if (!Hash::check($validated['current_password'], $request->user()->password)) {
-                return back()->withErrors(['current_password' => 'The provided password does not match our records.']);
-            }
+                return back()->withErrors([
+                    'current_password' => 'The provided password does not match our records.'
+                ], 'updatePassword');
+               }
     
             // Update the password
             $request->user()->update([

@@ -78,14 +78,13 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     //landmarks CRUD Routes
-    Route::get('Admin/dashboard', [LandmarkController::class, 'index'])->name('admin.landmarks.index');
     Route::get('Admin/dashboard/landmarks/create', [LandmarkController::class, 'create'])->name('landmarks.create');
     Route::post('Admin/dashboard/landmarks', [LandmarkController::class, 'store'])->name('landmarks.store');
     Route::get('Admin/dashboard/landmarks/{id}/edit', [LandmarkController::class, 'edit'])->name('landmarks.edit');
     Route::put('Admin/dashboard/landmarks/{id}', [LandmarkController::class, 'update'])->name('landmarks.update');
     Route::delete('Admin/dashboard/landmarks/{id}', [LandmarkController::class, 'destroy'])->name('landmarks.destroy');
     
-    Route::get('/Admin/dashboard', [AdminController::class,'dashboard'])->name('Admin.dashboard');
+    Route::get('/Admin/dashboard', [AdminController::class,'dashboard'])->middleware('admin')->name('Admin.dashboard');
 
     Route::put('/Admin/tour-guides/{tourGuide}/approve', [AdminController::class, 'approveTG'])->name('admin.tour-guides.approve');
     Route::put('/Admin/tour-guides/{tourGuide}/reject', [AdminController::class, 'rejectTG'])->name('admin.tour-guides.reject');
