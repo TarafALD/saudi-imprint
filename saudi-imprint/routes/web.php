@@ -92,9 +92,9 @@ Route::middleware(['auth'])->group(function () {
 });
 
     
-Route::get('registerTG', [RegisteredTG::class, 'showTGregisterform'])
-->name('registerTG');
-Route::post('registerTG', [RegisteredTG::class, 'store']);  
+// Route::get('registerTG', [RegisteredTG::class, 'showTGregisterform'])
+// ->name('registerTG');
+// Route::post('registerTG', [RegisteredTG::class, 'store']);  
 
 
 

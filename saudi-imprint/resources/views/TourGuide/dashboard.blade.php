@@ -474,6 +474,16 @@
 @endif
 <!-- edit form-->
 @if(request()->routeIs('tours.edit') && isset($editingTour))
+{{-- show validation errors --}}
+@if ($errors->any())
+                <div class="alert alert-danger mt-3">
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 <div class="d-flex justify-content-center mt-4">
   <div class="p-4 rounded shadow bg-light" style="width: 90%; max-width: 1100px;">
     <h3 class="mb-4 text-center">Edit Tour</h3>

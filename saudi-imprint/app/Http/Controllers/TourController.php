@@ -160,13 +160,19 @@ class TourController extends Controller
         if (is_string($tour->type_of_tour)) {
             $tour->type_of_tour = json_decode($tour->type_of_tour, true);
         }
-
+     
         $user = Auth::user();
         $tourGuide = $user->tourGuide;
         $tours = $tourGuide->tours;
         $editingTour = $tour; 
+
+           //same as tour guide dashboard
+           $bookings = Booking::whereHas('tour', function ($query) use ($user) {
+            $query->where('user_id', $user->id);
+        })->with('tour', 'user')->orderBy('created_at', 'desc')->get();
+
         
-        return view('TourGuide.dashboard', compact('user', 'tourGuide', 'tours', 'editingTour'));
+        return view('TourGuide.dashboard', compact('user', 'tourGuide', 'tours', 'editingTour','bookings'));
     }
 
 
