@@ -29,7 +29,7 @@ class TourGuideController extends Controller
     
 
     public function showCompleteProfileForm()
-{
+    {
     $user = Auth::user();
     $tourGuide = $user->tourGuide;
     
@@ -97,7 +97,7 @@ public function dashboard()
     }
     
     //get tours based on the user_id directly (not through tourGuide relation)
-    $tours = Tour::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
+    $tours = Tour::where('user_id', $user->id)->orderBy('created_at', 'desc')->paginate(10);
 
     // get bookings for this tour guide's tours
     $bookings = Booking::whereHas('tour', function ($query) use ($user) {
@@ -144,12 +144,9 @@ public function updateProfile(Request $request) {
         'image' => 'nullable|image|max:2048',  
     ]);
 
-    //dd($validated);
-    
     // Update user name
-    DB::table('users')->where('id', $user->id)->update(['name' => $validated['name']]);    
-    $user = \App\Models\User::find($user->id);
-    $user = $user->fresh();
+    $user->name = $validated['name'];
+    $user->save();
 
 
     // Handle image upload if provided

@@ -115,13 +115,14 @@
             <li class="list-group-item"><strong>Cancellation Policy:</strong> Free cancellation up to 24 hours before the tour.</li>
           </ul>
           {{-- <a href="#" class="btn btn-primary w-25 mt-3" style="margin-left: 250px;">Book Now</a> --}}
-          <a href="{{ route('bookings.create', $tour->id) }}" class="btn btn-primary w-25 mt-3" style="margin-left: 250px;">Book Now</a>
           @auth
-          <a href="{{ route('messages.start-conversation', $tour->id) }}" class="btn btn-primary w-25 mt-3">Message Guide</a>
+          @if(Auth::user()->role !== 'TG')
+              <a href="{{ route('bookings.create', $tour->id) }}" class="btn btn-primary w-25 mt-3" style="margin-left: 250px;">Book Now</a>
+              <a href="{{ route('messages.start-conversation', $tour->id) }}" class="btn btn-primary w-25 mt-3">Message Guide</a>
+          @endif
           @else
-            <a href="{{ route('loginTG') }}" class="btn btn-primary">Login to Message Guide</a>
+              <a href="{{ route('loginTG') }}" class="btn btn-primary w-25 mt-3">Login to Message Guide</a>
           @endauth
-
         </div>
       </div>
     </div>
@@ -155,9 +156,13 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         @auth
-          <a href="{{ route('messages.start-conversation', $tour->id) }}" class="btn btn-primary">Message Guide</a>
+        @if(Auth::user()->role !== 'TG')
+            <a href="{{ route('messages.start-conversation', $tour->id) }}" class="btn btn-primary">Message Guide</a>
         @else
-          <a href="{{ route('loginTG') }}" class="btn btn-primary">Login to Message Guide</a>
+            <button type="button" class="btn btn-primary" disabled></button>
+        @endif
+        @else
+            <a href="{{ route('loginTG') }}" class="btn btn-primary">Login to Message Guide</a>
         @endauth
       </div>
     </div>

@@ -22,9 +22,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
+
 Route::get('/dashboard', [BookingController::class, 'index'])
     ->middleware('auth')
     ->name('dashboard');
@@ -43,17 +41,16 @@ Route::get('/otp/resend', [App\Http\Controllers\TwoFactorController::class, 'sen
 Route::get('/otp/verify', [App\Http\Controllers\TwoFactorController::class, 'showVerifyForm'])->name('otp.verify');
 Route::post('/otp/verify', [App\Http\Controllers\TwoFactorController::class, 'verifyOTP'])->name('otp.verify.post');
 
-// Route::middleware(['auth'])->group(function () {
-    Route::get('/TourGuide/pending_approval', [TourGuideController::class, 'pendingApproval'])->name('TourGuide.pending_approval');
-    Route::get('/TourGuide/rejected', [TourGuideController::class, 'rejected'])->name('TourGuide.rejected');
-    Route::get('/TourGuide/complete_profile', [TourGuideController::class, 'showCompleteProfileForm'])->name('TourGuide.complete_profile');
-    Route::post('/TourGuide/complete_profile', [TourGuideController::class, 'saveCompleteProfile'])->name('TourGuide.save_profile');
+
+Route::get('/TourGuide/pending_approval', [TourGuideController::class, 'pendingApproval'])->name('TourGuide.pending_approval');
+Route::get('/TourGuide/rejected', [TourGuideController::class, 'rejected'])->name('TourGuide.rejected');
+Route::get('/TourGuide/complete_profile', [TourGuideController::class, 'showCompleteProfileForm'])->name('TourGuide.complete_profile');
+Route::post('/TourGuide/complete_profile', [TourGuideController::class, 'saveCompleteProfile'])->name('TourGuide.save_profile');
 
 
 
 Route::middleware(['auth', 'profile.completed'])->group(function () {
     Route::get('/TourGuide/dashboard', [TourGuideController::class, 'dashboard'])->name('TourGuide.dashboard');
-
 
     Route::get('/add_tour', function () { return view('TourGuide.add_tour');})->name('add_tour');});
     
@@ -92,10 +89,6 @@ Route::middleware(['auth'])->group(function () {
 });
 
     
-// Route::get('registerTG', [RegisteredTG::class, 'showTGregisterform'])
-// ->name('registerTG');
-// Route::post('registerTG', [RegisteredTG::class, 'store']);  
-
 
 
  /*Route::get('/riyadh', function () {
@@ -109,7 +102,6 @@ Route::get('/alula', [TourController::class, 'alula'])->name( 'alula');
 Route::get('/jeddah', [TourController::class, 'jeddah'])->name('jeddah');
 
 Route::post('/store', [TourController::class, 'store'])->name('tours.store');
-//Route::get('/TourGuide/dashboard{tour}', [TourController::class, 'show'])->name('tours.show');
 
 Route::get('TourGuide/dashboard/{tour}/edit', [TourController::class, 'edit'])->name('tours.edit');
 Route::put('TourGuide/dashboard/{tour}', [TourController::class, 'update'])->name('tours.update');
@@ -129,7 +121,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/bookings/{booking}', [BookingController::class, 'destroy'])->name('bookings.destroy');
 
     Route::get('/bookings/{booking}/payment', [BookingController::class, 'payment'])->name('bookings.payment');
-    Route::post('/bookings/{booking}/process-payment', [BookingController::class, 'processPayment'])->name('bookings.processPayment');
+    Route::post('/bookings/{booking}/process-payment', [BookingController::class, 'processPayment'])->name('bookings.showPaymentForm');
     Route::get('/bookings/{booking}/process-payment', [BookingController::class, 'processPayment'])->name('bookings.processPayment');
     Route::post('/bookings/{booking}/cancel', [BookingController::class, 'cancel'])->name('bookings.cancel');
 
@@ -140,6 +132,7 @@ Route::middleware(['auth'])->group(function () {
    // Review routes
    Route::get('/tours/{tour}/review', [ReviewController::class, 'create'])->name('reviews.create');
    Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+
 
    Route::middleware(['auth'])->group(function () {
     Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
@@ -164,9 +157,7 @@ Route::get('/welcome', function () {
     return view('welcome');
 })->name('home');
 
-//Route::get('/register', function () {
-    //return view('auth.register');
-//})->name('register');
+
 Route::get('/signupT', function () {
     return view('auth.signupT');
 })->name('signupT');

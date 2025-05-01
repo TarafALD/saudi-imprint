@@ -39,9 +39,7 @@ class RegisteredTG extends Controller
     ]);
 
 
-    //يحفظ الرخصةب storage/public/licenses 
-    //$licensePath = $request->file('license')->store(path: 'licenses', options: 'public');
-
+    
     //create a tg record
     TourGuide::create([
         'user_id' => $user->id,

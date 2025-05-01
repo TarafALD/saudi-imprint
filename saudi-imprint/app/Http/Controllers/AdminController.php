@@ -24,7 +24,7 @@ class AdminController extends Controller
         $pendingTGs = TourGuide::where('status', 'pending_verification') 
         ->with('user')->latest()->get();
 
-        $landmarks = Landmark::all();
+        $landmarks = Landmark::all(); //change if the data dgrows
         
         return view('Admin.dashboard', compact('pendingTGs', 'landmarks')); //compact() is a php function that creates an array from variables and their values
     }

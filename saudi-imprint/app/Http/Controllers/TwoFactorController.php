@@ -16,11 +16,11 @@ class TwoFactorController extends Controller
         $user = Auth::user();
     
         //generate 6-digit OTP
-        $otp = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
+        $otp = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);//add a leading 0 if needed : 5> 000005
         
-        //store in db
+        //store in db (in the user's record)
         $user->otp = $otp;
-        $user->otp_expires_at = now()->addMinutes(5);
+        $user->otp_expires_at = now()->addMinutes(5);// valid for 5mins
         $user->save();
 
 
@@ -46,7 +46,7 @@ class TwoFactorController extends Controller
         
         //check if OTP is valid and not expired
         if ($user->otp === $request->otp && $user->otp_expires_at > now()) {
-            // Clear OTP
+            // Clear OTP so it can not be reused
             $user->otp = null;
             $user->otp_expires_at = null;
             $user->save();
@@ -54,12 +54,14 @@ class TwoFactorController extends Controller
             // Mark session as verified
             session(['otp_verified' => true]);
             
-          
+            //Role based redirection
             $url="";
             if ($request -> user() -> role == 'TG'){
                 $url = route('TourGuide.dashboard', absolute: false);
             }elseif ($request -> user() -> role == 'tourist') {
                 $url = route('home', absolute: false);
+            }elseif ($request -> user() -> role == 'admin') {
+                $url = route('Admin.dashboard', absolute: false);
             }
             return redirect()->intended($url);
         }

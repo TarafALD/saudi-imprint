@@ -14,15 +14,17 @@ class MessageController extends Controller
     {
         $user = Auth::user();
         
-        // Get unique users the current user has conversations with
+        //retrieve all messages where the user is either the sender or reciever
         $conversations = Message::where('sender_id', $user->id)
             ->orWhere('receiver_id', $user->id)
             ->orderBy('created_at', 'desc')
             ->get()
             ->unique(function ($item) use ($user) {
-                // Get the ID of the other person in the conversation
+                // ensure only one chat(latest msg) per person the user has talked to is shown
+                // by removing duplicates based on the other user's id
                 return $item->sender_id == $user->id ? $item->receiver_id : $item->sender_id;
-            })
+                
+            })//find the other user involved in the conversation
             ->map(function ($message) use ($user) {
                 $otherUserId = $message->sender_id == $user->id ? $message->receiver_id : $message->sender_id;
                 $otherUser = User::find($otherUserId);
@@ -60,16 +62,9 @@ class MessageController extends Controller
         })->orderBy('created_at')->get();
         
         
-        // For tour guides, get a list of their tours to reference
-        $tours = [];
-
-        $user = Auth::user();
-        
-        if ($user->role === 'guide') {
-            $tours = Tour::where('guide_id', $user->id)->get();
-        }
+   
     
-        return view('messages.show', compact('messages', 'otherUser', 'tours'));
+        return view('messages.show', compact('messages', 'otherUser'));
     }
     
     public function store(Request $request)
