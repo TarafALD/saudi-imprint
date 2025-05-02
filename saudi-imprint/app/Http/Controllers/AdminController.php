@@ -16,10 +16,6 @@ class AdminController extends Controller
     
     function dashboard(){
 
-        
-        if (Auth::user()->role !== 'admin') {
-            abort(403); 
-        }
 
         $pendingTGs = TourGuide::where('status', 'pending_verification') 
         ->with('user')->latest()->get();

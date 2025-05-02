@@ -68,9 +68,15 @@
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="rememberMe" name="remember">
-                    <label class="form-check-label" for="rememberMe">Remember me</label>
+                    <label class="form-check-label" for="rememberMe">{{ __('Remember me') }}</label>
+                </div>
+                <div>
+                    <a href="{{ route('password.request') }}" style="color: #758015; text-decoration: none;">
+                        {{ __('Forgot your password?') }}
+                    </a>
                 </div>
             </div>
+           
             <button type="submit" class="btn btn-primary w-100">Login</button>
 
             <p class="text-center mt-3">Dont have an account? <a style="color: #758015; text-decoration: none;" href="{{ route('signupT') }}">Sign up</a></p>
