@@ -23,23 +23,25 @@ Route::get('/', function () {
 })->name('home');
 
 
-Route::get('/dashboard', [BookingController::class, 'index'])
-    ->middleware('auth')
-    ->name('dashboard');
-
-
+Route::redirect('/login', '/loginTG')->name('login');
 
 Route::get('/loginTG', function () {
     return view('auth.loginTG');
 })->name('loginTG');
 
-Route::redirect('/login', '/loginTG')->name('login');
+
+//registeration routes
+Route::get('/signupTG', [RegisteredTG::class, 'showTGregisterform'])->name('signupTG');
+Route::post('/signupTG', [RegisteredTG::class, 'store']);  
+ 
+Route::get('/signupT', [RegisteredUserController::class, 'create'])->name('signupT');
+Route::post('/signupT', [RegisteredUserController::class, 'store']);  
 
 
-Route::get('/otp/send', [App\Http\Controllers\TwoFactorController::class, 'sendOTP'])->name('otp.send');
-Route::get('/otp/resend', [App\Http\Controllers\TwoFactorController::class, 'sendOTP'])->name('otp.resend');
-Route::get('/otp/verify', [App\Http\Controllers\TwoFactorController::class, 'showVerifyForm'])->name('otp.verify');
-Route::post('/otp/verify', [App\Http\Controllers\TwoFactorController::class, 'verifyOTP'])->name('otp.verify.post');
+Route::get('/otp/send', [TwoFactorController::class, 'sendOTP'])->name('otp.send');
+Route::get('/otp/resend', [TwoFactorController::class, 'sendOTP'])->name('otp.resend');
+Route::get('/otp/verify', [TwoFactorController::class, 'showVerifyForm'])->name('otp.verify');
+Route::post('/otp/verify', [TwoFactorController::class, 'verifyOTP'])->name('otp.verify.post');
 
 
 Route::get('/TourGuide/pending_approval', [TourGuideController::class, 'pendingApproval'])->name('TourGuide.pending_approval');
@@ -49,7 +51,7 @@ Route::post('/TourGuide/complete_profile', [TourGuideController::class, 'saveCom
 
 
 
-Route::middleware(['auth', 'profile.completed'])->group(function () {
+Route::middleware(['auth', 'otp.verified', 'profile.completed'])->group(function () {
     Route::get('/TourGuide/dashboard', [TourGuideController::class, 'dashboard'])->name('TourGuide.dashboard');
 
     Route::get('/add_tour', function () { return view('TourGuide.add_tour');})->name('add_tour');});
@@ -73,7 +75,7 @@ Route::middleware('auth')->group(function () {
 
 
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'otp.verified'])->group(function () {
     //landmarks CRUD Routes
     Route::get('Admin/dashboard/landmarks/create', [LandmarkController::class, 'create'])->name('landmarks.create');
     Route::post('Admin/dashboard/landmarks', [LandmarkController::class, 'store'])->name('landmarks.store');
@@ -109,7 +111,11 @@ Route::delete('TourGuide/dashboard/{tour}', [TourController::class, 'destroy'])-
 
 
 
-Route::middleware(['auth'])->group(function () {
+Route::get('/dashboard', [BookingController::class, 'index'])
+    ->middleware('auth', 'otp.verified')
+    ->name('dashboard');
+    
+Route::middleware(['auth', 'otp.verified'])->group(function () {
     //display booking form
     Route::get('/tours/{tour}/book', [BookingController::class, 'create'])->name('bookings.create');
     
@@ -134,7 +140,7 @@ Route::middleware(['auth'])->group(function () {
    Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
 
 
-   Route::middleware(['auth'])->group(function () {
+   Route::middleware(['auth', 'otp.verified'])->group(function () {
     Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
     Route::get('/messages/{otherUser}', [MessageController::class, 'show'])->name('messages.show');
     Route::post('/messages', [MessageController::class, 'store'])->name('messages.store');
@@ -158,24 +164,19 @@ Route::get('/welcome', function () {
 })->name('home');
 
 
-Route::get('/signupT', function () {
-    return view('auth.signupT');
-})->name('signupT');
-
-
-Route::get('/signupTG', [RegisteredTG::class, 'showTGregisterform'])->name('signupTG');
-
- Route::post('/signupTG', [RegisteredTG::class, 'store']);  
- 
- 
-Route::get('/signupT', [RegisteredUserController::class, 'create'])->name('signupT');
-
-Route::post('/signupT', [RegisteredUserController::class, 'store']);  
-
 
 
 //Guided Tours in Riyadh
-Route::get('/riyadh#tours', [TourController::class, 'index'])->name('tours.index');
+Route::get('/tours/{tour}', [TourController::class, 'show'])->name('tours.show');
+
+//Guided Tours in aljouf
+Route::get('/aljouf#tours', [TourController::class, 'aljouf'])->name('tours.index');
+Route::get('/tours/{tour}', [TourController::class, 'show'])->name('tours.show');
+
+//Guided Tours in jeddah
+Route::get('/tours/{tour}', [TourController::class, 'show'])->name('tours.show');
+
+//Guided Tours in alula
 Route::get('/tours/{tour}', [TourController::class, 'show'])->name('tours.show');
 
 Route::get('/riyadhDesertSafari', function () {

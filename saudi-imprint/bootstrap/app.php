@@ -16,6 +16,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'auth' => \App\Http\Middleware\Authenticate::class,
             'profile.completed' => \App\Http\Middleware\RequireProfileCompletion::class,
             'admin' => \App\Http\Middleware\AdminMiddleware::class,
+            'otp.verified' => \App\Http\Middleware\EnsureOtpIsVerified::class,
+
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

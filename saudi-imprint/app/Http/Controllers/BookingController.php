@@ -16,7 +16,7 @@ use Carbon\Carbon;
 class BookingController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the bookings
      */
     public function index()
     {
@@ -32,20 +32,10 @@ class BookingController extends Controller
 
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for booking.
      */
     public function create(Tour $tour)
     {
-        //booking form 
-        
-        if (!Auth::check()) {
-            // Store the intended URL in the session
-            session(['url.intended' => route('tours.book', $tour)]);
-            return redirect()->route('loginTG')->with('message', 'Please login to book a tour');
-        }
-
-        // $availableTours = Tour::where('active', true)->get();
-
         return view('bookings.create', compact('tour'));
     }
 
@@ -108,7 +98,7 @@ class BookingController extends Controller
         $booking->save();
 
         // // Update the tour's active status after booking
-        // $this->updateTourStatus($tour);
+         $this->updateTourStatus($tour);
         
         // Redirect to payment page
         return redirect()->route('bookings.show', $booking);
@@ -144,13 +134,6 @@ class BookingController extends Controller
     }
 
 
-
-
-
-
-
-   
-
     public function processPayment(Request $request, Booking $booking)
     {
         if ($booking->user_id !== Auth::id()) {
@@ -169,7 +152,7 @@ class BookingController extends Controller
     
             $response = $client->request('GET', "https://api.moyasar.com/v1/payments/{$paymentId}", [
                 'auth' => [config('moyasar.secret_key'), ''],
-                'verify' => false, 
+                'verify' => false, //tells guzzle not to verify the SSL its temporary 
             ]);
     
             $payment = json_decode($response->getBody(), true);
@@ -235,29 +218,4 @@ class BookingController extends Controller
 
         return redirect()->route('bookings.index')->with('success', 'Booking has been canceled.');
 }
-
-    
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }

@@ -96,13 +96,12 @@
           </div>
       @endforeach
   </div>
-{{-- </div>
+ </div>
 
        <!--Guided Tours section-->
      <div id="tours" class="container py-5" data-aos="fade-up" data-aos-delay="100">
       <div class="container section-title" data-aos="fade-up">
-        <h2>Tours</h2>
-        <div><span>Guided Tours and</span> <span class="description-title"> Experiences</span></div>
+
       </div>
     <div class="row g-4">
     <div class="col-md-6 col-lg-3">
@@ -146,7 +145,7 @@
                         </div>
                     </div>
                 </div>
-            </div>  <!--End of Guided Tour section--> --}}
+            </div>  <!--End of Guided Tour section--> --}
 
   <!-- Map Section -->
   <section id="imap" class="py-3" data-aos="fade-up" data-aos-delay="100">

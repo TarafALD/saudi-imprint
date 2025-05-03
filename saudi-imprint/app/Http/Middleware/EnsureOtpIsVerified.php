@@ -6,13 +6,14 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class Authenticate
+class EnsureOtpIsVerified
 {
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::check()) {
-            return $next($request);
+        if (Auth::check() && !session('otp_verified')) {
+            return redirect()->route('otp.verify');
         }
-        return redirect()->route('loginTG');
+
+        return $next($request);
     }
 }

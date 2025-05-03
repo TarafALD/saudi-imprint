@@ -104,7 +104,11 @@
           <tbody>
             @foreach($bookings as $booking)
             <tr>
-              <td>{{ $booking->tour->name }}</td>
+              <td>
+              <a href="{{ route('bookings.show', $booking) }}" style="color:#71c55d; text-decoration: none">
+                {{ $booking->tour->name }}
+              </a>
+              </td>
               <td>{{ \Carbon\Carbon::parse($booking->booking_date)->format('d M, Y') }}</td>
               <td>{{ $booking->number_of_people }}</td>
               <td>SAR {{ $booking->total_price }}</td>

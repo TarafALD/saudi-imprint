@@ -145,8 +145,9 @@ public function updateProfile(Request $request) {
     ]);
 
     // Update user name
-    $user->name = $validated['name'];
-    $user->save();
+    DB::table('users')->where('id', $user->id)->update(['name' => $validated['name']]);    
+    $user = \App\Models\User::find($user->id);
+    $user = $user->fresh();
 
 
     // Handle image upload if provided

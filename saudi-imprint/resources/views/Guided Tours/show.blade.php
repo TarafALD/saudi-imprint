@@ -112,7 +112,6 @@
                 @endforeach
               </ul>
             </li>
-            <li class="list-group-item"><strong>Cancellation Policy:</strong> Free cancellation up to 24 hours before the tour.</li>
           </ul>
           {{-- <a href="#" class="btn btn-primary w-25 mt-3" style="margin-left: 250px;">Book Now</a> --}}
           @auth
@@ -121,7 +120,7 @@
               <a href="{{ route('messages.start-conversation', $tour->id) }}" class="btn btn-primary w-25 mt-3">Message Guide</a>
           @endif
           @else
-              <a href="{{ route('loginTG') }}" class="btn btn-primary w-25 mt-3">Login to Message Guide</a>
+          <a href="{{ route('bookings.create', $tour->id) }}" class="btn btn-primary w-25 mt-3">Login to book</a>
           @endauth
         </div>
       </div>
@@ -151,7 +150,7 @@
         <p><strong>Years of Experience:</strong> {{ $tour->tourGuide->years_experience ?? 'Unknown ' }}</p>
         <p><strong>Bio:</strong> {{ $tour->tourGuide->bio ?? 'Unknown '}}</p>
         <p><strong>Skills:</strong> {{ $tour->tourGuide->skills ?? 'Unknown '}}</p>
-        <p><strong>For any questions or assistance, please email me at:</strong> {{ $tour->guide->email ?? 'Unknown ' }}</p>
+        <p><strong>Contact me for any questions or assistance!</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

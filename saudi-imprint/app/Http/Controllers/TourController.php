@@ -50,28 +50,14 @@ class TourController extends Controller
     }
     
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //  $tour = Tour::create($validatedData);
-        //return redirect()->route('Guided Tours.show', $tour)
-
-
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
+   
     public function store(Request $request)
     {
-        //
+        
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'location' => 'required|string|max:255',
             'max_participants' => 'required|integer|min:1',
-            //'active' => 'required|boolean',
             'type_of_tour' => 'required|array|min:1',
             'type_of_tour.*' => 'string',
             'included' => 'required|string|max:255',
@@ -104,8 +90,7 @@ class TourController extends Controller
         $tour->user_id = $validatedData['user_id'];
         $tour->active = true;
 
-        // $validatedData['active'] = true;
-        
+
         // Add the user_id (tour guide)
         $validatedData['user_id'] = Auth::id();
 
@@ -117,38 +102,24 @@ class TourController extends Controller
         $tour->save();
         
 
-        // Redirect to the tour guide dashboard with success message
         return redirect()->route('TourGuide.dashboard')->with('success', 'Tour created successfully!');
     }
 
-    /**
-     * Display the specified resource.
-     */
+    
+
     public function show(Tour $tour)
     {
-        // $tours=Tour::where('active', true)->where('id', '!=', $tour->id)->get();
-        // return view('tours.show', compact('tour'));
-
+    
         //get reviews for this tour
         $reviews = $tour->reviews()->with('user')->latest()->get();
         $averageRating = $tour->reviews()->avg('rating');
 
         return view('Guided Tours.show', compact('tour', 'reviews', 'averageRating'));
     }
-    // Check authentication for booking
-    public function book(Tour $tour)
-    {
-        if (!Auth::check()) {
-            // Store the intended URL in the session
-            session(['url.intended' => route('tours.book', $tour)]);
-            return redirect()->route('loginTG')->with('message', 'Please login to book a tour');
-        }
-        
-        return view('bookings.create', compact('tour'));
-    }
 
-    /**
-     * Show the form for editing the specified resource.**/
+
+
+   //form for editing a tour 
     public function edit(Tour $tour)
     {
         // Authorization check
@@ -176,15 +147,10 @@ class TourController extends Controller
     }
 
 
-    /**
-     * Update the specified resource in storage.
-     */
+    //update tour 
     public function update(Request $request, Tour $tour)
 {
-    \Log::info('Tour update attempt', [
-        'tour_id' => $tour->id,
-        'request_data' => $request->all()
-    ]);
+   
     $validatedData = $request->validate([
         'name' => 'required|string|max:255',
         'location' => 'required|string|max:255',
@@ -230,9 +196,8 @@ class TourController extends Controller
         return redirect()->route('TourGuide.dashboard')->with('success', 'Tour updated successfully!');
 }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    
+
     public function destroy(Tour $tour)
     {
         // Check if the authenticated user owns this tour

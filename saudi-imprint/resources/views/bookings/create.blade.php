@@ -192,7 +192,7 @@
             </div>
             
             <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
-                <a href="{{ route('tours.index') }}" class="btn btn-secondary me-md-2">Cancel</a>
+                <a href="{{ url()->previous() }}" class="btn btn-secondary me-md-2">Cancel</a>
                 <button type="submit" class="btn btn-primary">Confirm Booking</button>
             </div>
         </form>

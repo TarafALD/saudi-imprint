@@ -63,6 +63,8 @@ class TwoFactorController extends Controller
             }elseif ($request -> user() -> role == 'admin') {
                 $url = route('Admin.dashboard', absolute: false);
             }
+    
+
             return redirect()->intended($url);
         }
         

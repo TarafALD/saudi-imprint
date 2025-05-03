@@ -28,14 +28,9 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
         //regenerate the session to protect against session fixation attacks
         $request->session()->regenerate();
-    
    
         return redirect()->route('otp.send');
-    
-
-
 }
-
     /**
      * Destroy an authenticated session.
      */
