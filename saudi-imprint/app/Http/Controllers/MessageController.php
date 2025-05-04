@@ -72,13 +72,11 @@ class MessageController extends Controller
         $request->validate([
             'receiver_id' => 'required|exists:users,id',
             'content' => 'required|string',
-            'tour_id' => 'nullable|exists:tours,id',
         ]);
         
         $message = Message::create([
             'sender_id' => Auth::id(),
             'receiver_id' => $request->receiver_id,
-            'tour_id' => $request->tour_id,
             'content' => $request->content,
         ]);
         
@@ -90,7 +88,6 @@ class MessageController extends Controller
         $tour = Tour::findOrFail($tourId);
         
         // Redirect to the message page with the guide
-        // return redirect()->route('messages.show', $tour->guide_id);
         return redirect()->route('messages.show', $tour->guide);
 
     }

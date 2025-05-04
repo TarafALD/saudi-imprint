@@ -216,26 +216,5 @@ class TourController extends Controller
         return redirect()->route('TourGuide.dashboard')->with('success', 'Tour deleted successfully!');
 }
 
-    // Logic to mark tour as completed
-    public function completeTour($tourId)
-    {
-        $userId = Auth::id();
-    
-        //find the booking and mark it as completed if it's paid and the date has passed
-        $booking = Booking::where('user_id', Auth::id())
-        ->where('tour_id', $tourId)
-        ->where('payment_status', 'paid')
-        ->whereDate('booking_date', '<=', now())
-        ->first();
 
-       
-    
-        $booking->status = 'completed';
-        $booking->save();
-    
-        // Redirect to leave a review
-        return redirect()->route('reviews.create', ['tour' => $tourId])
-            ->with('success', 'Tour marked as completed. Please leave a review.');
-    }
-    
 }

@@ -63,7 +63,6 @@
       </div>
       <hr>
     </div>
-
     <div class="row">
       <div class="col-md-12">
         <div class="card">
@@ -73,11 +72,6 @@
                 <div class="card {{ $message->sender_id == auth()->id() ? 'message-out' : 'message-in' }}" style="max-width: 70%;">
                   <div class="card-body py-2 px-3">
                     <p class="mb-1">{{ $message->content }}</p>
-                    @if($message->tour_id)
-                      <small class="{{ $message->sender_id == auth()->id() ? 'text-success' : 'text-muted' }}">
-                        [Re: {{ $message->tour->title ?? 'Tour #' . $message->tour_id }}]
-                      </small>
-                    @endif
                     <div class="d-flex justify-content-end">
                       <small class="message-time {{ $message->sender_id == auth()->id() ? 'text-success' : 'text-muted' }}">
                         {{ $message->created_at->format('M d, g:i a') }}
@@ -88,25 +82,11 @@
               </div>
             @endforeach
           </div>
-
           <div class="card-footer">
             <form action="{{ route('messages.store') }}" method="POST">
               @csrf
               <input type="hidden" name="receiver_id" value="{{ $otherUser->id }}">
-
-              @if(auth()->check() && auth()->user()->role === 'guide' && !empty($tours))
-                <div class="mb-3">
-                  <label for="tour_id" class="form-label">Reference Tour (Optional):</label>
-                  <select name="tour_id" id="tour_id" class="form-select">
-                    <option value="">-- No Tour Reference --</option>
-                    @foreach($tours as $tour)
-                      <option value="{{ $tour->id }}">{{ $tour->title }}</option>
-                    @endforeach
-                  </select>
-                </div>
-              @endif
-
-              <div class="input-group">
+                <div class="input-group">
                 <textarea name="content" class="form-control" placeholder="Type your message here..." required></textarea>
                 <button type="submit" class="btn btn-primary">Send</button>
               </div>
@@ -116,7 +96,6 @@
       </div>
     </div>
   </div>
-
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const messageContainer = document.getElementById('messageContainer');

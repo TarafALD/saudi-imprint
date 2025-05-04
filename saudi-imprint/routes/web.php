@@ -147,17 +147,6 @@ Route::middleware(['auth', 'otp.verified'])->group(function () {
     Route::get('/messages/tour/{tour}', [MessageController::class, 'startConversation'])->name('messages.start-conversation');
     Route::get('/messages/unread-count', [MessageController::class, 'getUnreadCount'])->name('messages.unread-count');
 });
- /*Route::get('/aljouf', function () {
-     return view('destinations.aljouf');
-})->name('aljouf');
-
- Route::get('/alula', function () {
-     return view('destinations.alula');
- })->name('alula');
-
-Route::get('/jeddah', function () {
-    return view('destinations.jeddah');
- })->name('jeddah');*/
 
 Route::get('/welcome', function () {
     return view('welcome');

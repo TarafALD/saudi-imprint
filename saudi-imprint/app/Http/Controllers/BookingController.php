@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Tour;
 use App\Models\User;
 use App\Models\Booking;
+use App\Models\review;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules;
 use Illuminate\Http\Request;
@@ -22,13 +23,14 @@ class BookingController extends Controller
     {
         $user = Auth::user();
         $bookings = Booking::where('user_id', $user->id)->get();
-        
-        // Counting active and past bookings
+    
         $activeBookingsCount = $bookings->where('payment_status', 'paid')->count();
         $pastBookingsCount = $bookings->where('status', 'completed')->count();
+    
         
         return view('dashboard', compact('bookings', 'activeBookingsCount', 'pastBookingsCount'));
     }
+    
 
 
     /**
@@ -98,7 +100,7 @@ class BookingController extends Controller
         $booking->save();
 
         // // Update the tour's active status after booking
-         $this->updateTourStatus($tour);
+        //  $this->updateTourStatus($tour);
         
         // Redirect to payment page
         return redirect()->route('bookings.show', $booking);

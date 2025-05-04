@@ -124,7 +124,20 @@
                   </form>
                 @else
                   <span class="badge bg-secondary">{{ ucfirst($booking->status) }}</span>
-                @endif
+                @php
+                  $hasReview = \App\Models\Review::where('tour_id', $booking->tour_id)
+                    ->where('user_id', auth()->id())
+                    ->exists();
+                @endphp
+                
+                @if($booking->status === 'completed' && !$hasReview)
+                  <div class="mt-2">
+                    <a href="{{ route('reviews.create', ['tour' => $booking->tour_id]) }}" class="btn btn-sm btn-primary">
+                      Leave a Review
+                     </a>
+                  </div>
+                @endif  
+                @endif              
               </td>
             </tr>
             @endforeach

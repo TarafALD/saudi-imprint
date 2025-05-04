@@ -21,7 +21,7 @@ class ReviewController extends Controller
 
         $hasBooked = Booking::where('user_id', $userId)
         ->where('tour_id', $tourId)
-        ->where('status', 'confirmed')
+        ->where('status', 'completed')
         ->exists();
     
         
