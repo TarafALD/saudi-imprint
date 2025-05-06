@@ -109,7 +109,7 @@
                 {{ $booking->tour->name }}
               </a>
               </td>
-              <td>{{ \Carbon\Carbon::parse($booking->booking_date)->format('d M, Y') }}</td>
+              <td>{{ ($booking->booking_date)}}</td>
               <td>{{ $booking->number_of_people }}</td>
               <td>SAR {{ $booking->total_price }}</td>
               <td>

@@ -14,7 +14,7 @@ class CompletePastTours extends Command
      *
      * @var string
      */
-    protected $signature = 'app:complete-past-tours';
+    protected $signature = 'complete-past-tours';
 
     /**
      * The console command description.
@@ -50,8 +50,5 @@ class CompletePastTours extends Command
             $this->info('No bookings to mark as completed.');
         }
     }
-    public function schedule(Schedule $schedule): void
-    {
-        $schedule->daily();
-    }
+   
 }

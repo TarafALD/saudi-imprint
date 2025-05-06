@@ -98,7 +98,7 @@
       <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
         <div class="row gy-5">
           <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
-            <h2>Welcome </h2>
+            <h2>Welcome {{Auth()->user()->name??""}}</h2>
             <p>Discover the most beautiful tourist destinations in Saudi Arabia and enjoy a unique experience</p>
             <div class="d-flex">
               <a href="#about" class="btn-get-started">Get Started</a>
@@ -145,7 +145,8 @@
           </div>
         </div>
       </div>
-    </section><!-- /Hero Section -->
+    </section>
+    <!-- /Hero Section -->
 
     <!-- About Section -->
     <section id="about" class="about section">
@@ -164,7 +165,6 @@
               <li><i class="bi bi-check-circle"></i> <span>comprehensive information for all trips</span></li>
             </ul>
           </div>
-
           <div class="col-lg-6 about-images" data-aos="fade-up" data-aos-delay="200">
             <div class="row gy-4">
               <div class="col-lg-12">
@@ -175,7 +175,8 @@
           </div>
         </div>
       </div>
-    </section><!-- /About Section -->
+    </section>
+    <!-- /About Section -->
 
     <!-- Services Section -->
     <section id="destinations" class="destinations section">

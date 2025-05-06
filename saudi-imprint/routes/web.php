@@ -58,6 +58,11 @@ Route::middleware(['auth', 'otp.verified', 'profile.completed'])->group(function
     
     Route::post('/TourGuide/update-profile', [TourGuideController::class, 'updateProfile'])->name('TourGuide.updateProfile');    
 
+    Route::get('TourGuide/dashboard/{tour}/edit', [TourController::class, 'edit'])->name('tours.edit');
+    Route::put('TourGuide/dashboard/{tour}', [TourController::class, 'update'])->name('tours.update');
+    Route::delete('TourGuide/dashboard/{tour}', [TourController::class, 'destroy'])->name('tours.destroy');
+
+
 
 
 
@@ -155,18 +160,13 @@ Route::get('/welcome', function () {
 
 
 
-//Guided Tours in Riyadh
-Route::get('/tours/{tour}', [TourController::class, 'show'])->name('tours.show');
 
-//Guided Tours in aljouf
+//Guided Tours
 Route::get('/aljouf#tours', [TourController::class, 'aljouf'])->name('tours.index');
 Route::get('/tours/{tour}', [TourController::class, 'show'])->name('tours.show');
 
-//Guided Tours in jeddah
-Route::get('/tours/{tour}', [TourController::class, 'show'])->name('tours.show');
 
-//Guided Tours in alula
-Route::get('/tours/{tour}', [TourController::class, 'show'])->name('tours.show');
+
 
 Route::get('/riyadhDesertSafari', function () {
     return view('Guided Tours.riyadhDesertSafari');

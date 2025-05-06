@@ -24,13 +24,6 @@ class LoginRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
-    {
-        return [
-            'email' => ['required', 'string', 'email:rfc,dns'], //validates againts dns records  (verify that the domain portion of the emailhas valid DNS records associated with it)&RFC standards (correct syntax with @ symbol, valid characters etc)
-            'password' => ['required', 'string' , 'min:8'],
-        ];
-    }
 
     /**
      * Attempt to authenticate the request's credentials.
